@@ -8,14 +8,15 @@ const Home = () => {
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
-        <Text style={{ color: "white" }}>Routes</Text>
+        <Text style={styles.textSecondary}>Routes</Text>
         <View style={styles.cardContainer}>
-          <CardButton title="New route" icon={faPlus} />
-          <CardButton title="Planned routes" icon={faRoute} />
-          <CardButton title="Finished routes" icon={faMapMarker} />
-          <CardButton title="Suggested" icon={faLightbulb} />
+          <CardButton title="New route" icon={faPlus} color="#FE375F" />
+          <CardButton title="Planned routes" icon={faRoute} color="#63D2FD" />
+          <CardButton title="Finished routes" icon={faMapMarker} color="#5E5CE6" />
+          <CardButton title="Suggested" icon={faLightbulb} color="#FF9F28" />
         </View>
-        <Text style={{ color: "white" }}>Find nearby</Text>
+        <Text style={styles.textSecondary}>Find nearby</Text>
+        <View></View>
       </View>
     </View>
   );
@@ -29,12 +30,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   textSecondary: {
-    color: colors.textSecondary
+    color: "white",
+    fontSize: 16,
+    marginTop: 10
   },
   cardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginBottom: 20
   },
   container: {
     width: "85%"

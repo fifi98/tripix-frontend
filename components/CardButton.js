@@ -3,10 +3,10 @@ import { View, Text, StyleSheet } from "react-native";
 import { colors } from "../constants/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-const CardButton = ({ title, icon }) => {
+const CardButton = ({ title, icon, color }) => {
   return (
     <View style={styles.card}>
-      <View style={styles.iconContainer}>
+      <View style={{ ...styles.iconContainer, backgroundColor: color }}>
         <FontAwesomeIcon icon={icon} style={styles.icon} size={20} />
       </View>
       <Text style={styles.text}>{title}</Text>
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   iconContainer: {
-    backgroundColor: "#FE375F",
     padding: 8,
     borderRadius: 20,
     marginBottom: 8

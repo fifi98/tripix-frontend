@@ -5,19 +5,20 @@ import { colors } from "../constants/theme";
 const ButtonPrimary = ({ title, onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    height: 41,
-    backgroundColor: colors.button,
-    borderRadius: 10,
     marginVertical: 20,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    flex: 1
+  },
+  text: {
+    color: colors.textGray
   }
 });
 

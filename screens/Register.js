@@ -4,31 +4,24 @@ import { colors } from "../constants/theme";
 import InputField from "../components/InputField";
 import ButtonPrimary from "../components/ButtonPrimary";
 import ButtonSecondary from "../components/ButtonSecondary";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faKey, faUser, faMedal } from "@fortawesome/free-solid-svg-icons";
 
-const Login = ({ navigation }) => {
-  const handleRegister = () => {
-    navigation.navigate("Register");
-  };
-
-  const handleLogin = () => {
-    //Insert authentication logic here
-
-    console.log("awr");
-
-    navigation.navigate("Home");
+const Register = ({ navigation }) => {
+  const toLogin = () => {
+    navigation.navigate("Login");
   };
 
   return (
     <View style={styles.login}>
       <View style={styles.container}>
+        <InputField placeholder="Full name" icon={faUser} />
         <InputField placeholder="Email" icon={faEnvelope} />
         <InputField placeholder="Password" icon={faKey} />
-        <ButtonPrimary title="Login" onPress={handleLogin} />
+        <InputField placeholder="Confirm password" icon={faKey} />
+        <ButtonPrimary title="Sign up" />
       </View>
       <View style={styles.footer}>
-        <ButtonSecondary title="Forgot password?" />
-        <ButtonSecondary title="Sign up here!" onPress={handleRegister} />
+        <ButtonSecondary title="Already have an account?" onPress={toLogin} />
       </View>
     </View>
   );
@@ -50,4 +43,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Login;
+export default Register;

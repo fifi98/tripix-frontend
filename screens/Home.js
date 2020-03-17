@@ -31,13 +31,13 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   screen: {
-    paddingTop: "20%",
+    paddingTop: "14%",
     backgroundColor: colors.background,
     flex: 1,
     alignItems: "center"
   },
   textSecondary: {
-    color: "white",
+    color: colors.textSecondary,
     fontSize: 16,
     marginTop: 10
   },

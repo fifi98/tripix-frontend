@@ -29,7 +29,7 @@ const Register = ({ navigation }) => {
           <InputField
             placeholder="Full name"
             icon={faUser}
-            value={input.fullName}
+            value={input.name}
             onChangeText={text => setInput({ ...input, name: text })}
           />
           <InputField

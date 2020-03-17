@@ -1,16 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../constants/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 const CardButton = ({ title, icon, color }) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card}>
       <View style={{ ...styles.iconContainer, backgroundColor: color }}>
         <FontAwesomeIcon icon={icon} style={styles.icon} size={20} />
       </View>
       <Text style={styles.text}>{title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

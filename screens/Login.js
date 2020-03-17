@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { colors } from "../constants/theme";
 import InputField from "../components/InputField";
 import ButtonPrimary from "../components/ButtonPrimary";
@@ -18,17 +18,19 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.login}>
-      <View style={styles.container}>
-        <InputField placeholder="Email" icon={faEnvelope} />
-        <InputField placeholder="Password" icon={faKey} />
-        <ButtonPrimary title="Login" onPress={handleLogin} />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.login}>
+        <View style={styles.container}>
+          <InputField placeholder="Email" icon={faEnvelope} />
+          <InputField placeholder="Password" icon={faKey} isPassword={true} />
+          <ButtonPrimary title="Login" onPress={handleLogin} />
+        </View>
+        <View style={styles.footer}>
+          <ButtonSecondary title="Forgot password?" />
+          <ButtonSecondary title="Sign up here!" onPress={handleRegister} />
+        </View>
       </View>
-      <View style={styles.footer}>
-        <ButtonSecondary title="Forgot password?" />
-        <ButtonSecondary title="Sign up here!" onPress={handleRegister} />
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

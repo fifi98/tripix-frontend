@@ -3,14 +3,21 @@ import { TextInput, StyleSheet, View } from "react-native";
 import { colors } from "../constants/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-const InputField = ({ icon, placeholder }) => {
+const InputField = ({ icon, placeholder, value, onChangeText, isPassword }) => {
   return (
     <View style={styles.container}>
       <View style={{ width: 50, alignItems: "center", justifyContent: "center" }}>
         <FontAwesomeIcon icon={icon} style={styles.icon} />
       </View>
       <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-        <TextInput style={styles.field} placeholder={placeholder} placeholderTextColor={colors.textGray} />
+        <TextInput
+          style={styles.field}
+          placeholder={placeholder}
+          placeholderTextColor={colors.textGray}
+          value={value}
+          onChangeText={onChangeText}
+          secureTextEntry={isPassword}
+        />
       </View>
     </View>
   );

@@ -4,6 +4,7 @@ const colors = {
   textGray: "#A3A4A5",
   textLink: "#0A84FF",
   button: "#FFFFFF",
+  cardButton: "#303034",
   inputField: "#303034"
 };
 

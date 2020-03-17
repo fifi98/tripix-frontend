@@ -14,8 +14,6 @@ const Login = ({ navigation }) => {
   const handleLogin = () => {
     //Insert authentication logic here
 
-    console.log("awr");
-
     navigation.navigate("Home");
   };
 

@@ -13,7 +13,7 @@ const InputField = ({ icon, placeholder, value, onChangeText, isPassword }) => {
         <TextInput
           style={styles.field}
           placeholder={placeholder}
-          placeholderTextColor={colors.textGray}
+          placeholderTextColor={colors.textSecondary}
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={isPassword}
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   icon: {
-    color: colors.textGray
+    color: colors.textSecondary
   }
 });
 

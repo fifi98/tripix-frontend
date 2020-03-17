@@ -2,7 +2,16 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { colors } from "../constants/theme";
 import CardButton from "../components/CardButton";
-import { faPlus, faRoute, faMapMarker, faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faRoute,
+  faMapMarker,
+  faLightbulb,
+  faUtensils,
+  faCoffee,
+  faShoppingCart,
+  faLandmark
+} from "@fortawesome/free-solid-svg-icons";
 import RoundButton from "../components/RoundButton";
 
 const Home = () => {
@@ -19,10 +28,12 @@ const Home = () => {
         </View>
         <Text style={styles.textSecondary}>Find nearby</Text>
         <View style={styles.nearbyContainer}>
-          <RoundButton text="Restaurants" />
-          <RoundButton text="Coffee Shops" />
-          <RoundButton text="Shops" />
-          <RoundButton text="Attractions" />
+          <View style={styles.nearbyButtons}>
+            <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} />
+            <RoundButton text="Coffee Shops" color="#FF9F28" icon={faCoffee} />
+            <RoundButton text="Shops" color="#BF5AF2" icon={faShoppingCart} />
+            <RoundButton text="Attractions" color="#30D158" icon={faLandmark} />
+          </View>
         </View>
       </View>
     </View>
@@ -41,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 10
   },
+
   cardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -48,6 +60,9 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   nearbyContainer: {
+    alignItems: "center"
+  },
+  nearbyButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginVertical: 30,

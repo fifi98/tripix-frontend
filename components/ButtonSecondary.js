@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   text: {
-    color: colors.textGray
+    color: colors.textSecondary
   }
 });
 

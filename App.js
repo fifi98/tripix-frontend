@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
@@ -11,6 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "./constants/theme";
 import FindNearby from "./screens/FindNearby";
+import NewRoute from "./screens/routes/NewRoute";
+import PlannedRoutes from "./screens/routes/PlannedRoutes";
+import FinishedRoutes from "./screens/routes/FinishedRoutes";
+import SuggestedRoutes from "./screens/routes/SuggestedRoutes";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,6 +35,10 @@ const Nekaj = () => {
       {/* User logged in */}
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="FindNearby" component={FindNearby} />
+      <Stack.Screen name="NewRoute" component={NewRoute} />
+      <Stack.Screen name="PlannedRoutes" component={PlannedRoutes} />
+      <Stack.Screen name="FinishedRoutes" component={FinishedRoutes} />
+      <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />
     </Stack.Navigator>
   );
 };

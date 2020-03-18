@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../constants/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-const CardButton = ({ title, icon, color }) => {
+const CardButton = ({ title, icon, color, onPress }) => {
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={{ ...styles.iconContainer, backgroundColor: color }}>
         <FontAwesomeIcon icon={icon} style={styles.icon} size={20} />
       </View>

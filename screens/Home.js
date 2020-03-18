@@ -25,10 +25,30 @@ const Home = ({ navigation }) => {
         <Text style={styles.caption}>Hello, Filip!</Text>
         <Text style={styles.textSecondary}>Routes</Text>
         <View style={styles.cardContainer}>
-          <CardButton title="New route" icon={faPlus} color="#FE375F" />
-          <CardButton title="Planned routes" icon={faRoute} color="#63D2FD" />
-          <CardButton title="Finished routes" icon={faMapMarker} color="#5E5CE6" />
-          <CardButton title="Suggested" icon={faLightbulb} color="#FF9F28" />
+          <CardButton
+            title="New route"
+            icon={faPlus}
+            color="#FE375F"
+            onPress={() => navigation.navigate("NewRoute")}
+          />
+          <CardButton
+            title="Planned routes"
+            icon={faRoute}
+            color="#63D2FD"
+            onPress={() => navigation.navigate("PlannedRoutes")}
+          />
+          <CardButton
+            title="Finished routes"
+            icon={faMapMarker}
+            color="#5E5CE6"
+            onPress={() => navigation.navigate("FinishedRoutes")}
+          />
+          <CardButton
+            title="Suggested"
+            icon={faLightbulb}
+            color="#FF9F28"
+            onPress={() => navigation.navigate("SuggestedRoutes")}
+          />
         </View>
         <Text style={styles.textSecondary}>Find nearby</Text>
         <View style={styles.nearbyContainer}>

@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPlus, faRoute, faMapMarker, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const RoundButton = ({ text, color, icon }) => {
+const RoundButton = ({ text, color, icon, onPress }) => {
   return (
-    <TouchableOpacity style={{ alignItems: "center" }}>
+    <TouchableOpacity style={{ alignItems: "center" }} onPress={onPress}>
       <View style={{ ...styles.iconContainer, backgroundColor: color }}>
         <FontAwesomeIcon icon={icon} style={styles.icon} size={30} />
       </View>

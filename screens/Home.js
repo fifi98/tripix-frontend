@@ -14,7 +14,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import RoundButton from "../components/RoundButton";
 
-const Home = () => {
+const Home = ({ navigation }) => {
+  const handleFindNearby = () => {
+    navigation.navigate("FindNearby");
+  };
+
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
@@ -29,7 +33,7 @@ const Home = () => {
         <Text style={styles.textSecondary}>Find nearby</Text>
         <View style={styles.nearbyContainer}>
           <View style={styles.nearbyButtons}>
-            <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} />
+            <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} onPress={handleFindNearby} />
             <RoundButton text="Coffee Shops" color="#FF9F28" icon={faCoffee} />
             <RoundButton text="Shops" color="#BF5AF2" icon={faShoppingCart} />
             <RoundButton text="Attractions" color="#30D158" icon={faLandmark} />

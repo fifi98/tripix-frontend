@@ -10,6 +10,7 @@ import Profile from "./screens/Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "./constants/theme";
+import FindNearby from "./screens/FindNearby";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,6 +30,7 @@ const Nekaj = () => {
 
       {/* User logged in */}
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="FindNearby" component={FindNearby} />
     </Stack.Navigator>
   );
 };

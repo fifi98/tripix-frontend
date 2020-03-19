@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
       .post("/login", input)
       .then(response => {
         //Store JTW in the context and go to the main screen
-        saveToken(response.data.token).then(data => navigation.navigate("Home"));
+        saveToken(response.data.token).then(data => console.log(data));
       })
       .catch(err => Alert.alert("Invalid credentials!"));
   };

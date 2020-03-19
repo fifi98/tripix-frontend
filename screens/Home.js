@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { colors } from "../constants/theme";
 import CardButton from "../components/CardButton";
 import {
   faPlus,
   faRoute,
-  faMapMarker,
+  faMapMarkerAlt,
   faLightbulb,
   faUtensils,
   faCoffee,
@@ -16,12 +16,8 @@ import RoundButton from "../components/RoundButton";
 import { MyContext } from "../context/Provider";
 
 const Home = ({ navigation }) => {
-  const colors = useContext(MyContext);
-
   const handleFindNearby = () => {
     navigation.navigate("FindNearby");
-
-    colors.removeToken();
   };
 
   return (
@@ -46,7 +42,7 @@ const Home = ({ navigation }) => {
           />
           <CardButton
             title="Finished routes"
-            icon={faMapMarker}
+            icon={faMapMarkerAlt}
             color="#5E5CE6"
             onPress={() => navigation.navigate("FinishedRoutes")}
           />
@@ -63,12 +59,7 @@ const Home = ({ navigation }) => {
             <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} onPress={handleFindNearby} />
             <RoundButton text="Coffee Shops" color="#FF9F28" icon={faCoffee} />
             <RoundButton text="Shops" color="#BF5AF2" icon={faShoppingCart} />
-            <RoundButton
-              text="Attractions"
-              color="#30D158"
-              icon={faLandmark}
-              onPress={() => navigation.navigate("Profile")}
-            />
+            <RoundButton text="Attractions" color="#30D158" icon={faLandmark} />
           </View>
         </View>
       </View>

@@ -47,10 +47,6 @@ const Provider = props => {
       });
   }, []);
 
-  useEffect(() => {
-    console.log("NOVO = ", user);
-  }, [user]);
-
   return <MyContext.Provider value={user}>{props.children}</MyContext.Provider>;
 };
 

@@ -9,7 +9,7 @@ const Provider = props => {
     saveToken: async userToken => {
       try {
         const resp = await AsyncStorage.setItem("userToken", userToken);
-        // console.log(userToken);
+        setUser({ ...user, token: userToken });
         return resp;
       } catch (error) {
         setUser({ error });
@@ -18,6 +18,7 @@ const Provider = props => {
     removeToken: async () => {
       try {
         const resp = await AsyncStorage.removeItem("userToken");
+        setUser({ ...user, token: null });
         return resp;
       } catch (error) {
         setUser({ error });
@@ -45,6 +46,10 @@ const Provider = props => {
         setUser({ ...user, error: error });
       });
   }, []);
+
+  useEffect(() => {
+    console.log("NOVO = ", user);
+  }, [user]);
 
   return <MyContext.Provider value={user}>{props.children}</MyContext.Provider>;
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { colors } from "../constants/theme";
 import CardButton from "../components/CardButton";
@@ -16,8 +16,12 @@ import RoundButton from "../components/RoundButton";
 import { MyContext } from "../context/Provider";
 
 const Home = ({ navigation }) => {
+  const colors = useContext(MyContext);
+
   const handleFindNearby = () => {
     navigation.navigate("FindNearby");
+
+    colors.removeToken();
   };
 
   return (
@@ -25,6 +29,7 @@ const Home = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.caption}>Hello, Filip!</Text>
         <Text style={styles.textSecondary}>Routes</Text>
+
         <View style={styles.cardContainer}>
           <MyContext.Consumer>{context => console.log(context)}</MyContext.Consumer>
           <CardButton
@@ -58,7 +63,12 @@ const Home = ({ navigation }) => {
             <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} onPress={handleFindNearby} />
             <RoundButton text="Coffee Shops" color="#FF9F28" icon={faCoffee} />
             <RoundButton text="Shops" color="#BF5AF2" icon={faShoppingCart} />
-            <RoundButton text="Attractions" color="#30D158" icon={faLandmark} />
+            <RoundButton
+              text="Attractions"
+              color="#30D158"
+              icon={faLandmark}
+              onPress={() => navigation.navigate("Profile")}
+            />
           </View>
         </View>
       </View>

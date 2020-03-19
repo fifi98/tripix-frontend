@@ -15,13 +15,15 @@ const Login = ({ navigation }) => {
     navigation.navigate("Register");
   };
 
-  const handleLogin = saveToken => {
+  const handleLogin = async saveToken => {
     //Check credentials and get JWT from server
     api
       .post("/login", input)
       .then(response => {
         //Store JTW in the context and go to the main screen
-        saveToken(response.data.token).then(data => console.log(data));
+        saveToken(response.data.token).then(data => {
+          //navigation.navigate("Home");
+        });
       })
       .catch(err => Alert.alert("Invalid credentials!"));
   };

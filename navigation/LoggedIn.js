@@ -32,6 +32,8 @@ const Nekaj = () => {
   );
 };
 
+console.log("LOGGED IN");
+
 const LoggedIn = () => {
   return (
     <Tab.Navigator

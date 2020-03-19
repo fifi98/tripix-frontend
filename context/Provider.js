@@ -34,6 +34,7 @@ const Provider = props => {
   });
 
   useEffect(() => {
+    //Put the token from asyncstorage to the state when app loads
     AsyncStorage.getItem("userToken")
       .then(token => {
         console.log("TOKEN_storage=" + token);

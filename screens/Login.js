@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Text, Alert } from "react-native";
 import { colors } from "../constants/theme";
 import InputField from "../components/InputField";
 import ButtonPrimary from "../components/ButtonPrimary";
@@ -23,13 +23,17 @@ const Login = ({ navigation }) => {
         //Store JTW in the context and go to the main screen
         saveToken(response.data.token).then(data => navigation.navigate("Home"));
       })
-      .catch(err => console.log(err));
+      .catch(err => Alert.alert("Invalid credentials!"));
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.login}>
         <View style={styles.container}>
+          <View style={styles.title}>
+            <Text style={styles.headerBold}>Welcome!</Text>
+            <Text style={styles.textSecondary}>Sign in to continue</Text>
+          </View>
           <InputField
             placeholder="Email"
             icon={faEnvelope}
@@ -70,6 +74,16 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "85%"
+  },
+  headerBold: {
+    fontSize: 34,
+    color: "white",
+    fontWeight: "bold"
+  },
+  textSecondary: {
+    color: colors.textSecondary,
+    fontSize: 16,
+    marginTop: 10
   }
 });
 

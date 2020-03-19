@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 10
   },
-
   cardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",

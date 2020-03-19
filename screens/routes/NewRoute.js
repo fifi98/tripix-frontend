@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text, Button } from "react-native";
+
 import { colors } from "../../constants/theme";
 import InputField from "../../components/InputField";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +17,7 @@ const NewRoute = () => {
           Authorization: "Bearer " + user.token
         }
       })
-      .then(response => console.log(response))
+      .then(response => console.log(response.data))
       .catch(error => console.log(error));
   };
 

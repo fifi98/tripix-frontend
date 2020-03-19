@@ -15,6 +15,7 @@ import NewRoute from "./screens/routes/NewRoute";
 import PlannedRoutes from "./screens/routes/PlannedRoutes";
 import FinishedRoutes from "./screens/routes/FinishedRoutes";
 import SuggestedRoutes from "./screens/routes/SuggestedRoutes";
+import MyProvider from "./context/Provider";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -47,41 +48,43 @@ export default function App() {
   const loggedIn = true;
 
   return (
-    <NavigationContainer>
-      {loggedIn ? (
-        <Tab.Navigator
-          tabBarOptions={{
-            activeTintColor: "#0A7DF2",
-            inactiveTintColor: "gray",
-            style: {
-              backgroundColor: "#161616"
-            }
-          }}
-        >
-          <Tab.Screen
-            options={{
-              tabBarLabel: "Home",
-              tabBarIcon: ({ color, size }) => (
-                <FontAwesomeIcon icon={faMapMarked} style={styles.icon} size={size} color={color} />
-              )
+    <MyProvider>
+      <NavigationContainer>
+        {loggedIn ? (
+          <Tab.Navigator
+            tabBarOptions={{
+              activeTintColor: "#0A7DF2",
+              inactiveTintColor: "gray",
+              style: {
+                backgroundColor: "#161616"
+              }
             }}
-            name="Routes"
-            component={Nekaj}
-          />
-          <Tab.Screen
-            name="Profile"
-            component={Profile}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <FontAwesomeIcon icon={faUser} style={styles.icon} size={size} color={color} />
-              )
-            }}
-          />
-        </Tab.Navigator>
-      ) : (
-        <Nekaj />
-      )}
-    </NavigationContainer>
+          >
+            <Tab.Screen
+              options={{
+                tabBarLabel: "Home",
+                tabBarIcon: ({ color, size }) => (
+                  <FontAwesomeIcon icon={faMapMarked} style={styles.icon} size={size} color={color} />
+                )
+              }}
+              name="Routes"
+              component={Nekaj}
+            />
+            <Tab.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                tabBarIcon: ({ color, size }) => (
+                  <FontAwesomeIcon icon={faUser} style={styles.icon} size={size} color={color} />
+                )
+              }}
+            />
+          </Tab.Navigator>
+        ) : (
+          <Nekaj />
+        )}
+      </NavigationContainer>
+    </MyProvider>
   );
 }
 

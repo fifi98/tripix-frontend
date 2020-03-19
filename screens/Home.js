@@ -13,6 +13,7 @@ import {
   faLandmark
 } from "@fortawesome/free-solid-svg-icons";
 import RoundButton from "../components/RoundButton";
+import { MyContext } from "../context/Provider";
 
 const Home = ({ navigation }) => {
   const handleFindNearby = () => {
@@ -25,6 +26,7 @@ const Home = ({ navigation }) => {
         <Text style={styles.caption}>Hello, Filip!</Text>
         <Text style={styles.textSecondary}>Routes</Text>
         <View style={styles.cardContainer}>
+          <MyContext.Consumer>{context => console.log(context)}</MyContext.Consumer>
           <CardButton
             title="New route"
             icon={faPlus}

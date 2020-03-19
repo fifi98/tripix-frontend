@@ -6,6 +6,7 @@ import ButtonPrimary from "../components/ButtonPrimary";
 import ButtonSecondary from "../components/ButtonSecondary";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import api from "../utils/api";
+import { MyContext } from "../context/Provider";
 
 const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -14,16 +15,15 @@ const Login = ({ navigation }) => {
     navigation.navigate("Register");
   };
 
-  const handleLogin = () => {
-    //Insert authentication logic here
-
-    console.log(input);
+  const handleLogin = saveToken => {
+    //Check credentials and get JWT from server
     api
       .post("/login", input)
-      .then(response => console.log(response))
+      .then(response => {
+        //Store JTW in the context and go to the main screen
+        saveToken(response.data.token).then(data => navigation.navigate("Home"));
+      })
       .catch(err => console.log(err));
-
-    navigation.navigate("Home");
   };
 
   return (
@@ -43,7 +43,10 @@ const Login = ({ navigation }) => {
             value={input.password}
             onChangeText={text => setInput({ ...input, password: text })}
           />
-          <ButtonPrimary title="Login" onPress={handleLogin} />
+
+          <MyContext.Consumer>
+            {context => <ButtonPrimary title="Login" onPress={() => handleLogin(context.saveToken)} />}
+          </MyContext.Consumer>
         </View>
         <View style={styles.footer}>
           <ButtonSecondary title="Forgot password?" />

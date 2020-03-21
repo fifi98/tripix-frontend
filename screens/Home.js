@@ -16,8 +16,8 @@ import RoundButton from "../components/RoundButton";
 import { MyContext } from "../context/Provider";
 
 const Home = ({ navigation }) => {
-  const handleFindNearby = () => {
-    navigation.navigate("FindNearby");
+  const handleFindNearby = type => {
+    navigation.navigate("FindNearby", { type: type });
   };
 
   return (
@@ -56,8 +56,18 @@ const Home = ({ navigation }) => {
         <Text style={styles.textSecondary}>Find nearby</Text>
         <View style={styles.nearbyContainer}>
           <View style={styles.nearbyButtons}>
-            <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} onPress={handleFindNearby} />
-            <RoundButton text="Coffee Shops" color="#FF9F28" icon={faCoffee} />
+            <RoundButton
+              text="Restaurants"
+              color="#0884FA"
+              icon={faUtensils}
+              onPress={() => handleFindNearby("restaurants")}
+            />
+            <RoundButton
+              text="Coffee Shops"
+              color="#FF9F28"
+              icon={faCoffee}
+              onPress={() => handleFindNearby("cafes")}
+            />
             <RoundButton text="Shops" color="#BF5AF2" icon={faShoppingCart} />
             <RoundButton text="Attractions" color="#30D158" icon={faLandmark} />
           </View>

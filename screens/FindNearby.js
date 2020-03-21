@@ -2,12 +2,18 @@ import React, { useEffect, useContext, useState } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import api from "../utils/api";
 import { MyContext } from "../context/Provider";
+import RoundButton from "../components/RoundButton";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { mapStyle } from "../constants/mapStyle";
+
 import { Text, Alert } from "react-native";
 
-const FindNearby = () => {
+const FindNearby = ({ route }) => {
   const user = useContext(MyContext);
   const [userPosition, setUserPosition] = useState();
   const [places, setPlaces] = useState([]);
+
+  const placeType = route.params.type;
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -21,7 +27,7 @@ const FindNearby = () => {
         setUserPosition(initialPosition);
 
         api
-          .get("/nearby/restaurants", {
+          .get("/nearby/" + placeType, {
             headers: {
               Authorization: "Bearer " + user.token,
               "Content-Type": "application/json",
@@ -44,12 +50,16 @@ const FindNearby = () => {
   }, []);
 
   return (
-    <MapView initialRegion={userPosition} showsUserLocation={true} provider={PROVIDER_GOOGLE} style={{ flex: 1 }}>
+    <MapView
+      initialRegion={userPosition}
+      showsUserLocation={true}
+      provider={PROVIDER_GOOGLE}
+      style={{ flex: 1 }}
+      customMapStyle={mapStyle}
+    >
       {places.map(place => (
         <Marker key={Math.random()} coordinate={{ latitude: place.latitude, longitude: place.longitude }}>
-          <Callout>
-            <Text>{place.name}</Text>
-          </Callout>
+          {/* <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} /> */}
         </Marker>
       ))}
     </MapView>

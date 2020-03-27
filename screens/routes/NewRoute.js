@@ -9,7 +9,7 @@ import { MyContext } from "../../context/Provider";
 import LoginSubtitle from "../../components/LoginSubtitle";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const NewRoute = () => {
+const NewRoute = props => {
   const user = React.useContext(MyContext);
 
   const handleNext = () => {
@@ -21,6 +21,7 @@ const NewRoute = () => {
       })
       .then(response => console.log(response.data))
       .catch(error => console.log(error));
+    props.navigation.navigate("Profile");
   };
 
   return (

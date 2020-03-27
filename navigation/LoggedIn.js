@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
@@ -11,20 +10,33 @@ import NewRoute from "../screens/routes/NewRoute";
 import PlannedRoutes from "../screens/routes/PlannedRoutes";
 import FinishedRoutes from "../screens/routes/FinishedRoutes";
 import SuggestedRoutes from "../screens/routes/SuggestedRoutes";
+import { TransitionPresets } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
+const Stack2 = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Nekaj = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false
+        headerShown: false,
+        cardOverlayEnabled: true
       }}
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="FindNearby" component={FindNearby} />
-      <Stack.Screen name="NewRoute" component={NewRoute} />
+      <Stack.Screen
+        name="NewRoute"
+        component={NewRoute}
+        options={{
+          headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS
+        }}
+        mode="modal"
+      />
       <Stack.Screen name="PlannedRoutes" component={PlannedRoutes} />
       <Stack.Screen name="FinishedRoutes" component={FinishedRoutes} />
       <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />
@@ -32,7 +44,28 @@ const Nekaj = () => {
   );
 };
 
-console.log("LOGGED IN");
+const Create = () => {
+  return (
+    <Stack2.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardOverlayEnabled: true
+      }}
+    >
+      <Stack2.Screen
+        name="NewRoute"
+        component={NewRoute}
+        options={{
+          headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS
+        }}
+        mode="modal"
+      />
+    </Stack2.Navigator>
+  );
+};
 
 const LoggedIn = () => {
   return (
@@ -49,9 +82,7 @@ const LoggedIn = () => {
       <Tab.Screen
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faMapMarked} style={styles.icon} size={size} color={color} />
-          )
+          tabBarIcon: ({ color, size }) => <FontAwesomeIcon icon={faMapMarked} size={size} color={color} />
         }}
         name="Routes"
         component={Nekaj}
@@ -60,22 +91,11 @@ const LoggedIn = () => {
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faUser} style={styles.icon} size={size} color={color} />
-          )
+          tabBarIcon: ({ color, size }) => <FontAwesomeIcon icon={faUser} size={size} color={color} />
         }}
       />
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
 
 export default LoggedIn;

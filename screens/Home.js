@@ -32,7 +32,7 @@ const Home = ({ navigation }) => {
             title="New route"
             icon={faPlus}
             color="#FE375F"
-            onPress={() => navigation.navigate("NewRoute")}
+            onPress={() => navigation.navigate("NewRoute", {}, { mode: "modal" })}
           />
           <CardButton
             title="Planned routes"

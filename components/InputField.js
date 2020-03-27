@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
   field: {
     color: colors.textPrimary,
     width: "100%",
-    flex: 1
+    flex: 1,
+    fontSize: 17
   },
   icon: {
     color: colors.textSecondary

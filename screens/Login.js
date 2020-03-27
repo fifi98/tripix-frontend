@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Text, Alert } from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Text, Alert, SafeAreaView } from "react-native";
 import { colors } from "../constants/theme";
 import InputField from "../components/InputField";
 import ButtonPrimary from "../components/ButtonPrimary";
@@ -7,6 +7,8 @@ import ButtonSecondary from "../components/ButtonSecondary";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import api from "../utils/api";
 import { MyContext } from "../context/Provider";
+import LoginTitle from "../components/LoginTitle";
+import LoginSubtitle from "../components/LoginSubtitle";
 
 const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -30,11 +32,11 @@ const Login = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.login}>
+      <SafeAreaView style={styles.login}>
         <View style={styles.container}>
           <View style={styles.title}>
-            <Text style={styles.headerBold}>Welcome!</Text>
-            <Text style={styles.textSecondary}>Sign in to continue</Text>
+            <LoginTitle text="Welcome!" />
+            <LoginSubtitle text="Sign in to continue" />
           </View>
           <InputField
             placeholder="Email"
@@ -58,14 +60,13 @@ const Login = ({ navigation }) => {
           <ButtonSecondary title="Forgot password?" />
           <ButtonSecondary title="Sign up here!" onPress={handleRegister} />
         </View>
-      </View>
+      </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   login: {
-    paddingTop: "20%",
     backgroundColor: colors.background,
     flex: 1,
     alignItems: "center"
@@ -75,17 +76,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   container: {
+    paddingTop: 30,
     width: "85%"
-  },
-  headerBold: {
-    fontSize: 34,
-    color: "white",
-    fontWeight: "bold"
   },
   textSecondary: {
     color: colors.textSecondary,
-    fontSize: 16,
-    marginTop: 10
+    fontSize: 17,
+    marginVertical: 20
   }
 });
 

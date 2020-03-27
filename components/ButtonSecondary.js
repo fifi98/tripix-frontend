@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   text: {
-    color: colors.textSecondary
+    color: colors.textSecondary,
+    fontSize: 17
   }
 });
 

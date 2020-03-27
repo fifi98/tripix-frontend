@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { colors } from "../constants/theme";
 import CardButton from "../components/CardButton";
 import {
@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Text style={styles.caption}>Hello, Filip!</Text>
         <Text style={styles.textSecondary}>Routes</Text>
@@ -73,20 +73,19 @@ const Home = ({ navigation }) => {
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
-    paddingTop: "14%",
     backgroundColor: colors.background,
     flex: 1,
     alignItems: "center"
   },
   textSecondary: {
     color: colors.textSecondary,
-    fontSize: 16,
+    fontSize: 17,
     marginTop: 10
   },
   cardContainer: {
@@ -106,10 +105,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   container: {
-    width: "85%"
+    width: "85%",
+    paddingTop: 30
   },
   caption: {
-    fontSize: 27,
+    fontSize: 34,
     color: "white",
     marginBottom: 10
   }

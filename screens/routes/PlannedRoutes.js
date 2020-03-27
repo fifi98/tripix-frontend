@@ -1,9 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Text, Button, FlatList } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import { colors } from "../../constants/theme";
 import RouteCard from "../../components/RouteCard";
+import { HeaderBackButton } from "@react-navigation/stack";
+import InputField from "../../components/InputField";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-const PlannedRoutes = () => {
+const PlannedRoutes = props => {
   const testPodaci = [
     {
       key: 0,
@@ -16,20 +19,47 @@ const PlannedRoutes = () => {
       location: "Paris",
       time: 3,
       numAttractions: 3
+    },
+    {
+      key: 2,
+      location: "Budapest",
+      time: 3,
+      numAttractions: 3
+    },
+    {
+      key: 3,
+      location: "aaa",
+      time: 3,
+      numAttractions: 3
+    },
+    {
+      key: 4,
+      location: "bb",
+      time: 3,
+      numAttractions: 3
+    },
+    {
+      key: 5,
+      location: "Zagreb",
+      time: 3,
+      numAttractions: 3
     }
   ];
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Button style={styles.button} title="Back" />
+        <View style={{ marginLeft: -10 }}>
+          <HeaderBackButton onPress={() => props.navigation.goBack()} />
+        </View>
         <View style={styles.title}>
           <Text style={styles.headerBold}>Planned</Text>
           <Text style={styles.headerNormal}> routes</Text>
         </View>
-        <FlatList data={[{ key: "London" }, { key: "Paris" }]} renderItem={({ item }) => <RouteCard item={item} />} />
+        <InputField placeholder="Search location" icon={faSearch} />
+        <FlatList data={testPodaci} renderItem={({ item }) => <RouteCard item={item} />} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -37,7 +67,6 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
     flex: 1,
-    paddingTop: "20%",
     alignItems: "center"
   },
   button: {
@@ -47,16 +76,18 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   headerBold: {
-    fontSize: 34,
+    fontSize: 30,
     color: "white",
     fontWeight: "bold"
   },
   headerNormal: {
-    fontSize: 34,
+    fontSize: 30,
     color: "white"
   },
   container: {
-    width: "85%"
+    width: "85%",
+    paddingTop: 10,
+    height: "100%"
   }
 });
 

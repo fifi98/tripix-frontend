@@ -41,7 +41,8 @@ const LoggedIn = () => {
         activeTintColor: "#0A7DF2",
         inactiveTintColor: "gray",
         style: {
-          backgroundColor: "#161616"
+          backgroundColor: "#161616",
+          borderTopColor: "#3D3D3D"
         }
       }}
     >

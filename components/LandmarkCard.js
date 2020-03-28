@@ -4,9 +4,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
 
-const RouteCard = ({ item }) => {
+const RouteCard = ({ item, onLongPress }) => {
   return (
-    <TouchableOpacity style={styles.container} onLongPress={() => Alert.alert("Long press")}>
+    <TouchableOpacity style={styles.container} onLongPress={onLongPress}>
       <View style={{ alignItems: "flex-end" }}>
         <View style={styles.checkBox}>
           <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} />

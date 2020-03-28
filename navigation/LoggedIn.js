@@ -31,7 +31,7 @@ const Nekaj = () => {
       <Stack.Screen name="NewRoute" component={NewRoute} />
       <Stack.Screen name="WhatVisit" component={WhatVisit} />
       <Stack.Screen
-        name="LandMarkDetails"
+        name="LandmarkDetails"
         component={LandMarkDetails}
         options={{
           headerShown: false,

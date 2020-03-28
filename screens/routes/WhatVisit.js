@@ -5,7 +5,11 @@ import InputField from "../../components/InputField";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import LandmarkCard from "../../components/LandmarkCard";
 
-const WhatVisit = () => {
+const WhatVisit = props => {
+  const handleDetails = () => {
+    props.navigation.navigate("LandmarkDetails");
+  };
+
   const testPodaci = [
     {
       key: 0,
@@ -53,7 +57,10 @@ const WhatVisit = () => {
           <Text style={styles.headerNormal}> do you want to visit?</Text>
         </View>
         <InputField placeholder="Search landmarks" icon={faSearch} />
-        <FlatList data={testPodaci} renderItem={({ item }) => <LandmarkCard item={item} />} />
+        <FlatList
+          data={testPodaci}
+          renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
+        />
       </View>
     </SafeAreaView>
   );

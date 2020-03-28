@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
 
 import InputField from "../../components/InputField";
@@ -12,6 +12,22 @@ import { FlatList } from "react-native-gesture-handler";
 
 const NewRoute = props => {
   const user = React.useContext(MyContext);
+
+  const [nearbyCities, setNearbyCities] = useState([]);
+
+  useEffect(() => {
+    api
+      .get("/nearby/cities", {
+        headers: {
+          Authorization: "Bearer " + user.token
+        },
+        params: {
+          lat: 46.3059708,
+          long: 16.3369023
+        }
+      })
+      .then(results => setNearbyCities(results.data));
+  }, []);
 
   const dummyData = [
     { id: 1, location: "Varazdin" },
@@ -38,7 +54,13 @@ const NewRoute = props => {
         <InputField placeholder="e.g. London" icon={faMapMarkerAlt} />
         <LoginSubtitle text="Nearby locations" />
 
-        <FlatList horizontal data={dummyData} renderItem={({ item }) => <LocationCard />} horizontal={true} />
+        <FlatList
+          horizontal
+          data={nearbyCities}
+          renderItem={city => <LocationCard city={city} />}
+          horizontal={true}
+          keyExtractor={city => city.photo_reference}
+        />
 
         <View style={styles.buttons}>
           <Button title="Cancel" onPress={handleNext} />

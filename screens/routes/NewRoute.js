@@ -1,16 +1,22 @@
 import React from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
 
-import { colors } from "../../constants/theme";
 import InputField from "../../components/InputField";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
-import { MyContext } from "../../context/Provider";
 import LoginSubtitle from "../../components/LoginSubtitle";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import LocationCard from "../../components/LocationCard";
+import { colors } from "../../constants/theme";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { MyContext } from "../../context/Provider";
+import { FlatList } from "react-native-gesture-handler";
 
 const NewRoute = props => {
   const user = React.useContext(MyContext);
+
+  const dummyData = [
+    { id: 1, location: "Varazdin" },
+    { id: 2, location: "Zagreb" }
+  ];
 
   const handleNext = () => {
     api
@@ -21,7 +27,7 @@ const NewRoute = props => {
       })
       .then(response => console.log(response.data))
       .catch(error => console.log(error));
-    props.navigation.navigate("Profile");
+    props.navigation.navigate("WhatVisit");
   };
 
   return (
@@ -31,10 +37,13 @@ const NewRoute = props => {
         <InputField placeholder="e.g. London" icon={faMapMarkerAlt} />
         <InputField placeholder="e.g. London" icon={faMapMarkerAlt} />
         <LoginSubtitle text="Nearby locations" />
-        <TouchableOpacity>
-          <View style={styles.card}></View>
-        </TouchableOpacity>
-        <Button title="Next" onPress={handleNext} />
+
+        <FlatList horizontal data={dummyData} renderItem={({ item }) => <LocationCard />} horizontal={true} />
+
+        <View style={styles.buttons}>
+          <Button title="Cancel" onPress={handleNext} />
+          <Button title="Next" onPress={handleNext} />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -55,10 +64,9 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 10
   },
-  card: {
-    height: 170,
-    backgroundColor: "white",
-    borderRadius: 10
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 });
 export default NewRoute;

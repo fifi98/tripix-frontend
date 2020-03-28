@@ -11,6 +11,8 @@ import PlannedRoutes from "../screens/routes/PlannedRoutes";
 import FinishedRoutes from "../screens/routes/FinishedRoutes";
 import SuggestedRoutes from "../screens/routes/SuggestedRoutes";
 import { TransitionPresets } from "@react-navigation/stack";
+import WhatVisit from "../screens/routes/WhatVisit";
+import LandMarkDetails from "../screens/LandmarkDetails";
 
 const Stack = createStackNavigator();
 const Stack2 = createStackNavigator();
@@ -26,9 +28,11 @@ const Nekaj = () => {
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="FindNearby" component={FindNearby} />
+      <Stack.Screen name="NewRoute" component={NewRoute} />
+      <Stack.Screen name="WhatVisit" component={WhatVisit} />
       <Stack.Screen
-        name="NewRoute"
-        component={NewRoute}
+        name="LandMarkDetails"
+        component={LandMarkDetails}
         options={{
           headerShown: false,
           gestureEnabled: true,
@@ -37,6 +41,7 @@ const Nekaj = () => {
         }}
         mode="modal"
       />
+
       <Stack.Screen name="PlannedRoutes" component={PlannedRoutes} />
       <Stack.Screen name="FinishedRoutes" component={FinishedRoutes} />
       <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />

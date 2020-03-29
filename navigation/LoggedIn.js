@@ -34,9 +34,7 @@ const Nekaj = () => {
         name="LandmarkDetails"
         component={LandMarkDetails}
         options={{
-          headerShown: false,
           gestureEnabled: true,
-          cardOverlayEnabled: true,
           ...TransitionPresets.ModalPresentationIOS
         }}
         mode="modal"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text, Button, SafeAreaView, Animated } from "react-native";
 
 import InputField from "../../components/InputField";
 import api from "../../utils/api";
@@ -8,7 +8,8 @@ import LocationCard from "../../components/LocationCard";
 import { colors } from "../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import Swiper from "react-native-swiper";
 
 const NewRoute = props => {
   const user = React.useContext(MyContext);
@@ -29,20 +30,15 @@ const NewRoute = props => {
       .then(results => setNearbyCities(results.data));
   }, []);
 
-  const dummyData = [
-    { id: 1, location: "Varazdin" },
-    { id: 2, location: "Zagreb" }
-  ];
-
   const handleNext = () => {
-    api
-      .get("/users", {
-        headers: {
-          Authorization: "Bearer " + user.token
-        }
-      })
-      .then(response => console.log(response.data))
-      .catch(error => console.log(error));
+    // api
+    //   .get("/users", {
+    //     headers: {
+    //       Authorization: "Bearer " + user.token
+    //     }
+    //   })
+    //   .then(response => console.log(response.data))
+    //   .catch(error => console.log(error));
     props.navigation.navigate("WhatVisit");
   };
 
@@ -51,16 +47,22 @@ const NewRoute = props => {
       <View style={styles.container}>
         <Text style={styles.title}>Where are you going?</Text>
         <InputField placeholder="e.g. London" icon={faMapMarkerAlt} />
-        <InputField placeholder="e.g. London" icon={faMapMarkerAlt} />
+        <InputField placeholder="Starts" icon={faMapMarkerAlt} />
         <LoginSubtitle text="Nearby locations" />
 
-        <FlatList
+        <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+          {nearbyCities.map(city => (
+            <LocationCard key={city.photo_reference} city={city} />
+          ))}
+        </ScrollView>
+
+        {/* <FlatList
           horizontal
           data={nearbyCities}
           renderItem={city => <LocationCard city={city} />}
           horizontal={true}
           keyExtractor={city => city.photo_reference}
-        />
+        /> */}
 
         <View style={styles.buttons}>
           <Button title="Cancel" onPress={handleNext} />

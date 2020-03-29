@@ -11,11 +11,11 @@ const LocationCard = ({ city }) => {
       <View style={styles.card}>
         <ImageBackground
           source={{
-            url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + city.item.photo_reference
+            url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + city.photo_reference
           }}
           style={{ width: "100%", height: "100%", opacity: 0.5 }}
         ></ImageBackground>
-        <Text style={styles.text}>{city.item.city}</Text>
+        <Text style={styles.text}>{city.city}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     width: 0.85 * Dimensions.get("screen").width,
     borderRadius: 10,
     marginBottom: 20,
-    marginRight: 20,
     overflow: "hidden"
   },
   text: {

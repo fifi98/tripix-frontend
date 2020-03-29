@@ -56,14 +56,6 @@ const NewRoute = props => {
           ))}
         </ScrollView>
 
-        {/* <FlatList
-          horizontal
-          data={nearbyCities}
-          renderItem={city => <LocationCard city={city} />}
-          horizontal={true}
-          keyExtractor={city => city.photo_reference}
-        /> */}
-
         <View style={styles.buttons}>
           <Button title="Cancel" onPress={handleNext} />
           <Button title="Next" onPress={handleNext} />

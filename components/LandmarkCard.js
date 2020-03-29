@@ -9,7 +9,7 @@ const RouteCard = ({ item, onLongPress }) => {
     <TouchableOpacity style={styles.container} onLongPress={onLongPress}>
       <View style={{ alignItems: "flex-end" }}>
         <View style={styles.checkBox}>
-          <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} />
+          <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={24} />
         </View>
         <View style={styles.rating}>
           <FontAwesomeIcon icon={faStar} style={styles.icon} />

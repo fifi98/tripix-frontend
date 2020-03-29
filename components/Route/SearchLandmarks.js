@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import InputField from "../InputField";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -29,15 +29,18 @@ const SearchLandmarks = () => {
 
   const selectCategories = () => {
     setCategoriesOpened(old => !old);
+    if (!categoriesOpened) return;
+
+    Alert.alert("change");
   };
 
   const categories = [
-    { name: "parks", icon: faLeaf },
-    { name: "stadiums", icon: faFootballBall },
-    { name: "pets", icon: faPaw },
-    { name: "schools", icon: faSchool },
-    { name: "churches", icon: faChurch },
-    { name: "landmarks", icon: faLandmark }
+    { key: 0, name: "parks", icon: faLeaf },
+    { key: 1, name: "stadiums", icon: faFootballBall },
+    { key: 2, name: "pets", icon: faPaw },
+    { key: 3, name: "schools", icon: faSchool },
+    { key: 4, name: "churches", icon: faChurch },
+    { key: 5, name: "landmarks", icon: faLandmark }
   ];
 
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView, Animated } from "react-native";
+import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
 
 import InputField from "../../components/InputField";
 import api from "../../utils/api";
@@ -8,8 +8,7 @@ import LocationCard from "../../components/LocationCard";
 import { colors } from "../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import Swiper from "react-native-swiper";
+import { ScrollView } from "react-native-gesture-handler";
 
 const NewRoute = props => {
   const user = React.useContext(MyContext);
@@ -31,14 +30,6 @@ const NewRoute = props => {
   }, []);
 
   const handleNext = () => {
-    // api
-    //   .get("/users", {
-    //     headers: {
-    //       Authorization: "Bearer " + user.token
-    //     }
-    //   })
-    //   .then(response => console.log(response.data))
-    //   .catch(error => console.log(error));
     props.navigation.navigate("WhatVisit");
   };
 

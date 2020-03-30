@@ -20,7 +20,7 @@ const RouteCard = ({ item, onLongPress }) => {
         </View>
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.textName}>{item.location}</Text>
+        <Text style={styles.textName}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );

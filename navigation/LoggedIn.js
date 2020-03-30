@@ -5,14 +5,14 @@ import Home from "../screens/user/Home";
 import Profile from "../screens/user/Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
-import FindNearby from "../screens/FindNearby";
+import FindNearby from "../screens/user/FindNearby";
 import NewRoute from "../screens/routes/NewRoute";
 import PlannedRoutes from "../screens/routes/PlannedRoutes";
 import FinishedRoutes from "../screens/routes/FinishedRoutes";
 import SuggestedRoutes from "../screens/routes/SuggestedRoutes";
 import { TransitionPresets } from "@react-navigation/stack";
 import WhatVisit from "../screens/routes/WhatVisit";
-import LandMarkDetails from "../screens/LandmarkDetails";
+import LandMarkDetails from "../screens/routes/LandmarkDetails";
 
 const Stack = createStackNavigator();
 const Stack2 = createStackNavigator();

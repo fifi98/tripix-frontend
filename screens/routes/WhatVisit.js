@@ -57,6 +57,7 @@ const WhatVisit = props => {
         </View>
         <SearchLandmarks />
         <FlatList
+          keyExtractor={item => item.location}
           data={testPodaci}
           renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
         />

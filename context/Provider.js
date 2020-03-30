@@ -38,10 +38,8 @@ const Provider = props => {
     //Put the token from asyncstorage to the state when app loads
     AsyncStorage.getItem("userToken")
       .then(token => {
-        console.log("TOKEN_storage=" + token);
         setUser({ ...user, token: token });
       })
-      .then(console.log("TOKEN_state  =" + user.token))
       .catch(error => {
         setUser({ ...user, error: error });
       });

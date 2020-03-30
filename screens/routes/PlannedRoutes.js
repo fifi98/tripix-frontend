@@ -19,30 +19,6 @@ const PlannedRoutes = props => {
       location: "Paris",
       time: 3,
       numAttractions: 3
-    },
-    {
-      key: 2,
-      location: "Budapest",
-      time: 3,
-      numAttractions: 3
-    },
-    {
-      key: 3,
-      location: "aaa",
-      time: 3,
-      numAttractions: 3
-    },
-    {
-      key: 4,
-      location: "bb",
-      time: 3,
-      numAttractions: 3
-    },
-    {
-      key: 5,
-      location: "Zagreb",
-      time: 3,
-      numAttractions: 3
     }
   ];
 

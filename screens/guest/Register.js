@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView } from "react-native";
-import { colors } from "../constants/theme";
-import InputField from "../components/InputField";
-import ButtonPrimary from "../components/ButtonPrimary";
-import ButtonSecondary from "../components/ButtonSecondary";
-import { faEnvelope, faKey, faUser, faMedal } from "@fortawesome/free-solid-svg-icons";
-import api from "../utils/api";
-import LoginTitle from "../components/LoginTitle";
-import LoginSubtitle from "../components/LoginSubtitle";
+import InputField from "../../components/InputField";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import ButtonSecondary from "../../components/ButtonSecondary";
+import LoginTitle from "../../components/LoginTitle";
+import LoginSubtitle from "../../components/LoginSubtitle";
+import api from "../../utils/api";
+import { colors } from "../../constants/theme";
+import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Register = ({ navigation }) => {
   const [input, setInput] = useState({ name: "", email: "", password: "", confirmPassword: "" });
@@ -17,7 +17,6 @@ const Register = ({ navigation }) => {
   };
 
   const handleRegister = () => {
-    console.log(input);
     api
       .post("/users", input)
       .then(response => console.log(response))

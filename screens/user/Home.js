@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
-import { colors } from "../constants/theme";
-import CardButton from "../components/CardButton";
+import { colors } from "../../constants/theme";
+import CardButton from "../../components/CardButton";
 import {
   faPlus,
   faRoute,
@@ -12,8 +12,7 @@ import {
   faShoppingCart,
   faLandmark
 } from "@fortawesome/free-solid-svg-icons";
-import RoundButton from "../components/RoundButton";
-import { MyContext } from "../context/Provider";
+import RoundButton from "../../components/RoundButton";
 
 const Home = ({ navigation }) => {
   const handleFindNearby = type => {
@@ -27,7 +26,6 @@ const Home = ({ navigation }) => {
         <Text style={styles.textSecondary}>Routes</Text>
 
         <View style={styles.cardContainer}>
-          <MyContext.Consumer>{context => console.log(context)}</MyContext.Consumer>
           <CardButton
             title="New route"
             icon={faPlus}

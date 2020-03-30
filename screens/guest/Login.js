@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Text, Alert, SafeAreaView } from "react-native";
-import { colors } from "../constants/theme";
-import InputField from "../components/InputField";
-import ButtonPrimary from "../components/ButtonPrimary";
-import ButtonSecondary from "../components/ButtonSecondary";
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert, SafeAreaView } from "react-native";
+import InputField from "../../components/InputField";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import ButtonSecondary from "../../components/ButtonSecondary";
+import LoginTitle from "../../components/LoginTitle";
+import LoginSubtitle from "../../components/LoginSubtitle";
+import api from "../../utils/api";
+import { colors } from "../../constants/theme";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
-import api from "../utils/api";
-import { MyContext } from "../context/Provider";
-import LoginTitle from "../components/LoginTitle";
-import LoginSubtitle from "../components/LoginSubtitle";
+import { MyContext } from "../../context/Provider";
 
 const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -18,14 +18,11 @@ const Login = ({ navigation }) => {
   };
 
   const handleLogin = async saveToken => {
-    //Check credentials and get JWT from server
     api
       .post("/login", input)
       .then(response => {
         //Store JTW in the context and go to the main screen
-        saveToken(response.data.token).then(data => {
-          //navigation.navigate("Home");
-        });
+        saveToken(response.data.token);
       })
       .catch(err => Alert.alert("Invalid credentials!"));
   };

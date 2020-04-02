@@ -26,7 +26,7 @@ const CategoryButton = ({ selectCategory, icon, selected }) => {
   );
 };
 
-const SearchLandmarks = ({ setAttractions }) => {
+const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
   const user = React.useContext(MyContext);
   const [categoriesOpened, setCategoriesOpened] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(5);
@@ -48,9 +48,7 @@ const SearchLandmarks = ({ setAttractions }) => {
 
   useEffect(() => {
     const selectedCategoryName = categories.find(c => c.id === selectedCategory).name;
-
     setAttractions([]);
-
     api
       .get("/attractions/" + selectedCategoryName, {
         headers: {
@@ -85,7 +83,12 @@ const SearchLandmarks = ({ setAttractions }) => {
         ) : (
           <View style={styles.container}>
             <View style={{ width: "80%" }}>
-              <InputField placeholder="Search landmarks" icon={faSearch} />
+              <InputField
+                placeholder="Search landmarks"
+                icon={faSearch}
+                value={searchInput}
+                onChangeText={text => setSearchInput(text)}
+              />
             </View>
             <View style={{ width: "15%", marginVertical: 10 }}>
               <CategoryButton

@@ -3,12 +3,10 @@ import { View, Text, StyleSheet, SafeAreaView, FlatList, ActivityIndicator } fro
 import { colors } from "../../constants/theme";
 import LandmarkCard from "../../components/LandmarkCard";
 import SearchLandmarks from "../../components/Route/SearchLandmarks";
-import { MyContext } from "../../context/Provider";
 
 const WhatVisit = props => {
-  const user = React.useContext(MyContext);
-
   const [attractions, setAttractions] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const handleDetails = () => {
     props.navigation.navigate("LandmarkDetails");
@@ -21,14 +19,14 @@ const WhatVisit = props => {
           <Text style={styles.headerBold}>What</Text>
           <Text style={styles.headerNormal}> do you want to visit?</Text>
         </View>
-        <SearchLandmarks setAttractions={setAttractions} />
+        <SearchLandmarks setAttractions={setAttractions} searchInput={searchInput} setSearchInput={setSearchInput} />
         {attractions.length === 0 ? (
           <ActivityIndicator size="large" />
         ) : (
           <FlatList
-            keyExtractor={item => item.photo_ref}
-            data={attractions}
-            renderItem={({ item }) => <LandmarkCard item={item} />}
+            keyExtractor={item => item.photo_reference}
+            data={attractions.filter(a => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
+            renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
             initialNumToRender={5}
             maxToRenderPerBatch={10}
             windowSize={5}

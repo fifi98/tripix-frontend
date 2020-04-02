@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faStar, faStarHalfAlt, faStarHalf } from "@fortawesome/free-solid-svg-icons";
 
 const RouteCard = ({ item, onLongPress }) => {
   return (
@@ -23,7 +23,7 @@ const RouteCard = ({ item, onLongPress }) => {
             <FontAwesomeIcon icon={faStar} style={styles.icon} />
             <FontAwesomeIcon icon={faStar} style={styles.icon} />
             <FontAwesomeIcon icon={faStar} style={styles.icon} />
-            <FontAwesomeIcon icon={faStar} style={styles.icon} />
+            <FontAwesomeIcon icon={faStarHalf} transform={{ scaleX: -1 }} style={styles.icon} />
           </View>
         </View>
         <View style={{ alignItems: "center", justifyContent: "center" }}>

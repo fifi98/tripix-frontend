@@ -13,6 +13,8 @@ import {
   faChurch
 } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "../../constants/theme";
+import api from "../../utils/api";
+import { MyContext } from "../../context/Provider";
 
 const CategoryButton = ({ selectCategory, icon, selected }) => {
   return (
@@ -24,14 +26,14 @@ const CategoryButton = ({ selectCategory, icon, selected }) => {
   );
 };
 
-const SearchLandmarks = () => {
+const SearchLandmarks = ({ setAttractions }) => {
+  const user = React.useContext(MyContext);
   const [categoriesOpened, setCategoriesOpened] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(5);
 
   const selectCategory = id => {
     setCategoriesOpened(old => !old);
     if (!categoriesOpened || isNaN(id)) return;
-    console.log(id);
     setSelectedCategory(id);
   };
 
@@ -40,12 +42,23 @@ const SearchLandmarks = () => {
     { id: 1, name: "stadiums", icon: faFootballBall },
     { id: 2, name: "pets", icon: faPaw },
     { id: 3, name: "schools", icon: faSchool },
-    { id: 4, name: "churches", icon: faChurch },
+    { id: 4, name: "religions", icon: faChurch },
     { id: 5, name: "landmarks", icon: faLandmark }
   ];
 
   useEffect(() => {
-    console.log(selectedCategory);
+    const selectedCategoryName = categories.find(c => c.id === selectedCategory).name;
+
+    setAttractions([]);
+
+    api
+      .get("/attractions/" + selectedCategoryName, {
+        headers: {
+          Authorization: "Bearer " + user.token
+        },
+        params: { location: "Zagreb" }
+      })
+      .then(response => setAttractions([...response.data]));
   }, [selectedCategory]);
 
   return (

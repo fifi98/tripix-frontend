@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, SafeAreaView, FlatList, ActivityIndicator } from "react-native";
 import { colors } from "../../constants/theme";
 import LandmarkCard from "../../components/LandmarkCard";
 import SearchLandmarks from "../../components/Route/SearchLandmarks";
-import api from "../../utils/api";
 import { MyContext } from "../../context/Provider";
 
 const WhatVisit = props => {
@@ -15,17 +14,6 @@ const WhatVisit = props => {
     props.navigation.navigate("LandmarkDetails");
   };
 
-  useEffect(() => {
-    api
-      .get("/attractions/parks", {
-        headers: {
-          Authorization: "Bearer " + user.token
-        },
-        params: { location: "Zagreb" }
-      })
-      .then(response => setAttractions([...response.data]));
-  }, []);
-
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
@@ -33,12 +21,19 @@ const WhatVisit = props => {
           <Text style={styles.headerBold}>What</Text>
           <Text style={styles.headerNormal}> do you want to visit?</Text>
         </View>
-        <SearchLandmarks />
-        <FlatList
-          keyExtractor={item => item.name}
-          data={attractions}
-          renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
-        />
+        <SearchLandmarks setAttractions={setAttractions} />
+        {attractions.length === 0 ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <FlatList
+            keyExtractor={item => item.photo_ref}
+            data={attractions}
+            renderItem={({ item }) => <LandmarkCard item={item} />}
+            initialNumToRender={5}
+            maxToRenderPerBatch={10}
+            windowSize={5}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

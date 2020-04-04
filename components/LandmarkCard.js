@@ -9,14 +9,14 @@ import { MyContext } from "../context/Provider";
 import Rating from "../components/Rating";
 
 const RouteCard = ({ item, onLongPress }) => {
-  const { user, setUser } = React.useContext(MyContext);
+  const { selectedLandmark, setSelectedLandmark, user } = React.useContext(MyContext);
 
   const handleSelect = () => {
-    console.log(user.selectedLandmarks);
-    setUser((old) => ({ ...user, selectedLandmarks: [...old.selectedLandmarks, item] }));
-    // setUser((u) => {
-    //   selectedLandmarks: ["aa"];
-    // });
+    if (selectedLandmark.find((x) => x.place_id === item.place_id)) {
+      setSelectedLandmark((old) => old.filter((x) => x.place_id !== item.place_id));
+    } else {
+      setSelectedLandmark((old) => [...old, item]);
+    }
   };
 
   return (
@@ -30,7 +30,7 @@ const RouteCard = ({ item, onLongPress }) => {
       <View style={styles.data}>
         <View style={{ alignItems: "flex-end" }}>
           <View style={styles.checkBox}>
-            {user.selectedLandmarks.find((x) => x.place_id === item.place_id) ? (
+            {selectedLandmark.find((x) => x.place_id === item.place_id) ? (
               <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={24} />
             ) : (
               <FontAwesomeIcon icon={faCheckCircleUnchecked} style={styles.icon} size={24} />

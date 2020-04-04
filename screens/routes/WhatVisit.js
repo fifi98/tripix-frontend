@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, SafeAreaView, FlatList, ActivityIndicator } fro
 import { colors } from "../../constants/theme";
 import LandmarkCard from "../../components/LandmarkCard";
 import SearchLandmarks from "../../components/Route/SearchLandmarks";
+import SegmentedControlIOS from "@react-native-community/segmented-control";
 
-const WhatVisit = props => {
+const WhatVisit = (props) => {
   const [attractions, setAttractions] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
@@ -20,12 +21,13 @@ const WhatVisit = props => {
           <Text style={styles.headerNormal}> do you want to visit?</Text>
         </View>
         <SearchLandmarks setAttractions={setAttractions} searchInput={searchInput} setSearchInput={setSearchInput} />
+        <SegmentedControlIOS values={["Available", "Selected"]} selectedIndex={0} tintColor={"#FFF"} activeTextColor={"#000"} />
         {attractions.length === 0 ? (
           <ActivityIndicator size="large" />
         ) : (
           <FlatList
-            keyExtractor={item => item.photo_reference}
-            data={attractions.filter(a => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
+            keyExtractor={(item) => item.photo_reference}
+            data={attractions.filter((a) => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
             renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
             initialNumToRender={5}
             maxToRenderPerBatch={10}
@@ -41,25 +43,25 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   title: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   headerBold: {
     fontSize: 22,
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   headerNormal: {
     fontSize: 22,
-    color: "white"
+    color: "white",
   },
   container: {
     width: "85%",
     paddingTop: 30,
-    height: "100%"
-  }
+    height: "100%",
+  },
 });
 
 export default WhatVisit;

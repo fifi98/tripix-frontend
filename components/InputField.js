@@ -29,17 +29,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 44,
     marginVertical: 10,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   field: {
     color: colors.textPrimary,
     width: "100%",
     flex: 1,
-    fontSize: 17
+    fontSize: 17,
   },
   icon: {
-    color: colors.textSecondary
-  }
+    color: colors.textSecondary,
+  },
 });
 
 export default InputField;

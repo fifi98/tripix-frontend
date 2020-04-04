@@ -18,7 +18,7 @@ const CategoryButton = ({ selectCategory, icon, selected }) => {
   );
 };
 
-const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
+const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput, setLoading }) => {
   const { user } = React.useContext(MyContext);
   const [categoriesOpened, setCategoriesOpened] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(5);
@@ -40,7 +40,7 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
 
   useEffect(() => {
     const selectedCategoryName = categories.find((c) => c.id === selectedCategory).name;
-    setAttractions([]);
+    setLoading(1);
     api
       .get("/attractions/" + selectedCategoryName, {
         headers: {
@@ -48,7 +48,10 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
         },
         params: { location: "Zagreb" },
       })
-      .then((response) => setAttractions([...response.data]));
+      .then((response) => {
+        setAttractions([...response.data]);
+        setLoading(0);
+      });
   }, [selectedCategory]);
 
   return (

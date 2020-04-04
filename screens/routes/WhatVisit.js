@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, FlatList, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { colors } from "../../constants/theme";
-import LandmarkCard from "../../components/LandmarkCard";
 import SearchLandmarks from "../../components/Route/SearchLandmarks";
 import SegmentedControlIOS from "@react-native-community/segmented-control";
+import LandmarksList from "../../components/Route/LandmarksList";
+import { MyContext } from "../../context/Provider";
 
 const WhatVisit = (props) => {
   const [attractions, setAttractions] = useState([]);
+  const [loading, setLoading] = useState(1);
   const [searchInput, setSearchInput] = useState("");
-
-  const handleDetails = () => {
-    props.navigation.navigate("LandmarkDetails");
-  };
+  const [selectedTab, setSelectedTab] = useState(0);
+  const { selectedLandmark } = React.useContext(MyContext);
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -20,19 +20,23 @@ const WhatVisit = (props) => {
           <Text style={styles.headerBold}>What</Text>
           <Text style={styles.headerNormal}> do you want to visit?</Text>
         </View>
-        <SearchLandmarks setAttractions={setAttractions} searchInput={searchInput} setSearchInput={setSearchInput} />
-        <SegmentedControlIOS values={["Available", "Selected"]} selectedIndex={0} tintColor={"#FFF"} activeTextColor={"#000"} />
-        {attractions.length === 0 ? (
-          <ActivityIndicator size="large" />
+        <SearchLandmarks
+          setAttractions={setAttractions}
+          searchInput={searchInput}
+          setLoading={setLoading}
+          setSearchInput={setSearchInput}
+        />
+        <SegmentedControlIOS
+          values={["Available", "Selected"]}
+          selectedIndex={selectedTab}
+          onChange={(event) => setSelectedTab(event.nativeEvent.selectedSegmentIndex)}
+          tintColor={"#FFF"}
+          activeTextColor={"#000"}
+        />
+        {selectedTab ? (
+          <LandmarksList attractions={selectedLandmark} loading={loading} searchInput={searchInput} {...props} />
         ) : (
-          <FlatList
-            keyExtractor={(item) => item.photo_reference}
-            data={attractions.filter((a) => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
-            renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
-            initialNumToRender={5}
-            maxToRenderPerBatch={10}
-            windowSize={5}
-          />
+          <LandmarksList attractions={attractions} loading={loading} searchInput={searchInput} {...props} />
         )}
       </View>
     </SafeAreaView>

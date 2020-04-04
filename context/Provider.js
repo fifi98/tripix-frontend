@@ -48,9 +48,9 @@ const Provider = (props) => {
     },
   });
 
-  const [selectedLandmark, setSelectedLandmark] = useState([]);
+  const [newRoute, setNewRoute] = useState({ location: "", attractions: [] });
 
-  const value = { user, setUser, selectedLandmark, setSelectedLandmark };
+  const value = { user, setUser, newRoute, setNewRoute };
 
   useEffect(() => {
     //Put the token from asyncstorage to the state when app loads

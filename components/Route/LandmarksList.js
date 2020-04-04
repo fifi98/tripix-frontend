@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, FlatList, ActivityIndicator, Text, StyleSheet } from "react-native";
 import LandmarkCard from "../../components/LandmarkCard";
 
@@ -7,6 +7,7 @@ const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
     navigation.navigate("LandmarkDetails");
   };
 
+  console.log("aAAAAAAA", attractions);
   return (
     <View>
       {loading === 1 ? (

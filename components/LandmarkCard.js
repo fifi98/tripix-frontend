@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, ImageBackground, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -9,15 +9,17 @@ import { MyContext } from "../context/Provider";
 import Rating from "../components/Rating";
 
 const RouteCard = ({ item, onLongPress }) => {
-  const { selectedLandmark, setSelectedLandmark, user } = React.useContext(MyContext);
+  const { newRoute, setNewRoute, user } = React.useContext(MyContext);
 
   const handleSelect = () => {
-    if (selectedLandmark.find((x) => x.place_id === item.place_id)) {
-      setSelectedLandmark((old) => old.filter((x) => x.place_id !== item.place_id));
+    if (newRoute.attractions.find((x) => x.place_id === item.place_id)) {
+      setNewRoute((old) => ({ ...old, attractions: [...old.attractions.filter((x) => x.place_id !== item.place_id)] }));
     } else {
-      setSelectedLandmark((old) => [...old, item]);
+      setNewRoute((old) => ({ ...old, attractions: [...old.attractions, item] }));
     }
   };
+
+  useEffect(() => console.log(newRoute), [newRoute]);
 
   return (
     <TouchableOpacity style={styles.container} onLongPress={onLongPress} onPress={handleSelect}>
@@ -30,7 +32,7 @@ const RouteCard = ({ item, onLongPress }) => {
       <View style={styles.data}>
         <View style={{ alignItems: "flex-end" }}>
           <View style={styles.checkBox}>
-            {selectedLandmark.find((x) => x.place_id === item.place_id) ? (
+            {newRoute.attractions.find((x) => x.place_id === item.place_id) ? (
               <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={24} />
             ) : (
               <FontAwesomeIcon icon={faCheckCircleUnchecked} style={styles.icon} size={24} />

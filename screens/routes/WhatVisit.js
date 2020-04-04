@@ -11,7 +11,7 @@ const WhatVisit = (props) => {
   const [loading, setLoading] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [selectedTab, setSelectedTab] = useState(0);
-  const { selectedLandmark } = React.useContext(MyContext);
+  const { newRoute } = React.useContext(MyContext);
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -34,7 +34,7 @@ const WhatVisit = (props) => {
           activeTextColor={"#000"}
         />
         {selectedTab ? (
-          <LandmarksList attractions={selectedLandmark} loading={loading} searchInput={searchInput} {...props} />
+          <LandmarksList attractions={newRoute.attractions} loading={loading} searchInput={searchInput} {...props} />
         ) : (
           <LandmarksList attractions={attractions} loading={loading} searchInput={searchInput} {...props} />
         )}

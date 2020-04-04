@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
-
 import InputField from "../../components/InputField";
 import api from "../../utils/api";
 import LoginSubtitle from "../../components/LoginSubtitle";
@@ -9,24 +8,36 @@ import { colors } from "../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
+import Geolocation from "@react-native-community/geolocation";
 
 const NewRoute = (props) => {
-  const { user } = React.useContext(MyContext);
+  const { user, setNewRoute, newRoute } = React.useContext(MyContext);
 
   const [nearbyCities, setNearbyCities] = useState([]);
 
+  const handleLocation = (location) => {
+    setNewRoute((old) => ({ ...old, location: location }));
+  };
+
   useEffect(() => {
-    api
-      .get("/nearby/cities", {
-        headers: {
-          Authorization: "Bearer " + user.token,
-        },
-        params: {
-          lat: 46.3059708,
-          long: 16.3369023,
-        },
-      })
-      .then((results) => setNearbyCities(results.data));
+    Geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position.coords.longitude);
+        console.log(position.coords.latitude);
+        api
+          .get("/nearby/cities", {
+            headers: {
+              Authorization: "Bearer " + user.token,
+            },
+            params: {
+              lat: position.coords.latitude,
+              long: position.coords.longitude,
+            },
+          })
+          .then((results) => setNearbyCities(results.data));
+      },
+      (error) => Alert.alert(error.message)
+    );
   }, []);
 
   const handleNext = () => {
@@ -37,7 +48,12 @@ const NewRoute = (props) => {
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Text style={styles.title}>Where are you going?</Text>
-        <InputField placeholder="e.g. London" icon={faMapMarkerAlt} />
+        <InputField
+          placeholder="e.g. London"
+          icon={faMapMarkerAlt}
+          value={newRoute.location}
+          onChangeText={(text) => handleLocation(text)}
+        />
         <InputField placeholder="Starts" icon={faMapMarkerAlt} />
         <LoginSubtitle text="Nearby locations" />
 

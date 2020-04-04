@@ -19,7 +19,7 @@ const CategoryButton = ({ selectCategory, icon, selected }) => {
 };
 
 const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput, setLoading }) => {
-  const { user } = React.useContext(MyContext);
+  const { user, newRoute } = React.useContext(MyContext);
   const [categoriesOpened, setCategoriesOpened] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(5);
 
@@ -46,7 +46,7 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput, setLoadi
         headers: {
           Authorization: "Bearer " + user.token,
         },
-        params: { location: "Zagreb" },
+        params: { location: newRoute.location },
       })
       .then((response) => {
         setAttractions([...response.data]);

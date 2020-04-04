@@ -3,10 +3,10 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 export const MyContext = React.createContext();
 
-const Provider = props => {
+const Provider = (props) => {
   const [user, setUser] = useState({
     token: "",
-    saveToken: async userToken => {
+    saveToken: async (userToken) => {
       try {
         const resp = await AsyncStorage.setItem("userToken", userToken);
         setUser({ ...user, token: userToken });
@@ -31,21 +31,24 @@ const Provider = props => {
       } catch (error) {
         setUser({ error });
       }
-    }
+    },
+    selectedLandmarks: [],
   });
+
+  const value = { user, setUser };
 
   useEffect(() => {
     //Put the token from asyncstorage to the state when app loads
     AsyncStorage.getItem("userToken")
-      .then(token => {
+      .then((token) => {
         setUser({ ...user, token: token });
       })
-      .catch(error => {
+      .catch((error) => {
         setUser({ ...user, error: error });
       });
   }, []);
 
-  return <MyContext.Provider value={user}>{props.children}</MyContext.Provider>;
+  return <MyContext.Provider value={value}>{props.children}</MyContext.Provider>;
 };
 
 export default Provider;

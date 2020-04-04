@@ -10,8 +10,8 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
 
-const NewRoute = props => {
-  const user = React.useContext(MyContext);
+const NewRoute = (props) => {
+  const { user } = React.useContext(MyContext);
 
   const [nearbyCities, setNearbyCities] = useState([]);
 
@@ -19,14 +19,14 @@ const NewRoute = props => {
     api
       .get("/nearby/cities", {
         headers: {
-          Authorization: "Bearer " + user.token
+          Authorization: "Bearer " + user.token,
         },
         params: {
           lat: 46.3059708,
-          long: 16.3369023
-        }
+          long: 16.3369023,
+        },
       })
-      .then(results => setNearbyCities(results.data));
+      .then((results) => setNearbyCities(results.data));
   }, []);
 
   const handleNext = () => {
@@ -42,7 +42,7 @@ const NewRoute = props => {
         <LoginSubtitle text="Nearby locations" />
 
         <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-          {nearbyCities.map(city => (
+          {nearbyCities.map((city) => (
             <LocationCard key={city.photo_reference} city={city} />
           ))}
         </ScrollView>
@@ -60,20 +60,20 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   container: {
     width: "85%",
-    paddingTop: 30
+    paddingTop: 30,
   },
   title: {
     fontSize: 22,
     color: "white",
-    marginBottom: 10
+    marginBottom: 10,
   },
   buttons: {
     flexDirection: "row",
-    justifyContent: "space-between"
-  }
+    justifyContent: "space-between",
+  },
 });
 export default NewRoute;

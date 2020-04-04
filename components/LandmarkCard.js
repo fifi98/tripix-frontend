@@ -1,44 +1,48 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCheckCircle, faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
-import { faStar as faStarRegulat } from "@fortawesome/free-regular-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
+import { MyContext } from "../context/Provider";
+
 import Rating from "../components/Rating";
 
 const RouteCard = ({ item, onLongPress }) => {
+  const { user, setUser } = React.useContext(MyContext);
+
+  const handleSelect = () => {
+    console.log(user.selectedLandmarks);
+    setUser((old) => ({ ...user, selectedLandmarks: [...old.selectedLandmarks, item] }));
+    // setUser((u) => {
+    //   selectedLandmarks: ["aa"];
+    // });
+  };
+
   return (
-    <TouchableOpacity style={styles.container} onLongPress={onLongPress}>
+    <TouchableOpacity style={styles.container} onLongPress={onLongPress} onPress={handleSelect}>
       <ImageBackground
         source={{
           url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + item.photo_reference,
         }}
-        style={{ width: "100%", height: "100%", opacity: 0.5 }}
+        style={styles.image}
       ></ImageBackground>
       <View style={styles.data}>
         <View style={{ alignItems: "flex-end" }}>
           <View style={styles.checkBox}>
-            <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={24} />
+            {user.selectedLandmarks.find((x) => x.place_id === item.place_id) ? (
+              <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={24} />
+            ) : (
+              <FontAwesomeIcon icon={faCheckCircleUnchecked} style={styles.icon} size={24} />
+            )}
           </View>
           <View style={styles.rating}>
             <Rating rating={item.rating} />
-
-            {/* <FontAwesomeIcon icon={faStarRegulat} style={styles.icon} />
-            <FontAwesomeIcon icon={faStarHalfAlt} transform={{ flipX: 1 }} style={styles.icon} />
-            <FontAwesomeIcon icon={faStar} style={styles.icon} />
-            <FontAwesomeIcon icon={faStar} style={styles.icon} />
-            <FontAwesomeIcon icon={faStar} style={styles.icon} /> */}
           </View>
         </View>
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <View style={styles.textContainer}>
-            <Text
-              adjustsFontSizeToFit
-              allowFontScaling
-              minimumFontScale={0.5}
-              numberOfLines={3}
-              style={styles.textName}
-            >
+            <Text adjustsFontSizeToFit allowFontScaling minimumFontScale={0.5} numberOfLines={3} style={styles.textName}>
               {item.name}
             </Text>
           </View>
@@ -90,6 +94,11 @@ const styles = StyleSheet.create({
     textShadowColor: "black",
     textShadowRadius: 10,
     textAlign: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    opacity: 0.5,
   },
 });
 

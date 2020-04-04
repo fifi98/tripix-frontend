@@ -3,15 +3,7 @@ import { View, StyleSheet } from "react-native";
 import InputField from "../InputField";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faSearch,
-  faLandmark,
-  faLeaf,
-  faFootballBall,
-  faPaw,
-  faSchool,
-  faChurch
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faLandmark, faLeaf, faFootballBall, faPaw, faSchool, faChurch } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "../../constants/theme";
 import api from "../../utils/api";
 import { MyContext } from "../../context/Provider";
@@ -27,12 +19,12 @@ const CategoryButton = ({ selectCategory, icon, selected }) => {
 };
 
 const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
-  const user = React.useContext(MyContext);
+  const { user } = React.useContext(MyContext);
   const [categoriesOpened, setCategoriesOpened] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(5);
 
-  const selectCategory = id => {
-    setCategoriesOpened(old => !old);
+  const selectCategory = (id) => {
+    setCategoriesOpened((old) => !old);
     if (!categoriesOpened || isNaN(id)) return;
     setSelectedCategory(id);
   };
@@ -43,20 +35,20 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
     { id: 2, name: "pets", icon: faPaw },
     { id: 3, name: "schools", icon: faSchool },
     { id: 4, name: "religions", icon: faChurch },
-    { id: 5, name: "landmarks", icon: faLandmark }
+    { id: 5, name: "landmarks", icon: faLandmark },
   ];
 
   useEffect(() => {
-    const selectedCategoryName = categories.find(c => c.id === selectedCategory).name;
+    const selectedCategoryName = categories.find((c) => c.id === selectedCategory).name;
     setAttractions([]);
     api
       .get("/attractions/" + selectedCategoryName, {
         headers: {
-          Authorization: "Bearer " + user.token
+          Authorization: "Bearer " + user.token,
         },
-        params: { location: "Zagreb" }
+        params: { location: "Zagreb" },
       })
-      .then(response => setAttractions([...response.data]));
+      .then((response) => setAttractions([...response.data]));
   }, [selectedCategory]);
 
   return (
@@ -65,8 +57,8 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
         {categoriesOpened ? (
           <View style={{ marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
             {categories
-              .filter(c => c.id !== selectedCategory)
-              .map(category => (
+              .filter((c) => c.id !== selectedCategory)
+              .map((category) => (
                 <CategoryButton
                   key={category.id}
                   selectCategory={() => selectCategory(category.id)}
@@ -74,11 +66,7 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
                   selected={category.id === selectedCategory}
                 />
               ))}
-            <CategoryButton
-              selectCategory={selectCategory}
-              icon={categories.find(c => c.id === selectedCategory).icon}
-              selected
-            />
+            <CategoryButton selectCategory={selectCategory} icon={categories.find((c) => c.id === selectedCategory).icon} selected />
           </View>
         ) : (
           <View style={styles.container}>
@@ -87,14 +75,11 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput }) => {
                 placeholder="Search landmarks"
                 icon={faSearch}
                 value={searchInput}
-                onChangeText={text => setSearchInput(text)}
+                onChangeText={(text) => setSearchInput(text)}
               />
             </View>
             <View style={{ width: "15%", marginVertical: 10 }}>
-              <CategoryButton
-                selectCategory={selectCategory}
-                icon={categories.find(category => category.id === selectedCategory).icon}
-              />
+              <CategoryButton selectCategory={selectCategory} icon={categories.find((category) => category.id === selectedCategory).icon} />
             </View>
           </View>
         )}
@@ -107,7 +92,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "stretch"
+    alignItems: "stretch",
   },
   categoryButton: {
     backgroundColor: colors.inputField,
@@ -115,7 +100,7 @@ const styles = StyleSheet.create({
     height: 44,
     alignItems: "center",
     justifyContent: "center",
-    width: 50
+    width: 50,
   },
   selectedCategoryButton: {
     backgroundColor: "#636366",
@@ -123,8 +108,8 @@ const styles = StyleSheet.create({
     height: 44,
     alignItems: "center",
     justifyContent: "center",
-    width: 50
-  }
+    width: 50,
+  },
 });
 
 export default SearchLandmarks;

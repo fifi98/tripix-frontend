@@ -33,11 +33,13 @@ const WhatVisit = (props) => {
           tintColor={"#FFF"}
           activeTextColor={"#000"}
         />
-        {selectedTab ? (
-          <LandmarksList attractions={newRoute.attractions} loading={loading} searchInput={searchInput} {...props} />
-        ) : (
-          <LandmarksList attractions={attractions} loading={loading} searchInput={searchInput} {...props} />
-        )}
+        <View style={{ flex: 1 }}>
+          {selectedTab ? (
+            <LandmarksList attractions={newRoute.attractions} loading={loading} searchInput={searchInput} {...props} />
+          ) : (
+            <LandmarksList attractions={attractions} loading={loading} searchInput={searchInput} {...props} />
+          )}
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -62,8 +64,8 @@ const styles = StyleSheet.create({
     color: "white",
   },
   container: {
-    width: "85%",
-    paddingTop: 30,
+    width: "88%",
+    paddingTop: 20,
     height: "100%",
   },
 });

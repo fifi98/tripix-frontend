@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Button, Text, StyleSheet } from "react-native";
 import { MyContext } from "../../context/Provider";
 
 const Profile = () => {
-  const handleLogout = removeToken => {
-    removeToken();
-    console.log("Logout");
+  const { user } = React.useContext(MyContext);
+
+  const handleLogout = () => {
+    user.removeToken();
+    console.log("a");
   };
 
   return (
     <View style={styles.container}>
-      <MyContext.Consumer>
-        {context => <Button title="Logout" onPress={() => handleLogout(context.removeToken)} />}
-      </MyContext.Consumer>
+      <Button title="Logout" onPress={handleLogout} />
     </View>
   );
 };
@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
 
 export default Profile;

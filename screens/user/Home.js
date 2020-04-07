@@ -10,12 +10,12 @@ import {
   faUtensils,
   faCoffee,
   faShoppingCart,
-  faLandmark
+  faLandmark,
 } from "@fortawesome/free-solid-svg-icons";
 import RoundButton from "../../components/RoundButton";
 
 const Home = ({ navigation }) => {
-  const handleFindNearby = type => {
+  const handleFindNearby = (type) => {
     navigation.navigate("FindNearby", { type: type });
   };
 
@@ -32,40 +32,15 @@ const Home = ({ navigation }) => {
             color="#FE375F"
             onPress={() => navigation.navigate("NewRoute", {}, { mode: "modal" })}
           />
-          <CardButton
-            title="Planned routes"
-            icon={faRoute}
-            color="#63D2FD"
-            onPress={() => navigation.navigate("PlannedRoutes")}
-          />
-          <CardButton
-            title="Finished routes"
-            icon={faMapMarkerAlt}
-            color="#5E5CE6"
-            onPress={() => navigation.navigate("FinishedRoutes")}
-          />
-          <CardButton
-            title="Suggested"
-            icon={faLightbulb}
-            color="#FF9F28"
-            onPress={() => navigation.navigate("SuggestedRoutes")}
-          />
+          <CardButton title="Planned routes" icon={faRoute} color="#63D2FD" onPress={() => navigation.navigate("PlannedRoutes")} />
+          <CardButton title="Finished routes" icon={faMapMarkerAlt} color="#5E5CE6" onPress={() => navigation.navigate("FinishedRoutes")} />
+          <CardButton title="Suggested" icon={faLightbulb} color="#FF9F28" onPress={() => navigation.navigate("SuggestedRoutes")} />
         </View>
         <Text style={styles.textSecondary}>Find nearby</Text>
         <View style={styles.nearbyContainer}>
           <View style={styles.nearbyButtons}>
-            <RoundButton
-              text="Restaurants"
-              color="#0884FA"
-              icon={faUtensils}
-              onPress={() => handleFindNearby("restaurants")}
-            />
-            <RoundButton
-              text="Coffee Shops"
-              color="#FF9F28"
-              icon={faCoffee}
-              onPress={() => handleFindNearby("cafes")}
-            />
+            <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} onPress={() => handleFindNearby("restaurants")} />
+            <RoundButton text="Coffee Shops" color="#FF9F28" icon={faCoffee} onPress={() => handleFindNearby("cafes")} />
             <RoundButton text="Shops" color="#BF5AF2" icon={faShoppingCart} />
             <RoundButton text="Attractions" color="#30D158" icon={faLandmark} />
           </View>
@@ -79,38 +54,38 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   textSecondary: {
     color: colors.textSecondary,
     fontSize: 17,
-    marginTop: 10
+    marginTop: 10,
   },
   cardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    marginBottom: 20
+    marginBottom: 20,
   },
   nearbyContainer: {
-    alignItems: "center"
+    alignItems: "center",
   },
   nearbyButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginVertical: 30,
     width: "90%",
-    alignItems: "center"
+    alignItems: "center",
   },
   container: {
-    width: "85%",
-    paddingTop: 30
+    width: "88%",
+    paddingTop: 25,
   },
   caption: {
     fontSize: 34,
     color: "white",
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
 
 export default Home;

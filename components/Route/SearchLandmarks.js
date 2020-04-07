@@ -12,7 +12,7 @@ const CategoryButton = ({ selectCategory, icon, selected }) => {
   return (
     <TouchableOpacity onPress={selectCategory}>
       <View style={selected ? styles.selectedCategoryButton : styles.categoryButton}>
-        <FontAwesomeIcon icon={icon} style={{ color: "white" }} size={24} />
+        <FontAwesomeIcon icon={icon} style={{ color: "white" }} size={20} />
       </View>
     </TouchableOpacity>
   );
@@ -73,7 +73,7 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput, setLoadi
           </View>
         ) : (
           <View style={styles.container}>
-            <View style={{ width: "80%" }}>
+            <View style={{ width: "82%" }}>
               <InputField
                 placeholder="Search landmarks"
                 icon={faSearch}
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   categoryButton: {
     backgroundColor: colors.inputField,
     borderRadius: 10,
-    height: 44,
+    height: 32,
     alignItems: "center",
     justifyContent: "center",
     width: 50,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   selectedCategoryButton: {
     backgroundColor: "#636366",
     borderRadius: 10,
-    height: 44,
+    height: 32,
     alignItems: "center",
     justifyContent: "center",
     width: 50,

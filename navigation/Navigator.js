@@ -8,17 +8,19 @@ import LoggedIn from "./LoggedIn";
 const Stack = createStackNavigator();
 
 const Navigator = () => {
+  const { user } = React.useContext(MyContext);
+
   return (
     <NavigationContainer>
       <MyContext.Consumer>
-        {context => {
+        {(context) => {
           return (
             <Stack.Navigator
               screenOptions={{
-                headerShown: false
+                headerShown: false,
               }}
             >
-              {context.token === null ? (
+              {context.user.token === null ? (
                 <Stack.Screen name="Login" component={NotLoggedIn} />
               ) : (
                 <Stack.Screen name="Home" component={LoggedIn} />

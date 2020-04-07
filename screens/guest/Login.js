@@ -12,19 +12,21 @@ import { MyContext } from "../../context/Provider";
 
 const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
+  const { user } = React.useContext(MyContext);
 
   const handleRegister = () => {
     navigation.navigate("Register");
   };
 
-  const handleLogin = async saveToken => {
+  const handleLogin = async () => {
+    console.log(input);
     api
       .post("/login", input)
-      .then(response => {
+      .then((response) => {
         //Store JTW in the context and go to the main screen
-        saveToken(response.data.token);
+        user.saveToken(response.data.token);
       })
-      .catch(err => Alert.alert("Invalid credentials!"));
+      .catch((err) => Alert.alert(err));
   };
 
   return (
@@ -39,19 +41,17 @@ const Login = ({ navigation }) => {
             placeholder="Email"
             icon={faEnvelope}
             value={input.email}
-            onChangeText={text => setInput({ ...input, email: text })}
+            onChangeText={(text) => setInput({ ...input, email: text })}
           />
           <InputField
             placeholder="Password"
             icon={faKey}
             isPassword={true}
             value={input.password}
-            onChangeText={text => setInput({ ...input, password: text })}
+            onChangeText={(text) => setInput({ ...input, password: text })}
           />
 
-          <MyContext.Consumer>
-            {context => <ButtonPrimary title="Login" onPress={() => handleLogin(context.saveToken)} />}
-          </MyContext.Consumer>
+          <ButtonPrimary title="Login" onPress={handleLogin} />
         </View>
         <View style={styles.footer}>
           <ButtonSecondary title="Forgot password?" />
@@ -66,21 +66,21 @@ const styles = StyleSheet.create({
   login: {
     backgroundColor: colors.background,
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   footer: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   container: {
     paddingTop: 30,
-    width: "85%"
+    width: "88%",
   },
   textSecondary: {
     color: colors.textSecondary,
     fontSize: 17,
-    marginVertical: 20
-  }
+    marginVertical: 20,
+  },
 });
 
 export default Login;

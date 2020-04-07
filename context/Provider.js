@@ -19,6 +19,7 @@ const Provider = (props) => {
       try {
         const resp = await AsyncStorage.removeItem("userToken");
         setUser({ ...user, token: null });
+        console.log("b");
         return resp;
       } catch (error) {
         setUser({ error });

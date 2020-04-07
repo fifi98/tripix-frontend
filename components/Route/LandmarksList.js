@@ -7,11 +7,12 @@ const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
     navigation.navigate("LandmarkDetails");
   };
 
-  console.log("aAAAAAAA", attractions);
   return (
-    <View>
+    <View style={styles.container}>
       {loading === 1 ? (
-        <ActivityIndicator size="large" />
+        <View style={styles.textContainer}>
+          <ActivityIndicator size="large" />
+        </View>
       ) : (
         <View>
           {attractions.length === 0 ? (
@@ -43,6 +44,10 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontWeight: "bold",
+  },
+  container: {
+    marginTop: 5,
+    padding: 0,
   },
 });
 

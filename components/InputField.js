@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.inputField,
     borderRadius: 10,
-    height: 44,
+    height: 32,
     marginVertical: 10,
     flexDirection: "row",
   },
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
     width: "100%",
     flex: 1,
-    fontSize: 17,
+    fontSize: 16,
   },
   icon: {
     color: colors.textSecondary,

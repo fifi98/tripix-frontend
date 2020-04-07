@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
-import InputField from "../../components/InputField";
-import api from "../../utils/api";
-import LoginSubtitle from "../../components/LoginSubtitle";
-import LocationCard from "../../components/LocationCard";
-import { colors } from "../../constants/theme";
+import InputField from "../../../components/InputField";
+import api from "../../../utils/api";
+import LoginSubtitle from "../../../components/LoginSubtitle";
+import LocationCard from "../../../components/LocationCard";
+import { colors } from "../../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import { MyContext } from "../../context/Provider";
+import { MyContext } from "../../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
 import Geolocation from "@react-native-community/geolocation";
 import Icon from "react-native-vector-icons/Ionicons";

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, SafeAreaView, Button } from "react-native";
-import { colors } from "../../constants/theme";
-import SearchLandmarks from "../../components/Route/SearchLandmarks";
+import { colors } from "../../../constants/theme";
+import SearchLandmarks from "../../../components/Route/SearchLandmarks";
 import SegmentedControlIOS from "@react-native-community/segmented-control";
-import LandmarksList from "../../components/Route/LandmarksList";
-import { MyContext } from "../../context/Provider";
+import LandmarksList from "../../../components/Route/LandmarksList";
+import { MyContext } from "../../../context/Provider";
 
 const WhatVisit = (props) => {
   const [attractions, setAttractions] = useState([]);
@@ -12,6 +12,14 @@ const WhatVisit = (props) => {
   const [searchInput, setSearchInput] = useState("");
   const [selectedTab, setSelectedTab] = useState(0);
   const { newRoute } = React.useContext(MyContext);
+
+  const handleNext = () => {
+    props.navigation.navigate("Preview");
+  };
+
+  const handleBack = () => {
+    props.navigation.goBack();
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -43,8 +51,8 @@ const WhatVisit = (props) => {
       </View>
       <View style={{ width: "100%" }}>
         <View style={styles.buttonContainer}>
-          <Button title="Cancel" />
-          <Button title="Next" />
+          <Button title="Back" onPress={handleBack} />
+          <Button title="Next" onPress={handleNext} />
         </View>
       </View>
     </SafeAreaView>

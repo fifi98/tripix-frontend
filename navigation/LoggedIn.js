@@ -6,13 +6,14 @@ import Profile from "../screens/user/Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
 import FindNearby from "../screens/user/FindNearby";
-import NewRoute from "../screens/routes/NewRoute";
+import NewRoute from "../screens/routes/new/Where";
 import PlannedRoutes from "../screens/routes/PlannedRoutes";
 import FinishedRoutes from "../screens/routes/FinishedRoutes";
 import SuggestedRoutes from "../screens/routes/SuggestedRoutes";
 import { TransitionPresets } from "@react-navigation/stack";
-import WhatVisit from "../screens/routes/WhatVisit";
-import LandMarkDetails from "../screens/routes/LandmarkDetails";
+import WhatVisit from "../screens/routes/new/Landmarks";
+import LandMarkDetails from "../screens/routes/new/LandmarkDetails";
+import Preview from "../screens/routes/new/Preview";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -65,6 +66,7 @@ const LoggedIn = () => {
 
       <Stack.Screen name="NewRoute" component={NewRoute} />
       <Stack.Screen name="WhatVisit" component={WhatVisit} />
+      <Stack.Screen name="Preview" component={Preview} />
 
       <Stack.Screen
         name="LandmarkDetails"

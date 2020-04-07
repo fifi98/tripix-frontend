@@ -15,62 +15,9 @@ import WhatVisit from "../screens/routes/WhatVisit";
 import LandMarkDetails from "../screens/routes/LandmarkDetails";
 
 const Stack = createStackNavigator();
-const Stack2 = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Nekaj = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardOverlayEnabled: true
-      }}
-    >
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="FindNearby" component={FindNearby} />
-      <Stack.Screen name="NewRoute" component={NewRoute} />
-      <Stack.Screen name="WhatVisit" component={WhatVisit} />
-      <Stack.Screen
-        name="LandmarkDetails"
-        component={LandMarkDetails}
-        options={{
-          gestureEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS
-        }}
-        mode="modal"
-      />
-
-      <Stack.Screen name="PlannedRoutes" component={PlannedRoutes} />
-      <Stack.Screen name="FinishedRoutes" component={FinishedRoutes} />
-      <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />
-    </Stack.Navigator>
-  );
-};
-
-const Create = () => {
-  return (
-    <Stack2.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardOverlayEnabled: true
-      }}
-    >
-      <Stack2.Screen
-        name="NewRoute"
-        component={NewRoute}
-        options={{
-          headerShown: false,
-          gestureEnabled: true,
-          cardOverlayEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS
-        }}
-        mode="modal"
-      />
-    </Stack2.Navigator>
-  );
-};
-
-const LoggedIn = () => {
+const Homea = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -78,26 +25,57 @@ const LoggedIn = () => {
         inactiveTintColor: "gray",
         style: {
           backgroundColor: "#161616",
-          borderTopColor: "#3D3D3D"
-        }
+          borderTopColor: "#3D3D3D",
+        },
       }}
     >
       <Tab.Screen
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ color, size }) => <FontAwesomeIcon icon={faMapMarked} size={size} color={color} />
+          tabBarIcon: ({ color, size }) => <FontAwesomeIcon icon={faMapMarked} size={size} color={color} />,
         }}
         name="Routes"
-        component={Nekaj}
+        component={Home}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: ({ color, size }) => <FontAwesomeIcon icon={faUser} size={size} color={color} />
+          tabBarIcon: ({ color, size }) => <FontAwesomeIcon icon={faUser} size={size} color={color} />,
         }}
       />
     </Tab.Navigator>
+  );
+};
+
+const LoggedIn = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardOverlayEnabled: true,
+      }}
+    >
+      <Stack.Screen name="Home" component={Homea} />
+      <Stack.Screen name="FindNearby" component={FindNearby} />
+
+      <Stack.Screen name="PlannedRoutes" component={PlannedRoutes} />
+      <Stack.Screen name="FinishedRoutes" component={FinishedRoutes} />
+      <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />
+
+      <Stack.Screen name="NewRoute" component={NewRoute} />
+      <Stack.Screen name="WhatVisit" component={WhatVisit} />
+
+      <Stack.Screen
+        name="LandmarkDetails"
+        component={LandMarkDetails}
+        options={{
+          gestureEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+        mode="modal"
+      />
+    </Stack.Navigator>
   );
 };
 

@@ -9,7 +9,7 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
 import Geolocation from "@react-native-community/geolocation";
-
+import Icon from "react-native-vector-icons/Ionicons";
 const NewRoute = (props) => {
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
 
@@ -44,6 +44,10 @@ const NewRoute = (props) => {
     props.navigation.navigate("WhatVisit");
   };
 
+  const handleBack = () => {
+    props.navigation.goBack();
+  };
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
@@ -62,9 +66,10 @@ const NewRoute = (props) => {
             <LocationCard key={city.photo_reference} city={city} />
           ))}
         </ScrollView>
-
-        <View style={styles.buttons}>
-          <Button title="Cancel" onPress={handleNext} />
+      </View>
+      <View style={{ width: "100%" }}>
+        <View style={styles.buttonContainer}>
+          <Button title="Cancel" onPress={handleBack} />
           <Button title="Next" onPress={handleNext} />
         </View>
       </View>
@@ -81,15 +86,22 @@ const styles = StyleSheet.create({
   container: {
     width: "85%",
     paddingTop: 30,
+    flex: 1,
+    flexDirection: "column",
   },
   title: {
     fontSize: 22,
     color: "white",
     marginBottom: 10,
   },
-  buttons: {
+  buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingVertical: 6,
+    paddingHorizontal: 22,
+    borderTopColor: "#3D3D3D",
+    backgroundColor: "#161616",
+    borderTopWidth: 0.3,
   },
 });
 export default NewRoute;

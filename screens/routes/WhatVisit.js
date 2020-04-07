@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Button } from "react-native";
 import { colors } from "../../constants/theme";
 import SearchLandmarks from "../../components/Route/SearchLandmarks";
 import SegmentedControlIOS from "@react-native-community/segmented-control";
@@ -41,6 +41,12 @@ const WhatVisit = (props) => {
           )}
         </View>
       </View>
+      <View style={{ width: "100%" }}>
+        <View style={styles.buttonContainer}>
+          <Button title="Cancel" />
+          <Button title="Next" />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -65,8 +71,18 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "88%",
+    flex: 1,
     paddingTop: 20,
     height: "100%",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 6,
+    paddingHorizontal: 22,
+    borderTopColor: "#3D3D3D",
+    backgroundColor: "#161616",
+    borderTopWidth: 0.3,
   },
 });
 

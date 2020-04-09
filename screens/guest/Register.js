@@ -19,8 +19,14 @@ const Register = ({ navigation }) => {
   const handleRegister = () => {
     api
       .post("/users", input)
-      .then(response => console.log(response))
-      .catch(err => console.log(err));
+      .then((response) => navigation.navigate("Activate", { email: input.email }))
+      .catch((error) => {
+        const message = error.response.data;
+        if (message.email) {
+          console.log("Email in use");
+        }
+        console.log(message);
+      });
   };
 
   return (
@@ -34,26 +40,26 @@ const Register = ({ navigation }) => {
             placeholder="Full name"
             icon={faUser}
             value={input.name}
-            onChangeText={text => setInput({ ...input, name: text })}
+            onChangeText={(text) => setInput({ ...input, name: text })}
           />
           <InputField
             placeholder="Email"
             icon={faEnvelope}
             value={input.email}
-            onChangeText={text => setInput({ ...input, email: text })}
+            onChangeText={(text) => setInput({ ...input, email: text })}
           />
           <InputField
             placeholder="Password"
             icon={faKey}
             value={input.password}
-            onChangeText={text => setInput({ ...input, password: text })}
+            onChangeText={(text) => setInput({ ...input, password: text })}
             isPassword={true}
           />
           <InputField
             placeholder="Confirm password"
             icon={faKey}
             value={input.confirmPassword}
-            onChangeText={text => setInput({ ...input, confirmPassword: text })}
+            onChangeText={(text) => setInput({ ...input, confirmPassword: text })}
             isPassword={true}
           />
           <ButtonPrimary title="Sign up" onPress={handleRegister} />
@@ -70,16 +76,16 @@ const styles = StyleSheet.create({
   login: {
     backgroundColor: colors.background,
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   footer: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   container: {
     paddingTop: 30,
-    width: "85%"
-  }
+    width: "85%",
+  },
 });
 
 export default Register;

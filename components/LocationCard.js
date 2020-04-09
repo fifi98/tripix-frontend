@@ -3,18 +3,18 @@ import { TouchableOpacity, View, Text, StyleSheet, Dimensions, ImageBackground }
 import api from "../utils/api";
 import { MyContext } from "../context/Provider";
 
-const LocationCard = ({ city }) => {
+const LocationCard = ({ city, handlePress }) => {
   const user = React.useContext(MyContext);
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handlePress}>
       <View style={styles.card}>
         <ImageBackground
           source={{
-            url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + city.photo_reference
+            url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + city.photo_reference,
           }}
           style={{ width: "100%", height: "100%", opacity: 0.5 }}
-        ></ImageBackground>
+        />
         <Text style={styles.text}>{city.city}</Text>
       </View>
     </TouchableOpacity>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     width: 0.85 * Dimensions.get("screen").width,
     borderRadius: 10,
     marginBottom: 20,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   text: {
     color: "white",
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     textShadowColor: "black",
-    textShadowRadius: 10
-  }
+    textShadowRadius: 10,
+  },
 });
 
 export default LocationCard;

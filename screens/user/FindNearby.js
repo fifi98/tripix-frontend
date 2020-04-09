@@ -25,6 +25,7 @@ const FindNearby = ({ route, navigation }) => {
       latitudeDelta: 0.09,
       longitudeDelta: 0.035,
     };
+
     setUserPosition(initialPosition);
     api
       .get("/nearby/" + placeType, {
@@ -43,7 +44,7 @@ const FindNearby = ({ route, navigation }) => {
           ]);
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.response));
   };
 
   useEffect(() => {

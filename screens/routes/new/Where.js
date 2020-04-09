@@ -63,7 +63,7 @@ const NewRoute = (props) => {
 
         <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
           {nearbyCities.map((city) => (
-            <LocationCard key={city.photo_reference} city={city} />
+            <LocationCard key={city.photo_reference} city={city} handleNext={handleNext} />
           ))}
         </ScrollView>
       </View>

@@ -3,8 +3,13 @@ import { TouchableOpacity, View, Text, StyleSheet, Dimensions, ImageBackground }
 import api from "../utils/api";
 import { MyContext } from "../context/Provider";
 
-const LocationCard = ({ city, handlePress }) => {
-  const user = React.useContext(MyContext);
+const LocationCard = ({ city, handleNext }) => {
+  const { setNewRoute } = React.useContext(MyContext);
+
+  const handlePress = () => {
+    setNewRoute((old) => ({ ...old, location: city.city }));
+    handleNext();
+  };
 
   return (
     <TouchableOpacity onPress={handlePress}>

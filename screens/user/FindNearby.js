@@ -12,7 +12,7 @@ import { View, Alert, TouchableHighlight, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const FindNearby = ({ route, navigation }) => {
-  const user = useContext(MyContext);
+  const { user } = useContext(MyContext);
   const [userPosition, setUserPosition] = useState();
   const [places, setPlaces] = useState([]);
 

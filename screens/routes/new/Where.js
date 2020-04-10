@@ -5,15 +5,19 @@ import api from "../../../utils/api";
 import LoginSubtitle from "../../../components/LoginSubtitle";
 import LocationCard from "../../../components/LocationCard";
 import { colors } from "../../../constants/theme";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
 import Geolocation from "@react-native-community/geolocation";
 import Icon from "react-native-vector-icons/Ionicons";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateInput from "../../../components/DateInput";
+
 const NewRoute = (props) => {
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
 
   const [nearbyCities, setNearbyCities] = useState([]);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleLocation = (location) => {
     setNewRoute((old) => ({ ...old, location: location }));
@@ -58,7 +62,7 @@ const NewRoute = (props) => {
           value={newRoute.location}
           onChangeText={(text) => handleLocation(text)}
         />
-        <InputField placeholder="Starts" icon={faMapMarkerAlt} />
+        <DateInput placeholder="Starts" icon={faMapMarkerAlt} />
         <LoginSubtitle text="Nearby locations" />
 
         <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
@@ -66,7 +70,9 @@ const NewRoute = (props) => {
             <LocationCard key={city.photo_reference} city={city} handleNext={handleNext} />
           ))}
         </ScrollView>
+        <DateTimePickerModal isVisible={showDatePicker} mode={"date"} />
       </View>
+
       <View style={{ width: "100%" }}>
         <View style={styles.buttonContainer}>
           <Button title="Cancel" onPress={handleBack} />

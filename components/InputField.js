@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.inputField,
     borderRadius: 10,
-    height: 32,
+    height: 36,
     marginVertical: 10,
     flexDirection: "row",
   },

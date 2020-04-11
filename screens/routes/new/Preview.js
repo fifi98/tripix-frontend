@@ -43,13 +43,19 @@ const Preview = ({ route, navigation }) => {
         <MapViewDirections
           origin={{ latitude: 46.3526877, longitude: 16.8123505 }}
           destination={{ latitude: 46.3091764, longitude: 16.3420242 }}
-          waypoints={[{ latitude: 46.3380636, longitude: 16.6129778 }, { latitude: 46.3258985, longitude: 16.7827804 }]}
+          waypoints={[
+            { latitude: 46.3380636, longitude: 16.6129778, name: "aa" },
+            { latitude: 46.3258985, longitude: 16.7827804, name: "bb" }
+          ]}
           apikey={"AIzaSyCFOkhSfIYP_i1w5q_Lk-3Rg81dAsCSwcE"}
           strokeWidth={5}
           strokeColor="red"
           optimizeWaypoints={true}
           onReady={result => {
             console.log(result.duration);
+            console.log(result.distance);
+            console.log(result.filip);
+            console.log(JSON.stringify(result.api));
           }}
         />
       </MapView>

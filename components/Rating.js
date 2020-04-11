@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarFull, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 
 const Rating = ({ rating }) => {
@@ -18,10 +18,9 @@ const Rating = ({ rating }) => {
 
   const blankStars = 5 - (fullStars + halfStars);
   let iconId = 0;
-  for (let i = 0; i < blankStars; i++) icons.push(<FontAwesomeIcon key={iconId++} con={faStarRegular} style={styles.icon} />);
-  for (let i = 0; i < halfStars; i++)
-    icons.push(<FontAwesomeIcon key={iconId++} icon={faStarHalfAlt} style={styles.icon} transform={{ flipX: 1 }} />);
-  for (let i = 0; i < fullStars; i++) icons.push(<FontAwesomeIcon key={iconId++} icon={faStar} style={styles.icon} />);
+  for (let i = 0; i < blankStars; i++) icons.push(<FontAwesomeIcon icon={faStarRegular} style={styles.icon} />);
+  for (let i = 0; i < halfStars; i++) icons.push(<FontAwesomeIcon icon={faStarHalfAlt} style={styles.icon} transform={{ flipX: 1 }} />);
+  for (let i = 0; i < fullStars; i++) icons.push(<FontAwesomeIcon icon={faStarFull} style={styles.icon} />);
 
   return <View style={{ flexDirection: "row" }}>{icons}</View>;
 };

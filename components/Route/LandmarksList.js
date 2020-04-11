@@ -21,8 +21,8 @@ const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
             </View>
           ) : (
             <FlatList
-              keyExtractor={(item) => item.photo_reference}
-              data={attractions.filter((a) => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
+              keyExtractor={item => item.place_id}
+              data={attractions.filter(a => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
               renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
               initialNumToRender={5}
               maxToRenderPerBatch={10}
@@ -39,16 +39,16 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: "center",
     height: "100%",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   text: {
     color: "white",
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
   container: {
     marginTop: 5,
-    padding: 0,
-  },
+    padding: 0
+  }
 });
 
 export default LandmarksList;

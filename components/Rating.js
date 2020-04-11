@@ -17,18 +17,19 @@ const Rating = ({ rating }) => {
   }
 
   const blankStars = 5 - (fullStars + halfStars);
-
-  for (let i = 0; i < blankStars; i++) icons.push(<FontAwesomeIcon icon={faStarRegular} style={styles.icon} />);
-  for (let i = 0; i < halfStars; i++) icons.push(<FontAwesomeIcon icon={faStarHalfAlt} style={styles.icon} transform={{ flipX: 1 }} />);
-  for (let i = 0; i < fullStars; i++) icons.push(<FontAwesomeIcon icon={faStar} style={styles.icon} />);
+  let iconId = 0;
+  for (let i = 0; i < blankStars; i++) icons.push(<FontAwesomeIcon key={iconId++} con={faStarRegular} style={styles.icon} />);
+  for (let i = 0; i < halfStars; i++)
+    icons.push(<FontAwesomeIcon key={iconId++} icon={faStarHalfAlt} style={styles.icon} transform={{ flipX: 1 }} />);
+  for (let i = 0; i < fullStars; i++) icons.push(<FontAwesomeIcon key={iconId++} icon={faStar} style={styles.icon} />);
 
   return <View style={{ flexDirection: "row" }}>{icons}</View>;
 };
 
 const styles = StyleSheet.create({
   icon: {
-    color: "white",
-  },
+    color: "white"
+  }
 });
 
 export default Rating;

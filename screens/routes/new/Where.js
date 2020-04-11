@@ -5,42 +5,50 @@ import api from "../../../utils/api";
 import LoginSubtitle from "../../../components/LoginSubtitle";
 import LocationCard from "../../../components/LocationCard";
 import { colors } from "../../../constants/theme";
-import { faMapMarkerAlt, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
 import Geolocation from "@react-native-community/geolocation";
-import Icon from "react-native-vector-icons/Ionicons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DateInput from "../../../components/DateInput";
 
-const NewRoute = (props) => {
+const NewRoute = props => {
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
 
   const [nearbyCities, setNearbyCities] = useState([]);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const handleLocation = (location) => {
-    setNewRoute((old) => ({ ...old, location: location }));
+  const handleLocation = location => {
+    setNewRoute(old => ({ ...old, location: location }));
+  };
+
+  const handleDatePress = () => {
+    setShowDatePicker(old => !old);
+  };
+
+  const handleConfirmDate = date => {
+    setNewRoute(old => ({ ...old, date: date }));
+    handleDatePress();
   };
 
   useEffect(() => {
+    setNewRoute(old => ({ ...old, date: new Date() }));
+
     Geolocation.getCurrentPosition(
-      (position) => {
-        console.log(position.coords.longitude);
-        console.log(position.coords.latitude);
+      position => {
         api
           .get("/nearby/cities", {
             headers: {
-              Authorization: "Bearer " + user.token,
+              Authorization: "Bearer " + user.token
             },
             params: {
               lat: position.coords.latitude,
-              long: position.coords.longitude,
-            },
+              long: position.coords.longitude
+            }
           })
-          .then((results) => setNearbyCities(results.data));
+          .then(results => setNearbyCities(results.data));
       },
-      (error) => Alert.alert(error.message)
+      error => Alert.alert(error.message)
     );
   }, []);
 
@@ -56,21 +64,16 @@ const NewRoute = (props) => {
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Text style={styles.title}>Where are you going?</Text>
-        <InputField
-          placeholder="e.g. London"
-          icon={faMapMarkerAlt}
-          value={newRoute.location}
-          onChangeText={(text) => handleLocation(text)}
-        />
-        <DateInput placeholder="Starts" icon={faMapMarkerAlt} />
+        <InputField placeholder="e.g. London" icon={faMapMarkerAlt} value={newRoute.location} onChangeText={text => handleLocation(text)} />
+        <DateInput placeholder="Starts" icon={faMapMarkerAlt} onPress={handleDatePress} />
         <LoginSubtitle text="Nearby locations" />
 
         <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-          {nearbyCities.map((city) => (
+          {nearbyCities.map(city => (
             <LocationCard key={city.photo_reference} city={city} handleNext={handleNext} />
           ))}
         </ScrollView>
-        <DateTimePickerModal isVisible={showDatePicker} mode={"date"} />
+        <DateTimePickerModal isVisible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
       </View>
 
       <View style={{ width: "100%" }}>
@@ -87,18 +90,18 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
     flex: 1,
-    alignItems: "center",
+    alignItems: "center"
   },
   container: {
     width: "85%",
     paddingTop: 30,
     flex: 1,
-    flexDirection: "column",
+    flexDirection: "column"
   },
   title: {
     fontSize: 22,
     color: "white",
-    marginBottom: 10,
+    marginBottom: 10
   },
   buttonContainer: {
     flexDirection: "row",
@@ -107,7 +110,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     borderTopColor: "#3D3D3D",
     backgroundColor: "#161616",
-    borderTopWidth: 0.3,
-  },
+    borderTopWidth: 0.3
+  }
 });
 export default NewRoute;

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text, Button, SafeAreaView, Image } from "react-native";
 import InputField from "../../../components/InputField";
 import { colors } from "../../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import api from "../../../utils/api";
+import Polyline from "@mapbox/polyline";
 
 const Overview = (props) => {
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
+  let coords = null;
 
   const a = {
     origin: { lat: 46.3526877, long: 16.8123505 },
@@ -24,12 +26,22 @@ const Overview = (props) => {
       })
       .then((results) => {
         console.log(results.data.route);
+        const points = Polyline.decode(results.data.route);
+
+        coords = points.map((point, index) => {
+          return {
+            latitude: point[0],
+            longitude: point[1],
+          };
+        });
+
+        console.log(coords);
       })
       .catch((err) => console.log(err));
   }, []);
 
   const handleNext = () => {
-    props.navigation.navigate("Trip");
+    props.navigation.navigate("Trip", { trip: coords });
   };
 
   const handleBack = () => {
@@ -40,6 +52,16 @@ const Overview = (props) => {
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Text style={styles.title}>Overview of your trip to [London]</Text>
+
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            style={{ height: 60, width: 60, borderRadius: 30 }}
+            source={{
+              uri: "https://www.publicdomainpictures.net/pictures/30000/velka/plain-white-background.jpg",
+            }}
+          />
+        </View>
+        <Text style={{ color: "white" }}>awfw</Text>
       </View>
 
       <View style={{ width: "100%" }}>

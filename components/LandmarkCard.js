@@ -19,7 +19,7 @@ const RouteCard = ({ item, onLongPress }) => {
     }
   };
 
-  useEffect(() => console.log(newRoute), [newRoute]);
+  useEffect(() => console.log(JSON.stringify(newRoute)), [newRoute]);
 
   return (
     <TouchableOpacity style={styles.container} onLongPress={onLongPress} onPress={handleSelect}>
@@ -28,7 +28,7 @@ const RouteCard = ({ item, onLongPress }) => {
           url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + item.photo_reference,
         }}
         style={styles.image}
-      ></ImageBackground>
+      />
       <View style={styles.data}>
         <View style={{ alignItems: "flex-end" }}>
           <View style={styles.checkBox}>

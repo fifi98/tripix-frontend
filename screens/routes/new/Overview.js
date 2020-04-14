@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView, Image } from "react-native";
 import InputField from "../../../components/InputField";
 import { colors } from "../../../constants/theme";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import api from "../../../utils/api";
 import Polyline from "@mapbox/polyline";
+import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 const Overview = (props) => {
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
@@ -25,7 +27,6 @@ const Overview = (props) => {
         },
       })
       .then((results) => {
-        console.log(results.data.route);
         const points = Polyline.decode(results.data.route);
 
         coords = points.map((point, index) => {
@@ -34,8 +35,6 @@ const Overview = (props) => {
             longitude: point[1],
           };
         });
-
-        console.log(coords);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -52,16 +51,13 @@ const Overview = (props) => {
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Text style={styles.title}>Overview of your trip to [London]</Text>
-
-        <View style={{ flexDirection: "row" }}>
-          <Image
-            style={{ height: 60, width: 60, borderRadius: 30 }}
-            source={{
-              uri: "https://www.publicdomainpictures.net/pictures/30000/velka/plain-white-background.jpg",
-            }}
-          />
+        <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 15 }}>
+          <FontAwesomeIcon icon={faClock} style={{ color: colors.textSecondary }} />
+          <Text style={{ color: colors.textSecondary, marginLeft: 10 }}>2 hours · 11 km</Text>
         </View>
-        <Text style={{ color: "white" }}>awfw</Text>
+        <LandmarkItem />
+        <LandmarkItem />
+        <LandmarkItem />
       </View>
 
       <View style={{ width: "100%" }}>

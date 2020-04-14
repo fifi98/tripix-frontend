@@ -11,9 +11,12 @@ import PlannedRoutes from "../screens/routes/PlannedRoutes";
 import FinishedRoutes from "../screens/routes/FinishedRoutes";
 import SuggestedRoutes from "../screens/routes/SuggestedRoutes";
 import { TransitionPresets } from "@react-navigation/stack";
-import WhatVisit from "../screens/routes/new/Landmarks";
+import LandMarks from "../screens/routes/new/Landmarks";
 import LandMarkDetails from "../screens/routes/new/LandmarkDetails";
-import Preview from "../screens/routes/new/Preview";
+import Trip from "../screens/routes/new/Trip";
+import Start from "../screens/routes/new/Start";
+import End from "../screens/routes/new/End";
+import Overview from "../screens/routes/new/Overview";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -65,8 +68,11 @@ const LoggedIn = () => {
       <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />
 
       <Stack.Screen name="NewRoute" component={NewRoute} />
-      <Stack.Screen name="WhatVisit" component={WhatVisit} />
-      <Stack.Screen name="Preview" component={Preview} />
+      <Stack.Screen name="WhatVisit" component={LandMarks} />
+      <Stack.Screen name="Start" component={Start} />
+      <Stack.Screen name="End" component={End} />
+      <Stack.Screen name="Overview" component={Overview} />
+      <Stack.Screen name="Trip" component={Trip} />
 
       <Stack.Screen
         name="LandmarkDetails"

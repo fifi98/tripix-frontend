@@ -31,6 +31,8 @@ const styles = StyleSheet.create({
     height: 36,
     marginVertical: 10,
     flexDirection: "row",
+    // borderColor: "#ed4f47",
+    // borderWidth: 1.5,
   },
   field: {
     color: colors.textPrimary,

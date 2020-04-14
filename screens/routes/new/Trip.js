@@ -7,24 +7,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { View, Alert, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import MapViewDirections from "react-native-maps-directions";
-
-const Preview = ({ route, navigation }) => {
+const Trip = ({ route, navigation }) => {
   const [userPosition, setUserPosition] = useState();
 
-  const fetchData = position => {
+  const fetchData = (position) => {
     let initialPosition = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
       latitudeDelta: 0.09,
-      longitudeDelta: 0.035
+      longitudeDelta: 0.035,
     };
 
     setUserPosition(initialPosition);
   };
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(position => fetchData(position), error => Alert.alert(error.message));
+    Geolocation.getCurrentPosition((position) => fetchData(position), (error) => Alert.alert(error.message));
   }, []);
 
   const handleBack = () => {
@@ -39,26 +37,7 @@ const Preview = ({ route, navigation }) => {
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
         customMapStyle={mapStyle}
-      >
-        <MapViewDirections
-          origin={{ latitude: 46.3526877, longitude: 16.8123505 }}
-          destination={{ latitude: 46.3091764, longitude: 16.3420242 }}
-          waypoints={[
-            { latitude: 46.3380636, longitude: 16.6129778, name: "aa" },
-            { latitude: 46.3258985, longitude: 16.7827804, name: "bb" }
-          ]}
-          apikey={"AIzaSyCFOkhSfIYP_i1w5q_Lk-3Rg81dAsCSwcE"}
-          strokeWidth={5}
-          strokeColor="red"
-          optimizeWaypoints={true}
-          onReady={result => {
-            console.log(result.duration);
-            console.log(result.distance);
-            console.log(result.filip);
-            console.log(JSON.stringify(result.api));
-          }}
-        />
-      </MapView>
+      />
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={handleBack}>
           <FontAwesomeIcon icon={faChevronCircleLeft} style={styles.icon} size={34} />
@@ -72,11 +51,11 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
     left: 22,
-    top: 34
+    top: 34,
   },
   icon: {
-    color: "white"
-  }
+    color: "white",
+  },
 });
 
-export default Preview;
+export default Trip;

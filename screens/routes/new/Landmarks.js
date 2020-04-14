@@ -14,7 +14,7 @@ const WhatVisit = (props) => {
   const { newRoute } = React.useContext(MyContext);
 
   const handleNext = () => {
-    props.navigation.navigate("Preview");
+    props.navigation.navigate("Start");
   };
 
   const handleBack = () => {
@@ -38,8 +38,9 @@ const WhatVisit = (props) => {
           values={["Available", "Selected"]}
           selectedIndex={selectedTab}
           onChange={(event) => setSelectedTab(event.nativeEvent.selectedSegmentIndex)}
-          tintColor={"#FFF"}
-          activeTextColor={"#000"}
+          tintColor={"#636366"}
+          activeTextColor={"#FFF"}
+          textColor={"#FFF"}
         />
         <View style={{ flex: 1 }}>
           {selectedTab ? (

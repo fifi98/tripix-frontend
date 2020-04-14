@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   categoryButton: {
     backgroundColor: colors.inputField,
     borderRadius: 10,
-    height: 32,
+    height: 36,
     alignItems: "center",
     justifyContent: "center",
     width: 50,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   selectedCategoryButton: {
     backgroundColor: "#636366",
     borderRadius: 10,
-    height: 32,
+    height: 36,
     alignItems: "center",
     justifyContent: "center",
     width: 50,

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator=\"iPhone 8\"",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
@@ -14,6 +14,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-native-fontawesome": "^0.2.3",
+    "@mapbox/polyline": "^1.1.0",
     "@react-native-community/async-storage": "^1.8.1",
     "@react-native-community/datetimepicker": "^2.3.2",
     "@react-native-community/geolocation": "^2.0.2",

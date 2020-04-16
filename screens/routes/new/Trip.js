@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Geolocation from "@react-native-community/geolocation";
+import React from "react";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { mapStyle } from "../../../constants/mapStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { View, Alert, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MyContext } from "../../../context/Provider";
 
@@ -33,8 +32,6 @@ const Trip = ({ navigation }) => {
       >
         {/* Draw the route */}
         <Polyline coordinates={newRoute.trip.locations} strokeWidth={5} strokeColor="#3890FB" />
-
-        {newRoute.trip.locations.map((k) => console.log({ latitude: k.latitude, longitude: k.longitude }))}
 
         {/* Mark all the locations */}
         {newRoute.trip.locations.map((loc) => (

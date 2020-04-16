@@ -9,19 +9,6 @@ const LandmarkItem = ({ location }) => {
   const { newRoute } = useContext(MyContext);
   const test = newRoute.attractions.find((a) => a.location.lat === location.latitude);
 
-  useEffect(() => {
-    // console.log(newRoute.attractions);
-    // console.log(location);
-
-    console.log("pukel sam -", location.latitude);
-
-    newRoute.attractions.forEach((a) => {
-      console.log(a.location);
-    });
-
-    console.log(newRoute.attractions.find((a) => a.location.lat === location.latitude));
-  }, []);
-
   return (
     <View>
       {location.distance != 0 && (

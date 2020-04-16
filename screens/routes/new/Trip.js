@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Geolocation from "@react-native-community/geolocation";
-import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { mapStyle } from "../../../constants/mapStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -9,14 +9,13 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { MyContext } from "../../../context/Provider";
 
 const Trip = ({ route, navigation }) => {
-  const [userPosition, setUserPosition] = useState();
+  const { user, newRoute } = React.useContext(MyContext);
   const [initialPosition, setInitialPosition] = useState({
     latitude: 40,
     longitude: 40,
     latitudeDelta: 0.0822,
     longitudeDelta: 0.0321,
   });
-  const { user, newRoute } = React.useContext(MyContext);
 
   useEffect(() => {
     setInitialPosition((old) => ({
@@ -39,7 +38,13 @@ const Trip = ({ route, navigation }) => {
         style={{ flex: 1 }}
         customMapStyle={mapStyle}
       >
+        {/* Draw the route */}
         <Polyline coordinates={newRoute.trip.locations} strokeWidth={5} strokeColor="#3890FB" />
+
+        {/* Mark all the locations */}
+        {newRoute.trip.locations.map((loc) => (
+          <Marker key={loc.latitude} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }} />
+        ))}
       </MapView>
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={handleBack}>

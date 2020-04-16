@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { faWalking, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -7,6 +7,19 @@ import { MyContext } from "../../../context/Provider";
 
 const LandmarkItem = ({ location }) => {
   const { newRoute } = useContext(MyContext);
+
+  useEffect(() => {
+    // console.log(newRoute.attractions);
+    // console.log(location);
+
+    console.log("pukel sam -", location.latitude);
+
+    newRoute.attractions.forEach((a) => {
+      console.log(a.location);
+    });
+
+    // console.log(newRoute.attractions.find((a) => a.location.lat === location.latitude));
+  }, []);
 
   return (
     <View>

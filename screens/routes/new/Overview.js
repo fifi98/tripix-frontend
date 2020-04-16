@@ -45,6 +45,8 @@ const Overview = (props) => {
           },
         }));
 
+        console.log(results.data);
+
         const points = Polyline.decode(results.data.route);
 
         coords = points.map((point, index) => {

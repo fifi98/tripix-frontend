@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView, Image } from "react-native";
-import InputField from "../../../components/InputField";
+import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
 import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
@@ -15,19 +14,28 @@ const Overview = (props) => {
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
   let coords = null;
 
-  const a = {
-    origin: { lat: 46.3526877, long: 16.8123505 },
-    destination: { lat: 46.3091764, long: 16.3420242 },
-    waypoints: [{ lat: 46.3380636, long: 16.6129778 }, { lat: 46.3258985, long: 16.7827804 }],
-  };
-
   useEffect(() => {
+    // Za test uzmi kao origin prvi odabrani landmark
+    let origin = { lat: newRoute.attractions[0].location.lat, long: newRoute.attractions[0].location.lng };
+    // Za test uzmi kao destination drugi odabrani landmark
+    let destination = { lat: newRoute.attractions[1].location.lat, long: newRoute.attractions[1].location.lng };
+
+    // Za test nek waypointsi budu svi ostali
+    let waypoints = newRoute.attractions.filter((loc) => loc.location.lat != origin.lat && loc.location.lat != destination.lat);
+
+    // Izvadi samo koordinate waypointsa
+    var waypoints_locations = waypoints.map((wp) => ({ lat: wp.location.lat, long: wp.location.lng }));
+
     api
-      .post("/route/new_route", a, {
-        headers: {
-          Authorization: "Bearer " + user.token,
-        },
-      })
+      .post(
+        "/route/new_route",
+        { origin: origin, destination: destination, waypoints: waypoints_locations },
+        {
+          headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
+      )
       .then((results) => {
         setNewRoute((old) => ({
           ...old,
@@ -52,7 +60,6 @@ const Overview = (props) => {
   }, []);
 
   const handleNext = () => {
-    console.log(newRoute.trip);
     props.navigation.navigate("Trip");
   };
 

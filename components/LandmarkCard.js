@@ -18,8 +18,6 @@ const RouteCard = ({ item, onLongPress }) => {
     }
   };
 
-  useEffect(() => console.log(JSON.stringify(newRoute)), [newRoute]);
-
   return (
     <TouchableOpacity style={styles.container} onLongPress={onLongPress} onPress={handleSelect}>
       <ImageBackground

@@ -7,6 +7,7 @@ import { MyContext } from "../../../context/Provider";
 
 const LandmarkItem = ({ location }) => {
   const { newRoute } = useContext(MyContext);
+  const test = newRoute.attractions.find((a) => a.location.lat === location.latitude);
 
   useEffect(() => {
     // console.log(newRoute.attractions);
@@ -18,7 +19,7 @@ const LandmarkItem = ({ location }) => {
       console.log(a.location);
     });
 
-    // console.log(newRoute.attractions.find((a) => a.location.lat === location.latitude));
+    console.log(newRoute.attractions.find((a) => a.location.lat === location.latitude));
   }, []);
 
   return (
@@ -44,12 +45,11 @@ const LandmarkItem = ({ location }) => {
           <Image
             style={styles.image}
             source={{
-              uri: "https://www.publicdomainpictures.net/pictures/30000/velka/plain-white-background.jpg",
+              uri: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + test.photo_reference,
             }}
           />
         </View>
-        {/* <Text style={styles.title}>{newRoute.attractions.find((attr) => attr.place_id === location.place_id).name}</Text> */}
-        <Text style={styles.title}>[Location Name]</Text>
+        <Text style={styles.title}>{test.name}</Text>
       </View>
     </View>
   );

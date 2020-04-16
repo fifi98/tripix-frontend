@@ -8,22 +8,10 @@ import { View, Alert, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MyContext } from "../../../context/Provider";
 
-const Trip = ({ route, navigation }) => {
+const Trip = ({ navigation }) => {
   const { user, newRoute } = React.useContext(MyContext);
-  const [initialPosition, setInitialPosition] = useState({
-    latitude: 40,
-    longitude: 40,
-    latitudeDelta: 0.0822,
-    longitudeDelta: 0.0321,
-  });
 
-  useEffect(() => {
-    setInitialPosition((old) => ({
-      ...old,
-      latitude: newRoute.trip.locations[0].latitude,
-      longitude: newRoute.trip.locations[0].longitude,
-    }));
-  }, []);
+  let mapRef = React.createRef();
 
   const handleBack = () => {
     navigation.goBack();
@@ -32,14 +20,21 @@ const Trip = ({ route, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <MapView
-        initialRegion={initialPosition}
-        showsUserLocation={true}
+        onMapReady={() => {
+          mapRef.fitToCoordinates(newRoute.trip.locations, {
+            edgePadding: { top: 0, right: 50, bottom: 200, left: 50 },
+            animated: true,
+          });
+        }}
+        ref={(ref) => (mapRef = ref)}
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
         customMapStyle={mapStyle}
       >
         {/* Draw the route */}
         <Polyline coordinates={newRoute.trip.locations} strokeWidth={5} strokeColor="#3890FB" />
+
+        {newRoute.trip.locations.map((k) => console.log({ latitude: k.latitude, longitude: k.longitude }))}
 
         {/* Mark all the locations */}
         {newRoute.trip.locations.map((loc) => (

@@ -45,8 +45,6 @@ const Overview = (props) => {
           },
         }));
 
-        console.log(results.data);
-
         const points = Polyline.decode(results.data.route);
 
         coords = points.map((point, index) => {
@@ -83,7 +81,7 @@ const Overview = (props) => {
             </View>
             <ScrollView>
               {newRoute.trip.locations.map((location) => (
-                <LandmarkItem location={location} key={location.place_id} />
+                <LandmarkItem location={location} key={location.latitude} />
               ))}
             </ScrollView>
           </>

@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { faWalking, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "../../../constants/theme";
+import { MyContext } from "../../../context/Provider";
 
-const LandmarkItem = () => {
+const LandmarkItem = ({ location }) => {
+  const { newRoute } = useContext(MyContext);
+
   return (
     <View>
+      {location.distance != 0 && (
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={{ width: 60, alignItems: "center" }}>
+            <View style={{ backgroundColor: "#0A84FF", height: 18, width: 3 }} />
+            <FontAwesomeIcon icon={faWalking} size={22} style={{ color: "#0A84FF", marginVertical: 5 }} />
+            <View style={{ backgroundColor: "#0A84FF", height: 18, width: 3 }} />
+          </View>
+          <View style={{ marginLeft: 20, flexDirection: "row", alignItems: "center" }}>
+            <FontAwesomeIcon icon={faClock} style={styles.icon} />
+            <Text style={styles.text}>
+              {location.duration} min · {location.distance} km
+            </Text>
+          </View>
+        </View>
+      )}
+
       <View style={styles.container}>
         <View style={{ width: 60 }}>
           <Image
@@ -16,19 +35,8 @@ const LandmarkItem = () => {
             }}
           />
         </View>
-        <Text style={styles.title}>awfw</Text>
-      </View>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <View style={{ width: 60, alignItems: "center" }}>
-          <View style={{ backgroundColor: "#0A84FF", height: 18, width: 3 }} />
-          <FontAwesomeIcon icon={faWalking} size={22} style={{ color: "#0A84FF", marginVertical: 5 }} />
-          <View style={{ backgroundColor: "#0A84FF", height: 18, width: 3 }} />
-        </View>
-        <View style={{ marginLeft: 20, flexDirection: "row", alignItems: "center" }}>
-          <FontAwesomeIcon icon={faClock} style={styles.icon} />
-
-          <Text style={styles.text}>1h · 6 km</Text>
-        </View>
+        {/* <Text style={styles.title}>{newRoute.attractions.find((attr) => attr.place_id === location.place_id).name}</Text> */}
+        <Text style={styles.title}>[Location Name]</Text>
       </View>
     </View>
   );

@@ -8,8 +8,10 @@ import api from "../../../utils/api";
 import Polyline from "@mapbox/polyline";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Overview = (props) => {
+  const [isLoading, setIsLoading] = useState(true);
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
   let coords = null;
 
@@ -27,6 +29,14 @@ const Overview = (props) => {
         },
       })
       .then((results) => {
+        setNewRoute((old) => ({
+          ...old,
+          trip: {
+            ...results.data,
+            location: old.location,
+          },
+        }));
+
         const points = Polyline.decode(results.data.route);
 
         coords = points.map((point, index) => {
@@ -35,12 +45,15 @@ const Overview = (props) => {
             longitude: point[1],
           };
         });
+
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);
 
   const handleNext = () => {
-    props.navigation.navigate("Trip", { trip: coords });
+    console.log(newRoute.trip);
+    props.navigation.navigate("Trip");
   };
 
   const handleBack = () => {
@@ -50,20 +63,29 @@ const Overview = (props) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.title}>Overview of your trip to [London]</Text>
-        <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 15 }}>
-          <FontAwesomeIcon icon={faClock} style={{ color: colors.textSecondary }} />
-          <Text style={{ color: colors.textSecondary, marginLeft: 10 }}>2 hours · 11 km</Text>
-        </View>
-        <LandmarkItem />
-        <LandmarkItem />
-        <LandmarkItem />
+        {!isLoading ? (
+          <>
+            <Text style={styles.title}>Overview of your trip to {newRoute.trip.location}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 15 }}>
+              <FontAwesomeIcon icon={faClock} style={{ color: colors.textSecondary }} />
+              <Text style={{ color: colors.textSecondary, marginLeft: 10 }}>
+                {newRoute.trip.duration} mins · {newRoute.trip.distance} km
+              </Text>
+            </View>
+            <ScrollView>
+              {newRoute.trip.locations.map((location) => (
+                <LandmarkItem location={location} key={location.place_id} />
+              ))}
+            </ScrollView>
+          </>
+        ) : (
+          <Text>Loading</Text>
+        )}
       </View>
-
       <View style={{ width: "100%" }}>
         <View style={styles.buttonContainer}>
           <Button title="Back" onPress={handleBack} />
-          <Button title="Next" onPress={handleNext} />
+          <Button title="Create" onPress={handleNext} />
         </View>
       </View>
     </SafeAreaView>

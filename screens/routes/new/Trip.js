@@ -6,24 +6,24 @@ import { mapStyle } from "../../../constants/mapStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { View, Alert, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { MyContext } from "../../../context/Provider";
 
 const Trip = ({ route, navigation }) => {
   const [userPosition, setUserPosition] = useState();
-  const { trip } = route.params;
-
-  const fetchData = (position) => {
-    let initialPosition = {
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-      latitudeDelta: 0.09,
-      longitudeDelta: 0.035,
-    };
-
-    setUserPosition(initialPosition);
-  };
+  const [initialPosition, setInitialPosition] = useState({
+    latitude: 40,
+    longitude: 40,
+    latitudeDelta: 0.0822,
+    longitudeDelta: 0.0321,
+  });
+  const { user, newRoute } = React.useContext(MyContext);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition((position) => fetchData(position), (error) => Alert.alert(error.message));
+    setInitialPosition((old) => ({
+      ...old,
+      latitude: newRoute.trip.locations[0].latitude,
+      longitude: newRoute.trip.locations[0].longitude,
+    }));
   }, []);
 
   const handleBack = () => {
@@ -33,13 +33,13 @@ const Trip = ({ route, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <MapView
-        initialRegion={userPosition}
+        initialRegion={initialPosition}
         showsUserLocation={true}
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
         customMapStyle={mapStyle}
       >
-        <Polyline coordinates={trip} strokeWidth={2} strokeColor="red" />
+        <Polyline coordinates={newRoute.trip.locations} strokeWidth={5} strokeColor="#3890FB" />
       </MapView>
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={handleBack}>

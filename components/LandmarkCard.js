@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { View, Text, StyleSheet, ImageBackground, Alert } from "react-native";
+import React, { useEffect, useContext } from "react";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +8,7 @@ import { MyContext } from "../context/Provider";
 import StarRating from "react-native-star-rating";
 
 const RouteCard = ({ item, onLongPress }) => {
-  const { newRoute, setNewRoute, user } = React.useContext(MyContext);
+  const { newRoute, setNewRoute, user } = useContext(MyContext);
 
   const handleSelect = () => {
     if (newRoute.attractions.find((x) => x.place_id === item.place_id)) {

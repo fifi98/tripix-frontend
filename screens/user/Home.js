@@ -24,7 +24,6 @@ const Home = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.caption}>Hello, Filip!</Text>
         <Text style={styles.textSecondary}>Routes</Text>
-
         <View style={styles.cardContainer}>
           <CardButton
             title="New route"

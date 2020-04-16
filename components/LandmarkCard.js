@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
 import { MyContext } from "../context/Provider";
-
-import Rating from "../components/Rating";
+import StarRating from "react-native-star-rating";
 
 const RouteCard = ({ item, onLongPress }) => {
   const { newRoute, setNewRoute, user } = React.useContext(MyContext);
@@ -39,7 +38,22 @@ const RouteCard = ({ item, onLongPress }) => {
             )}
           </View>
           <View style={styles.rating}>
-            <Rating rating={item.rating} />
+            {/* <Rating rating={item.rating} /> */}
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={item.rating}
+              fullStarColor={"white"}
+              emptyStarColor={"white"}
+              halfStarColor={"white"}
+              emptyStar={"star-o"}
+              fullStar={"star"}
+              halfStar={"star-half-full"}
+              iconSet={"FontAwesome"}
+              reversed
+              starSize={16}
+              starStyle={{ margin: 1 }}
+            />
           </View>
         </View>
         <View style={{ alignItems: "center", justifyContent: "center" }}>

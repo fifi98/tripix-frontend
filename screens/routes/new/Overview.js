@@ -60,7 +60,9 @@ const Overview = (props) => {
   }, []);
 
   const handleNext = () => {
-    props.navigation.navigate("Trip");
+    console.log(newRoute.trip);
+    console.log(user);
+    // props.navigation.navigate("Trip");
   };
 
   const handleBack = () => {

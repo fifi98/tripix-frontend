@@ -19,14 +19,16 @@ const Login = ({ navigation }) => {
   };
 
   const handleLogin = async () => {
-    console.log(input);
     api
       .post("/login", input)
       .then((response) => {
         //Store JTW in the context and go to the main screen
-        user.saveToken(response.data.token);
+        user.saveToken(response.data.token, response.data.user_id);
       })
-      .catch((err) => Alert.alert(err));
+      .catch((err) => {
+        if (err.response.data.message) Alert.alert(err.response.data.message);
+        else Alert.alert(err.response.data[Object.keys(err.response.data)[0]][0]);
+      });
   };
 
   return (

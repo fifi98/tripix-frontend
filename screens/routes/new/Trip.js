@@ -48,7 +48,7 @@ const Trip = ({ navigation }) => {
           <Marker key={loc.latitude} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }} />
         ))}
       </MapView>
-      <Sheet title="Route Overview" buttonText="Start route">
+      <Sheet title="Route overview" buttonText="Start route">
         <ScrollView>
           {newRoute.trip.locations.map((location) => (
             <LandmarkItem location={location} key={location.latitude} />

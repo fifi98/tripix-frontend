@@ -10,6 +10,7 @@ const Provider = (props) => {
     saveToken: async (userToken, user_id) => {
       try {
         const resp = await AsyncStorage.setItem("userToken", userToken);
+        const resp2 = await AsyncStorage.setItem("user_id", user_id.toString());
         setUser({ ...user, user_id: user_id, token: userToken });
         return resp;
       } catch (error) {
@@ -58,7 +59,13 @@ const Provider = (props) => {
     //Put the token from asyncstorage to the state when app loads
     AsyncStorage.getItem("userToken")
       .then((token) => {
-        setUser({ ...user, token: token });
+        AsyncStorage.getItem("user_id")
+          .then((user_id) => {
+            setUser({ ...user, token: token, user_id: user_id });
+          })
+          .catch((error) => {
+            setUser({ ...user, error: error });
+          });
       })
       .catch((error) => {
         setUser({ ...user, error: error });

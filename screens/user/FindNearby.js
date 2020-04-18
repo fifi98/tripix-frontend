@@ -19,37 +19,36 @@ const FindNearby = ({ route, navigation }) => {
 
   const placeType = route.params.type;
 
-  const fetchData = position => {
+  const fetchData = (position) => {
     let initialPosition = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
       latitudeDelta: 0.09,
-      longitudeDelta: 0.035
+      longitudeDelta: 0.035,
     };
-
+    console.log(user.token);
     setUserPosition(initialPosition);
     api
       .get("/nearby/" + placeType, {
         headers: {
           Authorization: "Bearer " + user.token,
           "Content-Type": "application/json",
-          Accept: "application/json"
+          Accept: "application/json",
         },
-        params: { long: position.coords.longitude, lat: position.coords.latitude }
+        params: { long: position.coords.longitude, lat: position.coords.latitude },
       })
-      .then(response => {
-        response.data.results.map(place => {
-          setPlaces(places => [
+      .then((response) => {
+        response.data.results.map((place) => {
+          setPlaces((places) => [
             ...places,
-            { latitude: place.geometry.location.lat, longitude: place.geometry.location.lng, name: place.name }
+            { latitude: place.geometry.location.lat, longitude: place.geometry.location.lng, name: place.name },
           ]);
         });
-      })
-      .catch(error => console.log(error.response));
+      });
   };
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(position => fetchData(position), error => Alert.alert(error.message));
+    Geolocation.getCurrentPosition((position) => fetchData(position), (error) => Alert.alert(error.message));
   }, []);
 
   const handleBack = () => {
@@ -68,7 +67,7 @@ const FindNearby = ({ route, navigation }) => {
           justifyContent: "space-between",
           borderBottomColor: "gray",
           borderBottomWidth: 0.5,
-          paddingBottom: 6
+          paddingBottom: 6,
         }}
       >
         <Text style={{ fontSize: 16, color: colors.textSecondary }}>Nearby restaurants</Text>
@@ -96,7 +95,7 @@ const FindNearby = ({ route, navigation }) => {
         style={{ flex: 1 }}
         customMapStyle={mapStyle}
       >
-        {places.map(place => (
+        {places.map((place) => (
           <Marker key={Math.random()} coordinate={{ latitude: place.latitude, longitude: place.longitude }}>
             {/* <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} /> */}
           </Marker>
@@ -116,48 +115,48 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
     left: 22,
-    top: 34
+    top: 34,
   },
   icon: {
-    color: "white"
+    color: "white",
   },
   container: {
     flex: 1,
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#F5FCFF",
   },
   panelContainer: {
     position: "absolute",
     top: 0,
     bottom: 0,
     left: 0,
-    right: 0
+    right: 0,
   },
   panel: {
     height: 600,
     paddingHorizontal: 20,
-    backgroundColor: "#313233"
+    backgroundColor: "#313233",
   },
   header: {
     backgroundColor: "#313233",
     shadowColor: "#000000",
     paddingTop: 10,
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20
+    borderTopRightRadius: 20,
   },
   panelHeader: {
-    alignItems: "center"
+    alignItems: "center",
   },
   panelHandle: {
     width: 50,
     height: 8,
     borderRadius: 4,
     backgroundColor: "#00000040",
-    marginBottom: 10
+    marginBottom: 10,
   },
   map: {
     height: "100%",
-    width: "100%"
-  }
+    width: "100%",
+  },
 });
 
 export default FindNearby;

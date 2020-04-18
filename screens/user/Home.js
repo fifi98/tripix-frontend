@@ -13,8 +13,13 @@ import {
   faLandmark,
 } from "@fortawesome/free-solid-svg-icons";
 import RoundButton from "../../components/RoundButton";
+import { MyContext } from "../../context/Provider";
 
 const Home = ({ navigation }) => {
+  const { user } = React.useContext(MyContext);
+
+  console.log(user);
+
   const handleFindNearby = (type) => {
     navigation.navigate("FindNearby", { type: type });
   };

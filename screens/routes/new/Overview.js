@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text, Button, SafeAreaView, Alert } from "react-native";
 import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
@@ -37,11 +37,15 @@ const Overview = (props) => {
         }
       )
       .then((results) => {
+        console.warn(user.token);
+        console.warn(user.user_id);
+
         setNewRoute((old) => ({
           ...old,
           trip: {
             ...results.data,
             location: old.location,
+            user_id: user.user_id,
           },
         }));
 
@@ -60,9 +64,28 @@ const Overview = (props) => {
   }, []);
 
   const handleNext = () => {
-    console.log(newRoute.trip);
-    console.log(user);
-    // props.navigation.navigate("Trip");
+    const a = newRoute.trip.locations;
+    a.map((location) => {
+      const loc = newRoute.attractions.find(
+        (attraction) => location.latitude === attraction.location.lat && location.longitude === attraction.location.lng
+      );
+      location.place_id = loc.place_id;
+      location.name = loc.name;
+      location.photo_reference = loc.photo_reference;
+    });
+    setNewRoute((old) => ({ ...old, trip: { ...old.trip, locations: a } }));
+
+    api
+      .post("/route/plan_route", newRoute.trip, {
+        headers: {
+          Authorization: "Bearer " + user.token,
+        },
+      })
+      .then((response) => props.navigation.navigate("Trip"))
+      .catch((err) => {
+        // console.warn(newRoute.trip);
+        Alert.alert("An error occured!");
+      });
   };
 
   const handleBack = () => {

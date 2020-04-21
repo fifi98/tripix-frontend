@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, Button, SafeAreaView, FlatList } from "react-native";
 import InputField from "../../../components/InputField";
 import { colors } from "../../../constants/theme";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
+import PositionCard from "../../../components/Route/PositionCard";
 
 const Start = (props) => {
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
+  const { searchInput, setSearchInput } = useState("");
+
+  console.log(JSON.stringify(newRoute));
 
   const handleNext = () => {
     props.navigation.navigate("End");
@@ -16,11 +20,25 @@ const Start = (props) => {
     props.navigation.goBack();
   };
 
+  const defaultButtons = [
+    { name: "My current location", icon: faMapMarkerAlt, default: true },
+    { name: "Pick a landmark for me", icon: faCompass, default: true },
+  ];
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Text style={styles.title}>Where do you want your trip to start from?</Text>
-        <InputField placeholder="e.g. London" icon={faMapMarkerAlt} />
+        <InputField placeholder="Search landmarks" icon={faSearch} />
+
+        <FlatList
+          keyExtractor={(item) => item.place_id}
+          data={defaultButtons.concat(newRoute.attractions)}
+          renderItem={({ item }) => <PositionCard item={item} />}
+          initialNumToRender={5}
+          maxToRenderPerBatch={10}
+          windowSize={5}
+        />
       </View>
 
       <View style={{ width: "100%" }}>

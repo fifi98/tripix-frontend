@@ -37,9 +37,6 @@ const Overview = (props) => {
         }
       )
       .then((results) => {
-        console.warn(user.token);
-        console.warn(user.user_id);
-
         setNewRoute((old) => ({
           ...old,
           trip: {
@@ -75,8 +72,6 @@ const Overview = (props) => {
     });
     setNewRoute((old) => ({ ...old, trip: { ...old.trip, locations: a } }));
 
-    console.log(newRoute.trip);
-
     api
       .post("/route/plan_route", newRoute.trip, {
         headers: {
@@ -85,7 +80,6 @@ const Overview = (props) => {
       })
       .then((response) => props.navigation.navigate("Trip"))
       .catch((err) => {
-        // console.warn(newRoute.trip);
         Alert.alert("An error occured!");
       });
   };

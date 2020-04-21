@@ -18,8 +18,6 @@ import { MyContext } from "../../context/Provider";
 const Home = ({ navigation }) => {
   const { user } = React.useContext(MyContext);
 
-  console.log(user);
-
   const handleFindNearby = (type) => {
     navigation.navigate("FindNearby", { type: type });
   };
@@ -30,12 +28,7 @@ const Home = ({ navigation }) => {
         <Text style={styles.caption}>Hello, Filip!</Text>
         <Text style={styles.textSecondary}>Routes</Text>
         <View style={styles.cardContainer}>
-          <CardButton
-            title="New route"
-            icon={faPlus}
-            color="#FE375F"
-            onPress={() => navigation.navigate("NewRoute", {}, { mode: "modal" })}
-          />
+          <CardButton title="New route" icon={faPlus} color="#FE375F" onPress={() => navigation.navigate("NewRoute")} />
           <CardButton title="Planned routes" icon={faRoute} color="#63D2FD" onPress={() => navigation.navigate("PlannedRoutes")} />
           <CardButton title="Finished routes" icon={faMapMarkerAlt} color="#5E5CE6" onPress={() => navigation.navigate("FinishedRoutes")} />
           <CardButton title="Suggested" icon={faLightbulb} color="#FF9F28" onPress={() => navigation.navigate("SuggestedRoutes")} />

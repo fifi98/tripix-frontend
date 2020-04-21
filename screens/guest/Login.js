@@ -14,10 +14,6 @@ const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
   const { user } = React.useContext(MyContext);
 
-  const handleRegister = () => {
-    navigation.navigate("Register");
-  };
-
   const handleLogin = async () => {
     api
       .post("/login", input)
@@ -56,8 +52,8 @@ const Login = ({ navigation }) => {
           <ButtonPrimary title="Login" onPress={handleLogin} />
         </View>
         <View style={styles.footer}>
-          <ButtonSecondary title="Forgot password?" />
-          <ButtonSecondary title="Sign up here!" onPress={handleRegister} />
+          <ButtonSecondary title="Forgot password?" onPress={() => navigation.navigate("ForgottenPassword", { email: input.email })} />
+          <ButtonSecondary title="Sign up here!" onPress={() => navigation.navigate("Register")} />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>

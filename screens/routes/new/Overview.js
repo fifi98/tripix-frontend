@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView, Alert } from "react-native";
 import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +11,7 @@ import { ScrollView } from "react-native-gesture-handler";
 
 const Overview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
-  const { user, setNewRoute, newRoute } = React.useContext(MyContext);
+  const { user, setNewRoute, newRoute } = useContext(MyContext);
   let coords = null;
 
   useEffect(() => {
@@ -74,6 +74,8 @@ const Overview = (props) => {
       location.photo_reference = loc.photo_reference;
     });
     setNewRoute((old) => ({ ...old, trip: { ...old.trip, locations: a } }));
+
+    console.log(newRoute.trip);
 
     api
       .post("/route/plan_route", newRoute.trip, {

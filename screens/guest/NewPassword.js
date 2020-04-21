@@ -1,48 +1,53 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
 import InputField from "../../components/InputField";
 import ButtonPrimary from "../../components/ButtonPrimary";
-import LoginTitle from "../../components/LoginTitle";
+import TitleSmall from "../../components/TitleSmall";
 import LoginSubtitle from "../../components/LoginSubtitle";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
-import { MyContext } from "../../context/Provider";
 
-const Activate = ({ route }) => {
-  const [input, setInput] = useState({ email: route.params.email, activation_code: "" });
-  const { user } = useContext(MyContext);
-
-  console.log(input);
+const NewPassword = ({ route, navigation }) => {
+  const [input, setInput] = useState({
+    email: route.params.email,
+    reset_code: route.params.reset_code,
+    new_password: "",
+    new_password_confirm: "",
+  });
 
   const handleActivate = () => {
     api
-      .post("/users/verify", input)
-      .then((response) => {
-        //Store JTW in the context and go to the main screen
-        user.saveToken(response.data.token, response.data.user_id);
-      })
+      .post("/users/newPassword", input)
+      .then((response) => navigation.navigate("Login"))
       .catch((error) => Alert.alert(error.response.data.message));
   };
+
+  console.log(input);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <LoginTitle text="Check your inbox!" />
-          <LoginSubtitle text="Type in the 6 digit activation code you received in your email." />
+          <TitleSmall text="Check your inbox!" />
+          <LoginSubtitle text="Type in the password reset code we sent to your email." />
 
           <InputField
-            placeholder="Activation code"
+            placeholder="Password reset code"
             icon={faKey}
             value={input.activation_code}
-            onChangeText={(text) => setInput({ ...input, activation_code: text })}
-            numbers
+            onChangeText={(text) => setInput({ ...input, new_password: text })}
+          />
+          <InputField
+            placeholder="Password reset code"
+            icon={faKey}
+            value={input.activation_code}
+            onChangeText={(text) => setInput({ ...input, new_password_confirm: text })}
           />
 
-          <ButtonPrimary title="Activate account" onPress={handleActivate} />
+          <ButtonPrimary title="Reset password" onPress={handleActivate} />
         </View>
-        <View style={styles.footer}>{/* <ButtonSecondary title="Already have an account?" onPress={toLogin} /> */}</View>
+        <View style={styles.footer} />
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
@@ -64,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Activate;
+export default NewPassword;

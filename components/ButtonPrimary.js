@@ -14,15 +14,15 @@ const styles = StyleSheet.create({
   button: {
     height: 41,
     backgroundColor: colors.button,
-    borderRadius: 10,
+    borderRadius: 6,
     marginVertical: 20,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   text: {
     fontSize: 18,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
 
 export default ButtonPrimary;

@@ -1,21 +1,17 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/guest/Login";
 import Register from "../screens/guest/Register";
 import Activate from "../screens/guest/Activate";
 import ForgottenPassword from "../screens/guest/ForgottenPassword";
 import ResetPassword from "../screens/guest/ResetPassword";
 import NewPassword from "../screens/guest/NewPassword";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
-const NotLoggedIn = () => {
+const Guest = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Activate" component={Activate} />
@@ -26,4 +22,4 @@ const NotLoggedIn = () => {
   );
 };
 
-export default NotLoggedIn;
+export default Guest;

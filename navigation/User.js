@@ -1,22 +1,22 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/user/Home";
-import Profile from "../screens/user/Profile";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
 import FindNearby from "../screens/user/FindNearby";
 import NewRoute from "../screens/routes/new/Where";
 import PlannedRoutes from "../screens/routes/PlannedRoutes";
 import FinishedRoutes from "../screens/routes/FinishedRoutes";
 import SuggestedRoutes from "../screens/routes/SuggestedRoutes";
-import { TransitionPresets } from "@react-navigation/stack";
+import Profile from "../screens/user/Profile";
 import LandMarks from "../screens/routes/new/Landmarks";
 import LandMarkDetails from "../screens/routes/new/LandmarkDetails";
 import Trip from "../screens/routes/new/Trip";
 import Start from "../screens/routes/new/Start";
 import End from "../screens/routes/new/End";
 import Overview from "../screens/routes/new/Overview";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
+import { TransitionPresets } from "@react-navigation/stack";
 
 const StackModal = createStackNavigator();
 const Stack = createStackNavigator();
@@ -71,7 +71,7 @@ const NormalScreens = () => {
   );
 };
 
-const LoggedIn = () => {
+const User = () => {
   return (
     <StackModal.Navigator
       screenOptions={{
@@ -88,4 +88,4 @@ const LoggedIn = () => {
   );
 };
 
-export default LoggedIn;
+export default User;

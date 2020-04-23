@@ -18,10 +18,11 @@ import Start from "../screens/routes/new/Start";
 import End from "../screens/routes/new/End";
 import Overview from "../screens/routes/new/Overview";
 
+const StackModal = createStackNavigator();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Homea = () => {
+const HomeScreen = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -52,38 +53,38 @@ const Homea = () => {
   );
 };
 
-const LoggedIn = () => {
+const NormalScreens = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardOverlayEnabled: true,
-      }}
-    >
-      <Stack.Screen name="Home" component={Homea} />
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="FindNearby" component={FindNearby} />
-
       <Stack.Screen name="PlannedRoutes" component={PlannedRoutes} />
       <Stack.Screen name="FinishedRoutes" component={FinishedRoutes} />
       <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />
-
       <Stack.Screen name="NewRoute" component={NewRoute} />
       <Stack.Screen name="WhatVisit" component={LandMarks} />
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="End" component={End} />
       <Stack.Screen name="Overview" component={Overview} />
       <Stack.Screen name="Trip" component={Trip} />
-
-      <Stack.Screen
-        name="LandmarkDetails"
-        component={LandMarkDetails}
-        options={{
-          gestureEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS,
-        }}
-        mode="modal"
-      />
     </Stack.Navigator>
+  );
+};
+
+const LoggedIn = () => {
+  return (
+    <StackModal.Navigator
+      screenOptions={{
+        gestureEnabled: true,
+        cardOverlayEnabled: true,
+        ...TransitionPresets.ModalPresentationIOS,
+      }}
+      mode="modal"
+      headerMode="none"
+    >
+      <StackModal.Screen name="Home" component={NormalScreens} />
+      <StackModal.Screen name="LandmarkDetails" component={LandMarkDetails} />
+    </StackModal.Navigator>
   );
 };
 

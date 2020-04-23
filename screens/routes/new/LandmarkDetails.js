@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, ImageBackground, Text, View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import StarRating from "react-native-star-rating";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
+import { MyContext } from "../../../context/Provider";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const LandMarkDetails = () => {
+const LandMarkDetails = ({ route }) => {
+  const { newRoute } = useContext(MyContext);
+  const { landmark } = route.params;
+
+  const details = {
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac dictum enim. Nullam at tempor tellus, eu tincidunttortor. Duis lobortis id elit et commodo. Praesent tincidunt nec lorem vel dignissim. Nullam ultricies odio id nisi malesuada.",
+  };
+
   return (
     <ImageBackground
       source={{
-        url: "https://handluggageonly.co.uk/wp-content/uploads/2018/10/Hand-Luggage-Only-12.jpg",
+        url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + landmark.photo_reference,
       }}
       style={{ width: "100%", height: "100%" }}
     >
@@ -15,11 +28,11 @@ const LandMarkDetails = () => {
         <View style={{ flex: 1, alignItems: "center" }}>
           <View style={styles.container}>
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-              <Text style={styles.title}>London</Text>
+              <Text style={styles.title}>{landmark.name}</Text>
               <StarRating
                 disabled={true}
                 maxStars={5}
-                rating={5}
+                rating={landmark.rating}
                 fullStarColor={"#F0BC2D"}
                 emptyStarColor={"#F0BC2D"}
                 halfStarColor={"#F0BC2D"}
@@ -32,12 +45,21 @@ const LandMarkDetails = () => {
                 starStyle={{ margin: 1 }}
               />
             </View>
-            <Text style={styles.description}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac dictum enim. Nullam at tempor tellus, eu tincidunt
-              tortor. Duis lobortis id elit et commodo. Praesent tincidunt nec lorem vel dignissim. Nullam ultricies odio id nisi malesuada
-              rhoncus. Ut tincidunt vel augue ut hendrerit.
-            </Text>
+            <Text style={styles.description}>{details.description}</Text>
           </View>
+        </View>
+        <View style={styles.checkBox}>
+          {newRoute.attractions.find((x) => x.place_id === landmark.place_id) ? (
+            <TouchableOpacity>
+              <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={27} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={() => console.log("a")}>
+              <View>
+                <FontAwesomeIcon icon={faCheckCircleUnchecked} style={styles.icon} size={27} />
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
       </LinearGradient>
     </ImageBackground>
@@ -50,6 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 34,
     fontWeight: "bold",
     marginBottom: 10,
+    width: "70%",
   },
   description: {
     color: "white",
@@ -60,6 +83,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     width: "85%",
     marginBottom: 40,
+  },
+  checkBox: {
+    padding: 4,
+    position: "absolute",
+    left: 12,
+    top: 12,
+    flexDirection: "row",
+  },
+  icon: {
+    color: "white",
   },
 });
 

@@ -8,7 +8,7 @@ import { MyContext } from "../context/Provider";
 import StarRating from "react-native-star-rating";
 
 const RouteCard = ({ item, onLongPress }) => {
-  const { newRoute, setNewRoute, user } = useContext(MyContext);
+  const { newRoute, setNewRoute } = useContext(MyContext);
 
   const handleSelect = () => {
     if (newRoute.attractions.find((x) => x.place_id === item.place_id)) {
@@ -19,7 +19,7 @@ const RouteCard = ({ item, onLongPress }) => {
   };
 
   return (
-    <TouchableOpacity style={styles.container} onLongPress={onLongPress} onPress={handleSelect}>
+    <TouchableOpacity style={styles.container} onLongPress={() => onLongPress(item)} onPress={handleSelect}>
       <ImageBackground
         source={{
           url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + item.photo_reference,

@@ -15,12 +15,9 @@ const Overview = (props) => {
   let coords = null;
 
   useEffect(() => {
-    // Za test uzmi kao origin prvi odabrani landmark
     let origin = newRoute.origin;
-    // Za test uzmi kao destination drugi odabrani landmark
-    let destination = { lat: newRoute.attractions[1].location.lat, long: newRoute.attractions[1].location.lng };
+    let destination = newRoute.destination;
 
-    // Za test nek waypointsi budu svi ostali
     let waypoints = newRoute.attractions.filter((loc) => loc.location.lat != origin.lat && loc.location.lat != destination.lat);
 
     // Izvadi samo koordinate waypointsa

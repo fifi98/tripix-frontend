@@ -16,7 +16,7 @@ const Trip = ({ navigation }) => {
   let mapRef = React.createRef();
 
   const handleBack = () => {
-    navigation.goBack();
+    navigation.navigate("PlannedRoutes");
   };
 
   const handleShowAll = () => {
@@ -45,7 +45,7 @@ const Trip = ({ navigation }) => {
 
         {/* Mark all the locations */}
         {newRoute.trip.locations.map((loc) => (
-          <Marker key={loc.latitude} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }} />
+          <Marker key={loc.latitude} tracksViewChanges={false} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }} />
         ))}
       </MapView>
       <Sheet title="Route overview" buttonText="Start route">

@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#313233",
     shadowColor: "#000000",
-    paddingTop: 8,
+    paddingTop: 10,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: "#69696D",
-    marginBottom: 7,
+    marginBottom: 9,
   },
 });
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-community/async-storage";
+import api from "../utils/api";
 
 export const MyContext = React.createContext();
 
@@ -35,20 +36,6 @@ const Provider = (props) => {
         setUser({ error });
       }
     },
-    selectedLandmarks: [],
-    addRemoveLandmark: (landmark) => {
-      user.selectedLandmarks.map((x) => console.log(x.place_id));
-
-      if (user.selectedLandmarks.find((x) => x.place_id === landmark.place_id)) {
-        //Remove
-        console.log("rmove");
-        setUser((old) => ({ ...user, selectedLandmarks: [...old.selectedLandmarks.filter((x) => x.place_id != landmark.place_id)] }));
-      } else {
-        console.log("add");
-        //Add
-        setUser((old) => ({ ...user, selectedLandmarks: [...old.selectedLandmarks, landmark] }));
-      }
-    },
   });
 
   const [newRoute, setNewRoute] = useState({ location: "", attractions: [], date: "" });
@@ -62,6 +49,8 @@ const Provider = (props) => {
         AsyncStorage.getItem("user_id")
           .then((user_id) => {
             setUser({ ...user, token: token, user_id: user_id });
+            // Add the token to the header of each sent request
+            api.defaults.headers.common["Authorization"] = "Bearer " + token;
           })
           .catch((error) => {
             setUser({ ...user, error: error });

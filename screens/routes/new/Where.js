@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
 import InputField from "../../../components/InputField";
-import api from "../../../utils/api";
 import LoginSubtitle from "../../../components/LoginSubtitle";
 import LocationCard from "../../../components/LocationCard";
+import Geolocation from "@react-native-community/geolocation";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateInput from "../../../components/DateInput";
+import api from "../../../utils/api";
 import { colors } from "../../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
-import Geolocation from "@react-native-community/geolocation";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import DateInput from "../../../components/DateInput";
 
 const NewRoute = (props) => {
-  const { user, setNewRoute, newRoute } = React.useContext(MyContext);
+  const { setNewRoute, newRoute } = React.useContext(MyContext);
 
   const [nearbyCities, setNearbyCities] = useState([]);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -38,16 +38,13 @@ const NewRoute = (props) => {
       (position) => {
         api
           .get("/nearby/cities", {
-            headers: {
-              Authorization: "Bearer " + user.token,
-            },
             params: {
               lat: position.coords.latitude,
               long: position.coords.longitude,
             },
           })
           .then((results) => setNearbyCities(results.data))
-          .catch((err) => console.log(err.response));
+          .catch((err) => console.log(err));
       },
       (error) => Alert.alert(error.message)
     );
@@ -99,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
-    width: "85%",
+    width: "88%",
     paddingTop: 30,
     flex: 1,
     flexDirection: "column",

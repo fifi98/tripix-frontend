@@ -3,9 +3,9 @@ import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "../../constants/theme";
 
-const PositionCard = ({ item }) => {
+const PositionCard = ({ item, onPress }) => {
   return (
-    <TouchableOpacity style={{ marginBottom: 10 }}>
+    <TouchableOpacity style={{ marginBottom: 10 }} onPress={() => onPress(item)}>
       <View
         style={{
           backgroundColor: colors.inputField,

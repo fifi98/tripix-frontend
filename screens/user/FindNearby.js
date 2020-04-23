@@ -31,7 +31,6 @@ const FindNearby = ({ route, navigation }) => {
     api
       .get("/nearby/" + placeType, {
         headers: {
-          Authorization: "Bearer " + user.token,
           "Content-Type": "application/json",
           Accept: "application/json",
         },

@@ -43,9 +43,6 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput, setLoadi
     setLoading(1);
     api
       .get("/attractions/" + selectedCategoryName, {
-        headers: {
-          Authorization: "Bearer " + user.token,
-        },
         params: { location: newRoute.location },
       })
       .then((response) => {

@@ -10,7 +10,9 @@ const Start = (props) => {
   const { user, setNewRoute, newRoute } = React.useContext(MyContext);
   const { searchInput, setSearchInput } = useState("");
 
-  console.log(JSON.stringify(newRoute));
+  const handleChoose = (item) => {
+    setNewRoute((old) => ({ ...old, origin: { lat: item.location.lat, long: item.location.lng } }));
+  };
 
   const handleNext = () => {
     props.navigation.navigate("End");
@@ -34,7 +36,7 @@ const Start = (props) => {
         <FlatList
           keyExtractor={(item) => item.place_id}
           data={defaultButtons.concat(newRoute.attractions)}
-          renderItem={({ item }) => <PositionCard item={item} />}
+          renderItem={({ item }) => <PositionCard item={item} onPress={handleChoose} />}
           initialNumToRender={5}
           maxToRenderPerBatch={10}
           windowSize={5}
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
-    width: "85%",
+    width: "88%",
     paddingTop: 30,
     flex: 1,
     flexDirection: "column",

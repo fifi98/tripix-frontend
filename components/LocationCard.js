@@ -29,7 +29,7 @@ const LocationCard = ({ city, handleNext }) => {
 const styles = StyleSheet.create({
   card: {
     height: 170,
-    width: 0.85 * Dimensions.get("screen").width,
+    width: 0.88 * Dimensions.get("screen").width,
     borderRadius: 10,
     marginBottom: 20,
     overflow: "hidden",

@@ -16,7 +16,7 @@ const Overview = (props) => {
 
   useEffect(() => {
     // Za test uzmi kao origin prvi odabrani landmark
-    let origin = { lat: newRoute.attractions[0].location.lat, long: newRoute.attractions[0].location.lng };
+    let origin = newRoute.origin;
     // Za test uzmi kao destination drugi odabrani landmark
     let destination = { lat: newRoute.attractions[1].location.lat, long: newRoute.attractions[1].location.lng };
 
@@ -27,15 +27,7 @@ const Overview = (props) => {
     var waypoints_locations = waypoints.map((wp) => ({ lat: wp.location.lat, long: wp.location.lng }));
 
     api
-      .post(
-        "/route/new_route",
-        { origin: origin, destination: destination, waypoints: waypoints_locations },
-        {
-          headers: {
-            Authorization: "Bearer " + user.token,
-          },
-        }
-      )
+      .post("/route/new_route", { origin: origin, destination: destination, waypoints: waypoints_locations })
       .then((results) => {
         setNewRoute((old) => ({
           ...old,
@@ -73,11 +65,7 @@ const Overview = (props) => {
     setNewRoute((old) => ({ ...old, trip: { ...old.trip, locations: a } }));
 
     api
-      .post("/route/plan_route", newRoute.trip, {
-        headers: {
-          Authorization: "Bearer " + user.token,
-        },
-      })
+      .post("/route/plan_route", newRoute.trip)
       .then((response) => props.navigation.navigate("Trip"))
       .catch((err) => {
         Alert.alert("An error occured!");
@@ -127,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
-    width: "85%",
+    width: "88%",
     paddingTop: 30,
     flex: 1,
     flexDirection: "column",

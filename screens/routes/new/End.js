@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
-    width: "85%",
+    width: "88%",
     paddingTop: 30,
     flex: 1,
     flexDirection: "column",

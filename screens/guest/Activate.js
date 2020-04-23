@@ -13,8 +13,6 @@ const Activate = ({ route }) => {
   const [input, setInput] = useState({ email: route.params.email, activation_code: "" });
   const { user } = useContext(MyContext);
 
-  console.log(input);
-
   const handleActivate = () => {
     api
       .post("/users/verify", input)

@@ -36,7 +36,6 @@ const RouteCard = ({ item, onLongPress }) => {
             )}
           </View>
           <View style={styles.rating}>
-            {/* <Rating rating={item.rating} /> */}
             <StarRating
               disabled={true}
               maxStars={5}

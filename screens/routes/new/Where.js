@@ -32,7 +32,7 @@ const NewRoute = (props) => {
   };
 
   useEffect(() => {
-    setNewRoute((old) => ({ ...old, date: new Date() }));
+    setNewRoute({ attractions: [], date: new Date(), location: "" });
 
     Geolocation.getCurrentPosition(
       (position) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView, Alert } from "react-native";
+import { View, StyleSheet, Text, Button, SafeAreaView, Alert, ActivityIndicator } from "react-native";
 import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
@@ -8,6 +8,7 @@ import Polyline from "@mapbox/polyline";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native-gesture-handler";
+import Loading from "../../../components/Loading";
 
 const Overview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -92,7 +93,7 @@ const Overview = (props) => {
             </ScrollView>
           </>
         ) : (
-          <Text>Loading</Text>
+          <Loading text="Creating your route" />
         )}
       </View>
       <View style={{ width: "100%" }}>

@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { View, FlatList, ActivityIndicator, Text, StyleSheet } from "react-native";
+import React from "react";
+import { View, FlatList, Text, StyleSheet } from "react-native";
 import LandmarkCard from "../../components/LandmarkCard";
+import Loading from "../Loading";
 
 const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
   const handleDetails = (item) => {
@@ -10,10 +11,7 @@ const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
   return (
     <View style={styles.container}>
       {loading === 1 ? (
-        <View style={styles.textContainer}>
-          <Text style={styles.loadingText}>Loading some interesting landmarks</Text>
-          <ActivityIndicator style={{ marginHorizontal: 10 }} />
-        </View>
+        <Loading text="Looking for landmarks" />
       ) : (
         <View>
           {attractions.length === 0 ? (
@@ -50,9 +48,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 5,
     padding: 0,
-  },
-  loadingText: {
-    color: "white",
   },
 });
 

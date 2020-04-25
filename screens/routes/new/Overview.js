@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView, Alert, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Text, Button, SafeAreaView, Alert } from "react-native";
 import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
@@ -68,6 +68,7 @@ const Overview = (props) => {
       .post("/route/plan_route", newRoute.trip)
       .then((response) => props.navigation.navigate("Trip", { trip: newRoute.trip }))
       .catch((err) => {
+        console.log(err.response.data);
         Alert.alert("An error occured!");
       });
   };

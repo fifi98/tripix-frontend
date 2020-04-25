@@ -4,6 +4,7 @@ import { faWalking, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "../../../constants/theme";
 import { MyContext } from "../../../context/Provider";
+import FastImage from "react-native-fast-image";
 
 const LandmarkItem = ({ location }) => {
   const { newRoute } = useContext(MyContext);
@@ -32,7 +33,7 @@ const LandmarkItem = ({ location }) => {
 
       <View style={styles.container}>
         <View style={{ width: 60 }}>
-          <Image
+          <FastImage
             style={styles.image}
             source={{
               uri: `http://31.220.45.114/tripix/public/api/getphoto?photo_reference=${test.photo_reference}&maxwidth=100`,

@@ -24,6 +24,8 @@ const Overview = (props) => {
     // Izvadi samo koordinate waypointsa
     var waypoints_locations = waypoints.map((wp) => ({ lat: wp.location.lat, long: wp.location.lng }));
 
+    console.log({ origin: origin, destination: destination, waypoints: waypoints_locations });
+
     api
       .post("/route/new_route", { origin: origin, destination: destination, waypoints: waypoints_locations })
       .then((results) => {
@@ -64,7 +66,7 @@ const Overview = (props) => {
 
     api
       .post("/route/plan_route", newRoute.trip)
-      .then((response) => props.navigation.navigate("Trip"))
+      .then((response) => props.navigation.navigate("Trip", { trip: newRoute.trip }))
       .catch((err) => {
         Alert.alert("An error occured!");
       });

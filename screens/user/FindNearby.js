@@ -37,6 +37,8 @@ const FindNearby = ({ route, navigation }) => {
         params: { long: position.coords.longitude, lat: position.coords.latitude },
       })
       .then((response) => {
+        console.log(JSON.stringify(response.data));
+
         response.data.results.map((place) => {
           setPlaces((places) => [
             ...places,

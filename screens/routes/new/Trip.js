@@ -10,17 +10,13 @@ import Sheet from "../../../components/Sheet";
 import { colors } from "../../../constants/theme";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
 
-const Trip = ({ navigation }) => {
-  const { user, newRoute } = React.useContext(MyContext);
+const Trip = ({ navigation, route }) => {
+  const { trip } = route.params;
 
   let mapRef = React.createRef();
 
   const handleBack = () => {
     navigation.navigate("PlannedRoutes");
-  };
-
-  const handleShowAll = () => {
-    sheet.current.snapTo(0);
   };
 
   return (
@@ -30,7 +26,7 @@ const Trip = ({ navigation }) => {
       </View>
       <MapView
         onMapReady={() => {
-          mapRef.fitToCoordinates(newRoute.trip.locations, {
+          mapRef.fitToCoordinates(trip.locations, {
             edgePadding: { top: 0, right: 50, bottom: 200, left: 50 },
             animated: true,
           });
@@ -41,16 +37,16 @@ const Trip = ({ navigation }) => {
         customMapStyle={mapStyle}
       >
         {/* Draw the route */}
-        <Polyline coordinates={newRoute.trip.locations} strokeWidth={5} strokeColor="#3890FB" />
+        <Polyline coordinates={trip.locations} strokeWidth={5} strokeColor="#3890FB" />
 
         {/* Mark all the locations */}
-        {newRoute.trip.locations.map((loc) => (
+        {trip.locations.map((loc) => (
           <Marker key={loc.latitude} tracksViewChanges={false} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }} />
         ))}
       </MapView>
       <Sheet title="Route overview" buttonText="Start route">
         <ScrollView>
-          {newRoute.trip.locations.map((location) => (
+          {trip.locations.map((location) => (
             <LandmarkItem location={location} key={location.latitude} />
           ))}
         </ScrollView>

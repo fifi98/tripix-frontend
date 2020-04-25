@@ -16,7 +16,7 @@ const LocationCard = ({ city, handleNext }) => {
       <View style={styles.card}>
         <ImageBackground
           source={{
-            url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + city.photo_reference,
+            url: `http://31.220.45.114/tripix/public/api/getphoto?photo_reference=${city.photo_reference}`,
           }}
           style={{ width: "100%", height: "100%", opacity: 0.5 }}
         />

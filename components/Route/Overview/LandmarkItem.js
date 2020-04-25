@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { faWalking, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -7,7 +7,10 @@ import { MyContext } from "../../../context/Provider";
 
 const LandmarkItem = ({ location }) => {
   const { newRoute } = useContext(MyContext);
-  const test = newRoute.attractions.find((a) => a.location.lat === location.latitude);
+
+  // If the route is created and we don't have landmark's name and photo reference
+  if (!location.name) var test = newRoute.attractions.find((a) => a.location.lat === location.latitude);
+  else var test = location;
 
   return (
     <View>
@@ -32,7 +35,7 @@ const LandmarkItem = ({ location }) => {
           <Image
             style={styles.image}
             source={{
-              uri: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + test.photo_reference,
+              uri: `http://31.220.45.114/tripix/public/api/getphoto?photo_reference=${test.photo_reference}&maxwidth=100`,
             }}
           />
         </View>

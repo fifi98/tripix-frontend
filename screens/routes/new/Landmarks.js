@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, SafeAreaView, Button } from "react-native";
 import { colors } from "../../../constants/theme";
 import SearchLandmarks from "../../../components/Route/SearchLandmarks";
@@ -11,7 +11,7 @@ const WhatVisit = (props) => {
   const [loading, setLoading] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [selectedTab, setSelectedTab] = useState(0);
-  const { newRoute } = React.useContext(MyContext);
+  const { newRoute } = useContext(MyContext);
 
   const handleNext = () => {
     props.navigation.navigate("Start");

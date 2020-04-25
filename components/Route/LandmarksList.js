@@ -11,7 +11,8 @@ const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
     <View style={styles.container}>
       {loading === 1 ? (
         <View style={styles.textContainer}>
-          <ActivityIndicator size="large" />
+          <Text style={styles.loadingText}>Loading some interesting landmarks</Text>
+          <ActivityIndicator style={{ marginHorizontal: 10 }} />
         </View>
       ) : (
         <View>
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "100%",
     justifyContent: "center",
+    flexDirection: "row",
   },
   text: {
     color: "white",
@@ -48,6 +50,9 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 5,
     padding: 0,
+  },
+  loadingText: {
+    color: "white",
   },
 });
 

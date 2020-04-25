@@ -12,6 +12,7 @@ const Start = (props) => {
 
   const handleChoose = (item) => {
     setNewRoute((old) => ({ ...old, origin: { lat: item.location.lat, long: item.location.lng } }));
+    console.log("a");
   };
 
   const handleNext = () => {
@@ -27,6 +28,15 @@ const Start = (props) => {
     { place_id: "1", name: "Pick a landmark for me", icon: faCompass, default: true },
   ];
 
+  const renderHeader = () => {
+    return searchInput.length === 0 ? defaultButtons.map((item) => <PositionCard item={item} />) : <></>;
+  };
+
+  const isChecked = (item) => {
+    if (!newRoute.origin) return false;
+    return newRoute.origin.lat === item.location.lat && newRoute.origin.long === item.location.lng;
+  };
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
@@ -35,8 +45,9 @@ const Start = (props) => {
 
         <FlatList
           keyExtractor={(item) => item.place_id}
-          data={defaultButtons.concat(newRoute.attractions).filter((a) => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
-          renderItem={({ item }) => <PositionCard item={item} onPress={handleChoose} />}
+          ListHeaderComponent={renderHeader}
+          data={newRoute.attractions.filter((a) => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
+          renderItem={({ item }) => <PositionCard item={item} onPress={handleChoose} selected={isChecked(item)} />}
           initialNumToRender={5}
           maxToRenderPerBatch={10}
           windowSize={5}

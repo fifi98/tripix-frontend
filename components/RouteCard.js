@@ -16,7 +16,7 @@ const RouteCard = ({ item, handleSelect }) => {
       <View style={styles.data}>
         <View style={{ alignItems: "flex-end" }}>
           <View style={styles.details}>
-            <Text style={styles.text}>{item.duration}min</Text>
+            <Text style={styles.text}>{item.duration} min</Text>
             <FontAwesomeIcon icon={faClock} style={styles.icon} />
             <Text style={styles.text}>{item.number_attractions}</Text>
             <FontAwesomeIcon icon={faLandmark} style={styles.icon} />

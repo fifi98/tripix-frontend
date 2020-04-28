@@ -19,6 +19,17 @@ const FindNearby = ({ route, navigation }) => {
 
   const placeType = route.params.type;
 
+  const data = [
+    {
+      place_id: "",
+      latitude: "",
+      longitude: "",
+      photo_reference: "",
+      rating: "",
+      name: "",
+    },
+  ];
+
   const fetchData = (position) => {
     let initialPosition = {
       latitude: position.coords.latitude,

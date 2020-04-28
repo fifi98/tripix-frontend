@@ -20,9 +20,7 @@ const PlannedRoutes = ({ navigation }) => {
   }, []);
 
   const handleSelect = (routeID) => {
-    console.log(routeID);
     api.get(`/route/specific_route/${routeID}`).then((response) => {
-      console.log(response.data);
       navigation.navigate("Trip", { trip: response.data });
     });
   };
@@ -38,11 +36,17 @@ const PlannedRoutes = ({ navigation }) => {
           <Text style={styles.headerNormal}> routes</Text>
         </View>
         <InputField placeholder="Search location" icon={faSearch} />
-        <FlatList
-          keyExtractor={(item) => item.route_id}
-          data={routes}
-          renderItem={({ item }) => <RouteCard item={item} handleSelect={handleSelect} />}
-        />
+        {routes.length == 0 ? (
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>Routes you will plan will be shown here</Text>
+          </View>
+        ) : (
+          <FlatList
+            keyExtractor={(item) => item.route_id.toString()}
+            data={routes}
+            renderItem={({ item }) => <RouteCard item={item} handleSelect={handleSelect} />}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
@@ -73,6 +77,16 @@ const styles = StyleSheet.create({
     width: "85%",
     paddingTop: 10,
     height: "100%",
+  },
+  textContainer: {
+    marginTop: 40,
+    height: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  text: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
 

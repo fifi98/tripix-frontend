@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Dimensions, ImageBackground } from "react-native";
-import api from "../utils/api";
 import { MyContext } from "../context/Provider";
 
 const LocationCard = ({ city, handleNext }) => {

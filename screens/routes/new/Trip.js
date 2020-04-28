@@ -1,6 +1,6 @@
 import React from "react";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
-import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleLeft, faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { mapStyle } from "../../../constants/mapStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
@@ -40,8 +40,16 @@ const Trip = ({ navigation, route }) => {
         <Polyline coordinates={trip.locations} strokeWidth={5} strokeColor="#3890FB" />
 
         {/* Mark all the locations */}
-        {trip.locations.map((loc) => (
-          <Marker key={loc.latitude} tracksViewChanges={false} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }} />
+        {trip.locations.map((loc, index) => (
+          <Marker key={loc.latitude} tracksViewChanges={false} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }}>
+            {index == 0 || index == trip.locations.length - 1 ? (
+              <FontAwesomeIcon icon={faMapMarkerAlt} size={30} style={{ color: "white" }} />
+            ) : (
+              <View style={{ backgroundColor: "#30D158", padding: 6, borderRadius: 20 }}>
+                <FontAwesomeIcon icon={faLandmark} size={18} style={{ color: "white" }} />
+              </View>
+            )}
+          </Marker>
         ))}
       </MapView>
       <Sheet title="Route overview" buttonText="Start route">

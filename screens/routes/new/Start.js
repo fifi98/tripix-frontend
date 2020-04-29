@@ -7,12 +7,11 @@ import InputField from "../../../components/InputField";
 import PositionCard from "../../../components/Route/PositionCard";
 
 const Start = (props) => {
-  const { user, setNewRoute, newRoute } = React.useContext(MyContext);
+  const { setNewRoute, newRoute } = React.useContext(MyContext);
   const [searchInput, setSearchInput] = useState("");
 
   const handleChoose = (item) => {
     setNewRoute((old) => ({ ...old, origin: { lat: item.location.lat, long: item.location.lng } }));
-    console.log("a");
   };
 
   const handleNext = () => {

@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView, Alert } from "react-native";
-import { colors } from "../../../constants/theme";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { MyContext } from "../../../context/Provider";
 import api from "../../../utils/api";
 import Polyline from "@mapbox/polyline";
+import Loading from "../../../components/Loading";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native-gesture-handler";
-import Loading from "../../../components/Loading";
+import { colors } from "../../../constants/theme";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { MyContext } from "../../../context/Provider";
 
 const Overview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,13 +18,10 @@ const Overview = (props) => {
   useEffect(() => {
     let origin = newRoute.origin;
     let destination = newRoute.destination;
-
     let waypoints = newRoute.attractions.filter((loc) => loc.location.lat != origin.lat && loc.location.lat != destination.lat);
 
-    // Izvadi samo koordinate waypointsa
+    // Extract only waypoint coordinates
     var waypoints_locations = waypoints.map((wp) => ({ lat: wp.location.lat, long: wp.location.lng }));
-
-    console.log({ origin: origin, destination: destination, waypoints: waypoints_locations });
 
     api
       .post("/route/new_route", { origin: origin, destination: destination, waypoints: waypoints_locations })
@@ -40,7 +37,7 @@ const Overview = (props) => {
 
         const points = Polyline.decode(results.data.route);
 
-        coords = points.map((point, index) => {
+        coords = points.map((point) => {
           return {
             latitude: point[0],
             longitude: point[1],
@@ -66,9 +63,8 @@ const Overview = (props) => {
 
     api
       .post("/route/plan_route", newRoute.trip)
-      .then((response) => props.navigation.navigate("Trip", { trip: newRoute.trip }))
+      .then(() => props.navigation.navigate("Trip", { trip: newRoute.trip }))
       .catch((err) => {
-        console.log(err.response.data);
         Alert.alert("An error occured!");
       });
   };

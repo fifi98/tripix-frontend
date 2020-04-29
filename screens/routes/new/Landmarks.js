@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, SafeAreaView, Button } from "react-native";
-import { colors } from "../../../constants/theme";
 import SearchLandmarks from "../../../components/Route/SearchLandmarks";
 import SegmentedControlIOS from "@react-native-community/segmented-control";
 import LandmarksList from "../../../components/Route/LandmarksList";
 import { MyContext } from "../../../context/Provider";
+import { colors } from "../../../constants/theme";
 
 const WhatVisit = (props) => {
   const [attractions, setAttractions] = useState([]);

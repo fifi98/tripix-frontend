@@ -25,7 +25,7 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.caption}>Hello, Filip!</Text>
+        <Text style={styles.caption}>Hello, {user.name}!</Text>
         <Text style={styles.textSecondary}>Routes</Text>
         <View style={styles.cardContainer}>
           <CardButton title="New route" icon={faPlus} color="#FE375F" onPress={() => navigation.navigate("NewRoute")} />

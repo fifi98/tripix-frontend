@@ -14,7 +14,7 @@ const ForgottenPassword = ({ route, navigation }) => {
   const handleActivate = () => {
     api
       .post("/users/forgottenPassword", input)
-      .then((response) => navigation.navigate("ResetPassword", { email: input.email }))
+      .then(() => navigation.navigate("ResetPassword", { email: input.email }))
       .catch((error) => Alert.alert(error.response.data.message));
   };
 

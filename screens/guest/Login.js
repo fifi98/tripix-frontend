@@ -17,9 +17,9 @@ const Login = ({ navigation }) => {
   const handleLogin = async () => {
     api
       .post("/login", input)
-      .then((response) => {
-        //Store JTW in the context and go to the main screen
-        user.saveToken(response.data.token, response.data.user_id);
+      .then(({ data }) => {
+        // Store JTW in the context and go to the main screen
+        user.saveToken(data.token, data.user_id, data.full_name);
       })
       .catch((err) => {
         if (err.response.data.message) Alert.alert(err.response.data.message);

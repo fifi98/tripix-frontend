@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
-import { colors } from "../../constants/theme";
 import RouteCard from "../../components/RouteCard";
-import { HeaderBackButton } from "@react-navigation/stack";
 import InputField from "../../components/InputField";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
+import { colors } from "../../constants/theme";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
+import { HeaderBackButton } from "@react-navigation/stack";
 
 const PlannedRoutes = ({ navigation }) => {
   const { user } = useContext(MyContext);

@@ -53,7 +53,7 @@ const HomeScreen = () => {
   );
 };
 
-const NormalScreens = () => {
+const UserScreens = () => {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Home" component={HomeScreen} />
@@ -82,7 +82,7 @@ const User = () => {
       mode="modal"
       headerMode="none"
     >
-      <StackModal.Screen name="Home" component={NormalScreens} />
+      <StackModal.Screen name="Home" component={UserScreens} />
       <StackModal.Screen name="LandmarkDetails" component={LandMarkDetails} />
     </StackModal.Navigator>
   );

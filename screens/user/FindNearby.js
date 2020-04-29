@@ -5,11 +5,13 @@ import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { MyContext } from "../../context/Provider";
 import RoundButton from "../../components/RoundButton";
-import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleLeft, faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { mapStyle } from "../../constants/mapStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { View, Alert, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Alert, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
+import Sheet from "../../components/Sheet";
+import NearbyItem from "../../components/NearbyItem";
 
 const FindNearby = ({ route, navigation }) => {
   const { user } = useContext(MyContext);
@@ -41,21 +43,10 @@ const FindNearby = ({ route, navigation }) => {
     setUserPosition(initialPosition);
     api
       .get("/nearby/" + placeType, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
         params: { long: position.coords.longitude, lat: position.coords.latitude },
       })
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-
-        response.data.results.map((place) => {
-          setPlaces((places) => [
-            ...places,
-            { latitude: place.geometry.location.lat, longitude: place.geometry.location.lng, name: place.name },
-          ]);
-        });
+        setPlaces(response.data);
       });
   };
 
@@ -108,12 +99,20 @@ const FindNearby = ({ route, navigation }) => {
         customMapStyle={mapStyle}
       >
         {places.map((place) => (
-          <Marker key={Math.random()} coordinate={{ latitude: place.latitude, longitude: place.longitude }}>
-            {/* <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} /> */}
+          <Marker key={place.place_id} tracksViewChanges={false} coordinate={{ latitude: place.latitude, longitude: place.longitude }}>
+            <View style={{ backgroundColor: "#30D158", padding: 6, borderRadius: 20 }}>
+              <FontAwesomeIcon icon={faCoffee} size={18} style={{ color: "white" }} />
+            </View>
           </Marker>
         ))}
       </MapView>
-      <BottomSheet ref={sheet} snapPoints={[580, 240, 30]} renderContent={renderInner} renderHeader={renderHeader} initialSnap={1} />
+      <Sheet title="Nearby" buttonText="Start route">
+        <ScrollView>
+          {places.map((place) => (
+            <NearbyItem item={place} />
+          ))}
+        </ScrollView>
+      </Sheet>
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={handleBack}>
           <FontAwesomeIcon icon={faChevronCircleLeft} style={styles.icon} size={34} />

@@ -19,11 +19,9 @@ const NewPassword = ({ route, navigation }) => {
   const handleActivate = () => {
     api
       .post("/users/newPassword", input)
-      .then((response) => navigation.navigate("Login"))
+      .then(() => navigation.navigate("Login"))
       .catch((error) => Alert.alert(error.response.data.message));
   };
-
-  console.log(input);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

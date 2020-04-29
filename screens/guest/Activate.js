@@ -40,7 +40,6 @@ const Activate = ({ route }) => {
 
           <ButtonPrimary title="Activate account" onPress={handleActivate} />
         </View>
-        <View style={styles.footer}>{/* <ButtonSecondary title="Already have an account?" onPress={toLogin} /> */}</View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

@@ -14,11 +14,9 @@ const ResetPassword = ({ route, navigation }) => {
   const handleActivate = () => {
     api
       .post("/users/resetCode", input)
-      .then((response) => navigation.navigate("NewPassword", { email: input.email, reset_code: input.reset_code }))
+      .then(() => navigation.navigate("NewPassword", { email: input.email, reset_code: input.reset_code }))
       .catch((error) => Alert.alert(error.response.data.message));
   };
-
-  console.log(input);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

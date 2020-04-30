@@ -35,7 +35,7 @@ const Sheet = ({ children, title, buttonText }) => {
 
   const renderInner = () => <View style={styles.panel}>{children}</View>;
 
-  return <BottomSheet snapPoints={[580, 240, 30]} renderContent={renderInner} renderHeader={renderHeader} initialSnap={1} />;
+  return <BottomSheet ref={sheet} snapPoints={[580, 240, 30]} renderContent={renderInner} renderHeader={renderHeader} initialSnap={1} />;
 };
 
 const styles = StyleSheet.create({

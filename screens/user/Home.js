@@ -18,8 +18,8 @@ import { MyContext } from "../../context/Provider";
 const Home = ({ navigation }) => {
   const { user } = useContext(MyContext);
 
-  const handleFindNearby = (type) => {
-    navigation.navigate("FindNearby", { type: type });
+  const handleFindNearby = (type, icon, color) => {
+    navigation.navigate("FindNearby", { type: type, icon: icon, color: color });
   };
 
   const cardButtons = [
@@ -30,10 +30,10 @@ const Home = ({ navigation }) => {
   ];
 
   const nearbyButtons = [
-    { title: "Restaurants", icon: faUtensils, color: "#0884FA", onPress: () => handleFindNearby("restaurants") },
-    { title: "Coffee Shops", icon: faCoffee, color: "#FF9F28", onPress: () => handleFindNearby("cafes") },
-    { title: "Shops", icon: faShoppingCart, color: "#BF5AF2", onPress: () => handleFindNearby("shops") },
-    { title: "Attractions", icon: faLandmark, color: "#30D158", onPress: () => handleFindNearby("attractions") },
+    { title: "Restaurants", icon: faUtensils, color: "#0884FA", type: "restaurants" },
+    { title: "Coffee Shops", icon: faCoffee, color: "#FF9F28", type: "cafes" },
+    { title: "Shops", icon: faShoppingCart, color: "#BF5AF2", type: "shops" },
+    { title: "Attractions", icon: faLandmark, color: "#30D158", type: "attractions" },
   ];
 
   return (
@@ -50,7 +50,13 @@ const Home = ({ navigation }) => {
         <View style={styles.nearbyContainer}>
           <View style={styles.nearbyButtons}>
             {nearbyButtons.map((button, index) => (
-              <RoundButton key={index} title={button.title} icon={button.icon} color={button.color} onPress={button.onPress} />
+              <RoundButton
+                key={index}
+                title={button.title}
+                icon={button.icon}
+                color={button.color}
+                onPress={() => handleFindNearby(button.type, button.icon, button.color)}
+              />
             ))}
           </View>
         </View>

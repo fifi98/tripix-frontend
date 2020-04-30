@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInput, StyleSheet, View } from "react-native";
-import { colors } from "../constants/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { colors } from "../constants/theme";
 
 const InputField = ({ icon, placeholder, value, onChangeText, isPassword, numbers }) => {
   return (

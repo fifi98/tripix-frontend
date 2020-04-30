@@ -11,6 +11,7 @@ import { HeaderBackButton } from "@react-navigation/stack";
 const PlannedRoutes = ({ navigation }) => {
   const { user } = useContext(MyContext);
   const [routes, setRoutes] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     api
@@ -35,7 +36,7 @@ const PlannedRoutes = ({ navigation }) => {
           <Text style={styles.headerBold}>Planned</Text>
           <Text style={styles.headerNormal}> routes</Text>
         </View>
-        <InputField placeholder="Search location" icon={faSearch} />
+        <InputField placeholder="Search location" icon={faSearch} onChangeText={(text) => setSearch(text)} value={search} />
         {routes.length == 0 ? (
           <View style={styles.textContainer}>
             <Text style={styles.text}>Routes you will plan will be shown here</Text>
@@ -43,7 +44,7 @@ const PlannedRoutes = ({ navigation }) => {
         ) : (
           <FlatList
             keyExtractor={(item) => item.route_id.toString()}
-            data={routes}
+            data={routes.filter((route) => route.location.toLowerCase().includes(search.toLowerCase()))}
             renderItem={({ item }) => <RouteCard item={item} handleSelect={handleSelect} />}
           />
         )}

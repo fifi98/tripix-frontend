@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { colors } from "../../constants/theme";
 import CardButton from "../../components/CardButton";
@@ -16,11 +16,25 @@ import RoundButton from "../../components/RoundButton";
 import { MyContext } from "../../context/Provider";
 
 const Home = ({ navigation }) => {
-  const { user } = React.useContext(MyContext);
+  const { user } = useContext(MyContext);
 
   const handleFindNearby = (type) => {
     navigation.navigate("FindNearby", { type: type });
   };
+
+  const cardButtons = [
+    { title: "New route", icon: faPlus, color: "#FE375F", onPress: () => navigation.navigate("NewRoute") },
+    { title: "Planned routes", icon: faRoute, color: "#63D2FD", onPress: () => navigation.navigate("PlannedRoutes") },
+    { title: "Finished routes", icon: faMapMarkerAlt, color: "#5E5CE6", onPress: () => navigation.navigate("FinishedRoutes") },
+    { title: "Suggested", icon: faLightbulb, color: "#FF9F28", onPress: () => navigation.navigate("SuggestedRoutes") },
+  ];
+
+  const nearbyButtons = [
+    { title: "Restaurants", icon: faUtensils, color: "#0884FA", onPress: () => handleFindNearby("restaurants") },
+    { title: "Coffee Shops", icon: faCoffee, color: "#FF9F28", onPress: () => handleFindNearby("cafes") },
+    { title: "Shops", icon: faShoppingCart, color: "#BF5AF2", onPress: () => handleFindNearby("shops") },
+    { title: "Attractions", icon: faLandmark, color: "#30D158", onPress: () => handleFindNearby("attractions") },
+  ];
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -28,18 +42,16 @@ const Home = ({ navigation }) => {
         <Text style={styles.caption}>Hello, {user.name}!</Text>
         <Text style={styles.textSecondary}>Routes</Text>
         <View style={styles.cardContainer}>
-          <CardButton title="New route" icon={faPlus} color="#FE375F" onPress={() => navigation.navigate("NewRoute")} />
-          <CardButton title="Planned routes" icon={faRoute} color="#63D2FD" onPress={() => navigation.navigate("PlannedRoutes")} />
-          <CardButton title="Finished routes" icon={faMapMarkerAlt} color="#5E5CE6" onPress={() => navigation.navigate("FinishedRoutes")} />
-          <CardButton title="Suggested" icon={faLightbulb} color="#FF9F28" onPress={() => navigation.navigate("SuggestedRoutes")} />
+          {cardButtons.map((button, index) => (
+            <CardButton key={index} title={button.title} icon={button.icon} color={button.color} onPress={button.onPress} />
+          ))}
         </View>
         <Text style={styles.textSecondary}>Find nearby</Text>
         <View style={styles.nearbyContainer}>
           <View style={styles.nearbyButtons}>
-            <RoundButton text="Restaurants" color="#0884FA" icon={faUtensils} onPress={() => handleFindNearby("restaurants")} />
-            <RoundButton text="Coffee Shops" color="#FF9F28" icon={faCoffee} onPress={() => handleFindNearby("cafes")} />
-            <RoundButton text="Shops" color="#BF5AF2" icon={faShoppingCart} />
-            <RoundButton text="Attractions" color="#30D158" icon={faLandmark} />
+            {nearbyButtons.map((button, index) => (
+              <RoundButton key={index} title={button.title} icon={button.icon} color={button.color} onPress={button.onPress} />
+            ))}
           </View>
         </View>
       </View>

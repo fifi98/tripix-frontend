@@ -5,6 +5,7 @@ import SegmentedControlIOS from "@react-native-community/segmented-control";
 import LandmarksList from "../../../components/Route/LandmarksList";
 import { MyContext } from "../../../context/Provider";
 import { colors } from "../../../constants/theme";
+import BottomMenu from "../../../components/Route/BottomMenu";
 
 const WhatVisit = (props) => {
   const [attractions, setAttractions] = useState([]);
@@ -50,12 +51,7 @@ const WhatVisit = (props) => {
           )}
         </View>
       </View>
-      <View style={{ width: "100%" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Back" onPress={handleBack} />
-          <Button title="Next" onPress={handleNext} />
-        </View>
-      </View>
+      <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Next" />
     </SafeAreaView>
   );
 };
@@ -83,15 +79,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     height: "100%",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 6,
-    paddingHorizontal: 22,
-    borderTopColor: "#3D3D3D",
-    backgroundColor: "#161616",
-    borderTopWidth: 0.3,
   },
 });
 

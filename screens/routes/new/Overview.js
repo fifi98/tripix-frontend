@@ -9,6 +9,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
+import BottomMenu from "../../../components/Route/BottomMenu";
 
 const Overview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,6 +62,7 @@ const Overview = (props) => {
     });
     setNewRoute((old) => ({ ...old, trip: { ...old.trip, locations: a } }));
 
+    console.log(newRoute.trip);
     api
       .post("/route/plan_route", newRoute.trip)
       .then(() => props.navigation.navigate("Trip", { trip: newRoute.trip }))
@@ -95,12 +97,7 @@ const Overview = (props) => {
           <Loading text="Creating your route" />
         )}
       </View>
-      <View style={{ width: "100%" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Back" onPress={handleBack} />
-          <Button title="Create" onPress={handleNext} />
-        </View>
-      </View>
+      <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Next" />
     </SafeAreaView>
   );
 };
@@ -121,15 +118,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     marginBottom: 10,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 6,
-    paddingHorizontal: 22,
-    borderTopColor: "#3D3D3D",
-    backgroundColor: "#161616",
-    borderTopWidth: 0.3,
   },
 });
 export default Overview;

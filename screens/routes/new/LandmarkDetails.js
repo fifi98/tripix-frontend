@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, ImageBackground, Text, View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import StarRating from "react-native-star-rating";
@@ -7,22 +7,25 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import api from "../../../utils/api";
 
 const LandMarkDetails = ({ route }) => {
   const { newRoute } = useContext(MyContext);
   const { landmark } = route.params;
+  const [details, setDetails] = useState({ description: "" });
 
-  const details = {
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac dictum enim. Nullam at tempor tellus, eu tincidunttortor. Duis lobortis id elit et commodo. Praesent tincidunt nec lorem vel dignissim. Nullam ultricies odio id nisi malesuada.",
-  };
+  useEffect(() => {
+    api.get(`/place/${landmark.place_id}`).then((response) => {
+      setDetails(response.data);
+    });
+  }, []);
 
   return (
     <ImageBackground
       source={{
         url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + landmark.photo_reference,
       }}
-      style={{ width: "100%", height: "100%" }}
+      style={{ flex: 1 }}
     >
       <LinearGradient colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.7)", "#000"]} style={{ flex: 1 }} locations={[0.2, 0.45, 0.89]}>
         <View style={{ flex: 1, alignItems: "center" }}>

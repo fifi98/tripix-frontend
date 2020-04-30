@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView, FlatList } from "react-native";
 import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "../../../constants/theme";
 import { MyContext } from "../../../context/Provider";
 import InputField from "../../../components/InputField";
 import PositionCard from "../../../components/Route/PositionCard";
+import BottomMenu from "../../../components/Route/BottomMenu";
 
 const Start = (props) => {
-  const { setNewRoute, newRoute } = React.useContext(MyContext);
+  const { setNewRoute, newRoute } = useContext(MyContext);
   const [searchInput, setSearchInput] = useState("");
 
   const handleChoose = (item) => {
@@ -23,12 +24,12 @@ const Start = (props) => {
   };
 
   const defaultButtons = [
-    { place_id: "0", name: "My current location", icon: faMapMarkerAlt, default: true },
-    { place_id: "1", name: "Pick a landmark for me", icon: faCompass, default: true },
+    { name: "My current location", icon: faMapMarkerAlt, default: true },
+    { name: "Pick a landmark for me", icon: faCompass, default: true },
   ];
 
   const renderHeader = () => {
-    return searchInput.length === 0 ? defaultButtons.map((item) => <PositionCard item={item} />) : <></>;
+    return searchInput.length === 0 ? defaultButtons.map((item, index) => <PositionCard item={item} key={index} />) : <></>;
   };
 
   const isChecked = (item) => {
@@ -53,12 +54,7 @@ const Start = (props) => {
         />
       </View>
 
-      <View style={{ width: "100%" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Back" onPress={handleBack} />
-          <Button title="Next" onPress={handleNext} />
-        </View>
-      </View>
+      <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Next" />
     </SafeAreaView>
   );
 };
@@ -79,15 +75,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     marginBottom: 10,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 6,
-    paddingHorizontal: 22,
-    borderTopColor: "#3D3D3D",
-    backgroundColor: "#161616",
-    borderTopWidth: 0.3,
   },
 });
 export default Start;

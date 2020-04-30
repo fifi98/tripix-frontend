@@ -11,6 +11,7 @@ import { colors } from "../../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
+import BottomMenu from "../../../components/Route/BottomMenu";
 
 const NewRoute = (props) => {
   const { setNewRoute, newRoute } = React.useContext(MyContext);
@@ -79,12 +80,7 @@ const NewRoute = (props) => {
         <DateTimePickerModal isVisible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
       </View>
 
-      <View style={{ width: "100%" }}>
-        <View style={styles.buttonContainer}>
-          <Button title="Cancel" onPress={handleBack} />
-          <Button title="Next" onPress={handleNext} />
-        </View>
-      </View>
+      <BottomMenu back={handleBack} backTitle="Cancel" next={handleNext} nextTitle="Next" />
     </SafeAreaView>
   );
 };
@@ -105,15 +101,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     marginBottom: 10,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 6,
-    paddingHorizontal: 22,
-    borderTopColor: "#3D3D3D",
-    backgroundColor: "#161616",
-    borderTopWidth: 0.3,
   },
 });
 export default NewRoute;

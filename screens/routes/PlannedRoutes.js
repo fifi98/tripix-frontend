@@ -7,6 +7,7 @@ import { colors } from "../../constants/theme";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
 import { HeaderBackButton } from "@react-navigation/stack";
+import BoldText from "../../components/ui/BoldText";
 
 const PlannedRoutes = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -32,10 +33,9 @@ const PlannedRoutes = ({ navigation }) => {
         <View style={{ marginLeft: -10 }}>
           <HeaderBackButton onPress={() => navigation.navigate("Home")} />
         </View>
-        <View style={styles.title}>
-          <Text style={styles.headerBold}>Planned</Text>
-          <Text style={styles.headerNormal}> routes</Text>
-        </View>
+        <Text style={styles.title}>
+          <BoldText>Planned</BoldText> routes
+        </Text>
         <InputField placeholder="Search location" icon={faSearch} onChangeText={(text) => setSearch(text)} value={search} />
         {routes.length == 0 ? (
           <View style={styles.textContainer}>
@@ -63,14 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   title: {
-    flexDirection: "row",
-  },
-  headerBold: {
-    fontSize: 30,
-    color: "white",
-    fontWeight: "bold",
-  },
-  headerNormal: {
     fontSize: 30,
     color: "white",
   },

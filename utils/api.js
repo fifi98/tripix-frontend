@@ -1,5 +1,6 @@
 import axios from "axios";
+import { BASE_URL } from "react-native-dotenv";
 
 export default axios.create({
-  baseURL: "http://31.220.45.114/tripix/public/api",
+  baseURL: BASE_URL,
 });

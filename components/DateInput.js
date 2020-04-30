@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Alert } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { colors } from "../constants/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
@@ -31,19 +31,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 62,
     marginVertical: 10,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   title: {
     color: colors.textSecondary,
-    fontSize: 16
+    fontSize: 16,
   },
   date: {
     color: "white",
-    fontSize: 16
+    fontSize: 16,
   },
   icon: {
-    color: colors.textSecondary
-  }
+    color: colors.textSecondary,
+  },
 });
 
 export default DateInput;

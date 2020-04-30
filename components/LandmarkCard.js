@@ -1,10 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
 import { MyContext } from "../context/Provider";
+import { BASE_URL } from "react-native-dotenv";
 import StarRating from "react-native-star-rating";
 
 const RouteCard = ({ item, onLongPress }) => {
@@ -22,7 +23,7 @@ const RouteCard = ({ item, onLongPress }) => {
     <TouchableOpacity style={styles.container} onLongPress={() => onLongPress(item)} onPress={handleSelect}>
       <ImageBackground
         source={{
-          url: `http://31.220.45.114/tripix/public/api/getphoto?photo_reference=${item.photo_reference}&maxwidth=300`,
+          url: `${BASE_URL}/getphoto?photo_reference=${item.photo_reference}&maxwidth=300`,
         }}
         style={styles.image}
       />

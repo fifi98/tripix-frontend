@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
 import InputField from "../../components/InputField";
-import ButtonPrimary from "../../components/ButtonPrimary";
+import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import LoginTitle from "../../components/LoginTitle";
 import LoginSubtitle from "../../components/LoginSubtitle";
 import api from "../../utils/api";

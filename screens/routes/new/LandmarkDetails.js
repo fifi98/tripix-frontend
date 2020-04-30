@@ -48,7 +48,7 @@ const LandMarkDetails = ({ route }) => {
                 starStyle={{ margin: 1 }}
               />
             </View>
-            <Text style={styles.description}>{details.description}</Text>
+            <Text style={styles.description}>"{details.description}"</Text>
           </View>
         </View>
         <View style={styles.checkBox}>

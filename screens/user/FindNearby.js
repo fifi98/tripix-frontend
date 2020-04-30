@@ -1,15 +1,13 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
 import Geolocation from "@react-native-community/geolocation";
-import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { MyContext } from "../../context/Provider";
-import RoundButton from "../../components/RoundButton";
 import { faChevronCircleLeft, faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { mapStyle } from "../../constants/mapStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { View, Alert, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import BottomSheet from "reanimated-bottom-sheet";
 import Sheet from "../../components/Sheet";
 import NearbyItem from "../../components/NearbyItem";
 
@@ -21,17 +19,6 @@ const FindNearby = ({ route, navigation }) => {
 
   const placeType = route.params.type;
 
-  const data = [
-    {
-      place_id: "",
-      latitude: "",
-      longitude: "",
-      photo_reference: "",
-      rating: "",
-      name: "",
-    },
-  ];
-
   const fetchData = (position) => {
     let initialPosition = {
       latitude: position.coords.latitude,
@@ -39,7 +26,6 @@ const FindNearby = ({ route, navigation }) => {
       latitudeDelta: 0.09,
       longitudeDelta: 0.035,
     };
-    console.log(user.token);
     setUserPosition(initialPosition);
     api
       .get("/nearby/" + placeType, {

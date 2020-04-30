@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import InputField from "../../../components/InputField";
 import { colors } from "../../../constants/theme";
 import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import PositionCard from "../../../components/Route/PositionCard";
 import BottomMenu from "../../../components/Route/BottomMenu";
+import BoldText from "../../../components/ui/BoldText";
 
 const End = (props) => {
   const { setNewRoute, newRoute } = useContext(MyContext);
@@ -39,7 +40,9 @@ const End = (props) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.title}>Where do you want your trip to end?</Text>
+        <Text style={styles.title}>
+          <BoldText>Where</BoldText> do you want your trip to end?
+        </Text>
         <InputField placeholder="Search landmarks" icon={faSearch} value={searchInput} onChangeText={(text) => setSearchInput(text)} />
         <FlatList
           keyExtractor={(item) => item.place_id}

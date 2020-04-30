@@ -6,6 +6,7 @@ import { MyContext } from "../../../context/Provider";
 import InputField from "../../../components/InputField";
 import PositionCard from "../../../components/Route/PositionCard";
 import BottomMenu from "../../../components/Route/BottomMenu";
+import BoldText from "../../../components/ui/BoldText";
 
 const Start = (props) => {
   const { setNewRoute, newRoute } = useContext(MyContext);
@@ -40,7 +41,9 @@ const Start = (props) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.title}>Where do you want your trip to start from?</Text>
+        <Text style={styles.title}>
+          <BoldText>Where</BoldText> do you want your trip to start from?
+        </Text>
         <InputField placeholder="Search landmarks" icon={faSearch} value={searchInput} onChangeText={(text) => setSearchInput(text)} />
 
         <FlatList

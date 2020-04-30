@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import InputField from "../../../components/InputField";
 import LoginSubtitle from "../../../components/LoginSubtitle";
 import LocationCard from "../../../components/LocationCard";
@@ -12,9 +12,10 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
 import BottomMenu from "../../../components/Route/BottomMenu";
+import BoldText from "../../../components/ui/BoldText";
 
 const NewRoute = (props) => {
-  const { setNewRoute, newRoute } = React.useContext(MyContext);
+  const { setNewRoute, newRoute } = useContext(MyContext);
 
   const [nearbyCities, setNearbyCities] = useState([]);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -62,7 +63,9 @@ const NewRoute = (props) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.title}>Where are you going?</Text>
+        <Text style={styles.title}>
+          <BoldText>Where</BoldText> are you going?
+        </Text>
         <InputField
           placeholder="e.g. London"
           icon={faMapMarkerAlt}

@@ -13,6 +13,7 @@ import {
   faLandmark,
 } from "@fortawesome/free-solid-svg-icons";
 import RoundButton from "../../components/RoundButton";
+import BoldText from "../../components/ui/BoldText";
 import { MyContext } from "../../context/Provider";
 
 const Home = ({ navigation }) => {
@@ -39,7 +40,9 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.caption}>Hello, {user.name}!</Text>
+        <Text style={styles.caption}>
+          Hello, <BoldText>{user.name}</BoldText>!
+        </Text>
         <Text style={styles.textSecondary}>Routes</Text>
         <View style={styles.cardContainer}>
           {cardButtons.map((button, index) => (

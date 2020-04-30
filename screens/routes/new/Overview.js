@@ -10,6 +10,7 @@ import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import BottomMenu from "../../../components/Route/BottomMenu";
+import BoldText from "../../../components/ui/BoldText";
 
 const Overview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -80,8 +81,10 @@ const Overview = (props) => {
       <View style={styles.container}>
         {!isLoading ? (
           <>
-            <Text style={styles.title}>Overview of your trip to {newRoute.trip.location}</Text>
-            <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 15 }}>
+            <Text style={styles.title}>
+              <BoldText>Overview</BoldText> of your trip to <BoldText>{newRoute.trip.location}</BoldText>
+            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 18 }}>
               <FontAwesomeIcon icon={faClock} style={{ color: colors.textSecondary }} />
               <Text style={{ color: colors.textSecondary, marginLeft: 10 }}>
                 {newRoute.trip.duration} mins · {newRoute.trip.distance} km

@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, SafeAreaView, Button } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import SearchLandmarks from "../../../components/Route/SearchLandmarks";
 import SegmentedControlIOS from "@react-native-community/segmented-control";
 import LandmarksList from "../../../components/Route/LandmarksList";
 import { MyContext } from "../../../context/Provider";
 import { colors } from "../../../constants/theme";
 import BottomMenu from "../../../components/Route/BottomMenu";
+import BoldText from "../../../components/ui/BoldText";
 
 const WhatVisit = (props) => {
   const [attractions, setAttractions] = useState([]);
@@ -25,10 +26,9 @@ const WhatVisit = (props) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={styles.headerBold}>What</Text>
-          <Text style={styles.headerNormal}> do you want to visit?</Text>
-        </View>
+        <Text style={styles.title}>
+          <BoldText>What</BoldText> do you want to visit?
+        </Text>
         <SearchLandmarks
           setAttractions={setAttractions}
           searchInput={searchInput}
@@ -63,14 +63,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    flexDirection: "row",
-  },
-  headerBold: {
-    fontSize: 22,
-    color: "white",
-    fontWeight: "bold",
-  },
-  headerNormal: {
     fontSize: 22,
     color: "white",
   },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
 import { faChevronCircleLeft, faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { mapStyle } from "../../../constants/mapStyle";
@@ -11,7 +11,7 @@ import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
 const Trip = ({ navigation, route }) => {
   const { trip } = route.params;
 
-  let mapRef = React.createRef();
+  let mapRef = createRef();
 
   const handleBack = () => {
     navigation.navigate("PlannedRoutes");
@@ -74,35 +74,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: "white",
-  },
-  panelContainer: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-  panel: {
-    height: 600,
-    paddingHorizontal: 20,
-    backgroundColor: "#313233",
-  },
-  header: {
-    backgroundColor: "#313233",
-    shadowColor: "#000000",
-    paddingTop: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  panelHeader: {
-    alignItems: "center",
-  },
-  panelHandle: {
-    width: 50,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "#00000040",
-    marginBottom: 10,
   },
 });
 

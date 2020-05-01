@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert, SafeAreaView } from "react-native";
 import InputField from "../../components/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
@@ -13,9 +13,11 @@ import { MyContext } from "../../context/Provider";
 const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
   const [inputError, setInputError] = useState(false);
-  const { user } = React.useContext(MyContext);
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const { user } = useContext(MyContext);
 
   const handleLogin = async () => {
+    setButtonLoading(true);
     api
       .post("/login", input)
       .then(({ data }) => {
@@ -26,6 +28,9 @@ const Login = ({ navigation }) => {
         if (err.response.data.message) Alert.alert(err.response.data.message);
         else Alert.alert(err.response.data[Object.keys(err.response.data)[0]][0]);
         setInputError(true);
+      })
+      .finally(() => {
+        setButtonLoading(false);
       });
   };
 
@@ -59,7 +64,7 @@ const Login = ({ navigation }) => {
             error={inputError}
           />
 
-          <ButtonPrimary title="Login" onPress={handleLogin} />
+          <ButtonPrimary title="Login" onPress={handleLogin} loading={buttonLoading} />
         </View>
         <View style={styles.footer}>
           <ButtonSecondary title="Forgot password?" onPress={() => navigation.navigate("ForgottenPassword", { email: input.email })} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView } from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
 import InputField from "../../components/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import ButtonSecondary from "../../components/ui/ButtonSecondary";
@@ -11,21 +11,31 @@ import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Register = ({ navigation }) => {
   const [input, setInput] = useState({ name: "", email: "", password: "", confirmPassword: "" });
+  const [inputError, setInputError] = useState({ name: false, email: false, password: false });
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const toLogin = () => {
     navigation.navigate("Login");
   };
 
   const handleRegister = () => {
+    setButtonLoading(true);
     api
       .post("/users", input)
-      .then((response) => navigation.navigate("Activate", { email: input.email }))
+      .then(() => navigation.navigate("Activate", { email: input.email }))
       .catch((error) => {
         const message = error.response.data;
-        if (message.email) {
-          console.log("Email in use");
-        }
-        console.log(message);
+
+        // Check which input is invalid and change input field style accordingly
+        message.name != undefined && setInputError((old) => ({ ...old, name: true }));
+        message.email != undefined && setInputError((old) => ({ ...old, email: true }));
+        message.password != undefined && setInputError((old) => ({ ...old, password: true }));
+
+        // Show the first error contained in the response
+        Alert.alert(message[Object.keys(message)[0]][0]);
+      })
+      .finally(() => {
+        setButtonLoading(false);
       });
   };
 
@@ -40,29 +50,45 @@ const Register = ({ navigation }) => {
             placeholder="Full name"
             icon={faUser}
             value={input.name}
-            onChangeText={(text) => setInput({ ...input, name: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, name: text });
+              setInputError((old) => ({ ...old, name: false }));
+            }}
+            error={inputError.name}
           />
           <InputField
             placeholder="Email"
             icon={faEnvelope}
             value={input.email}
-            onChangeText={(text) => setInput({ ...input, email: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, email: text });
+              setInputError((old) => ({ ...old, email: false }));
+            }}
+            error={inputError.email}
           />
           <InputField
             placeholder="Password"
             icon={faKey}
             value={input.password}
-            onChangeText={(text) => setInput({ ...input, password: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, password: text });
+              setInputError((old) => ({ ...old, password: false }));
+            }}
             isPassword={true}
+            error={inputError.password}
           />
           <InputField
             placeholder="Confirm password"
             icon={faKey}
             value={input.confirmPassword}
-            onChangeText={(text) => setInput({ ...input, confirmPassword: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, confirmPassword: text });
+              setInputError((old) => ({ ...old, password: false }));
+            }}
             isPassword={true}
+            error={inputError.password}
           />
-          <ButtonPrimary title="Sign up" onPress={handleRegister} />
+          <ButtonPrimary title="Sign up" onPress={handleRegister} loading={buttonLoading} />
         </View>
         <View style={styles.footer}>
           <ButtonSecondary title="Already have an account?" onPress={toLogin} />
@@ -84,7 +110,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingTop: 30,
-    width: "85%",
+    width: "88%",
   },
 });
 

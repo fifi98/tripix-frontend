@@ -12,6 +12,7 @@ import { MyContext } from "../../context/Provider";
 
 const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
+  const [inputError, setInputError] = useState(false);
   const { user } = React.useContext(MyContext);
 
   const handleLogin = async () => {
@@ -24,6 +25,7 @@ const Login = ({ navigation }) => {
       .catch((err) => {
         if (err.response.data.message) Alert.alert(err.response.data.message);
         else Alert.alert(err.response.data[Object.keys(err.response.data)[0]][0]);
+        setInputError(true);
       });
   };
 
@@ -39,14 +41,22 @@ const Login = ({ navigation }) => {
             placeholder="Email"
             icon={faEnvelope}
             value={input.email}
-            onChangeText={(text) => setInput({ ...input, email: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, email: text });
+              setInputError(false);
+            }}
+            error={inputError}
           />
           <InputField
             placeholder="Password"
             icon={faKey}
             isPassword={true}
             value={input.password}
-            onChangeText={(text) => setInput({ ...input, password: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, password: text });
+              setInputError(false);
+            }}
+            error={inputError}
           />
 
           <ButtonPrimary title="Login" onPress={handleLogin} />

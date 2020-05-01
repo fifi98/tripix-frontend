@@ -7,6 +7,7 @@ import LoginSubtitle from "../../components/LoginSubtitle";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { HeaderBackButton } from "@react-navigation/stack";
 
 const ForgottenPassword = ({ route, navigation }) => {
   const [input, setInput] = useState({ email: route.params.email });
@@ -22,6 +23,9 @@ const ForgottenPassword = ({ route, navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
+          <View style={{ marginLeft: -10, marginVertical: 8 }}>
+            <HeaderBackButton onPress={() => navigation.goBack()} />
+          </View>
           <TitleSmall textBold="Forgotten" text=" password?" />
           <LoginSubtitle text="Type in your account's email address below and we will send you a password reset link." />
 
@@ -51,8 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   container: {
-    paddingTop: 30,
-    width: "85%",
+    width: "88%",
   },
 });
 

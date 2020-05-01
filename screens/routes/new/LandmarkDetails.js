@@ -8,9 +8,10 @@ import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regul
 import { MyContext } from "../../../context/Provider";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import api from "../../../utils/api";
+import { BASE_URL } from "react-native-dotenv";
 
 const LandMarkDetails = ({ route }) => {
-  const { newRoute } = useContext(MyContext);
+  const { newRoute, setNewRoute } = useContext(MyContext);
   const { landmark } = route.params;
   const [details, setDetails] = useState({ description: "" });
 
@@ -20,10 +21,18 @@ const LandMarkDetails = ({ route }) => {
     });
   }, []);
 
+  const handleCheck = () => {
+    if (newRoute.attractions.find((a) => a.place_id === landmark.place_id)) {
+      setNewRoute((old) => ({ ...old, attractions: [...old.attractions.filter((x) => x.place_id !== landmark.place_id)] }));
+    } else {
+      setNewRoute((old) => ({ ...old, attractions: [...old.attractions, landmark] }));
+    }
+  };
+
   return (
     <ImageBackground
       source={{
-        url: "http://31.220.45.114/tripix/public/api/getphoto?photo_reference=" + landmark.photo_reference,
+        url: `${BASE_URL}/getphoto?photo_reference=${landmark.photo_reference}`,
       }}
       style={{ flex: 1 }}
     >
@@ -52,17 +61,15 @@ const LandMarkDetails = ({ route }) => {
           </View>
         </View>
         <View style={styles.checkBox}>
-          {newRoute.attractions.find((x) => x.place_id === landmark.place_id) ? (
-            <TouchableOpacity>
-              <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={27} />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => console.log("a")}>
-              <View>
-                <FontAwesomeIcon icon={faCheckCircleUnchecked} style={styles.icon} size={27} />
-              </View>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity onPress={handleCheck}>
+            <View>
+              <FontAwesomeIcon
+                icon={newRoute.attractions.find((x) => x.place_id === landmark.place_id) ? faCheckCircle : faCheckCircleUnchecked}
+                style={styles.icon}
+                size={27}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
       </LinearGradient>
     </ImageBackground>

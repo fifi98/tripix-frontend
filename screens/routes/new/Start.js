@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "../../../constants/theme";
 import { MyContext } from "../../../context/Provider";
-import InputField from "../../../components/InputField";
+import InputField from "../../../components/ui/InputField";
 import PositionCard from "../../../components/Route/PositionCard";
 import BottomMenu from "../../../components/Route/BottomMenu";
 import BoldText from "../../../components/ui/BoldText";

@@ -4,7 +4,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import LoginSubtitle from "../../../components/LoginSubtitle";
 import LocationCard from "../../../components/LocationCard";
 import Geolocation from "@react-native-community/geolocation";
-import InputField from "../../../components/InputField";
+import InputField from "../../../components/ui/InputField";
 import BottomMenu from "../../../components/Route/BottomMenu";
 import DateInput from "../../../components/DateInput";
 import BoldText from "../../../components/ui/BoldText";

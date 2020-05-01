@@ -4,7 +4,7 @@ import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
 import { faChevronCircleLeft, faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { mapStyle } from "../../../constants/mapStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Sheet from "../../../components/Sheet";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";

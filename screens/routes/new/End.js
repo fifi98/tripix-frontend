@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
-import InputField from "../../../components/InputField";
+import InputField from "../../../components/ui/InputField";
 import { colors } from "../../../constants/theme";
 import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";

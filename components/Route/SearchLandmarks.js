@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import InputField from "../InputField";
+import { faSearch, faLandmark, faLeaf, faFootballBall, faPaw, faSchool, faChurch } from "@fortawesome/free-solid-svg-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faSearch, faLandmark, faLeaf, faFootballBall, faPaw, faSchool, faChurch } from "@fortawesome/free-solid-svg-icons";
-import { colors } from "../../constants/theme";
-import api from "../../utils/api";
 import { MyContext } from "../../context/Provider";
+import { colors } from "../../constants/theme";
+import InputField from "../ui/InputField";
+import api from "../../utils/api";
 
 const CategoryButton = ({ selectCategory, icon, selected }) => {
   return (

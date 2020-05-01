@@ -63,7 +63,6 @@ const Overview = (props) => {
     });
     setNewRoute((old) => ({ ...old, trip: { ...old.trip, locations: a } }));
 
-    console.log(newRoute.trip);
     api
       .post("/route/plan_route", newRoute.trip)
       .then(() => props.navigation.navigate("Trip", { trip: newRoute.trip }))

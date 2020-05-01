@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Alert } from "react-native";
-import InputField from "../../../components/InputField";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import LoginSubtitle from "../../../components/LoginSubtitle";
 import LocationCard from "../../../components/LocationCard";
 import Geolocation from "@react-native-community/geolocation";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import InputField from "../../../components/InputField";
+import BottomMenu from "../../../components/Route/BottomMenu";
 import DateInput from "../../../components/DateInput";
+import BoldText from "../../../components/ui/BoldText";
 import api from "../../../utils/api";
 import { colors } from "../../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
-import BottomMenu from "../../../components/Route/BottomMenu";
-import BoldText from "../../../components/ui/BoldText";
 
 const NewRoute = (props) => {
   const { setNewRoute, newRoute } = useContext(MyContext);
@@ -89,7 +89,7 @@ const NewRoute = (props) => {
             <LocationCard key={city.photo_reference} city={city} handleNext={handleNext} />
           ))}
         </ScrollView>
-        <DateTimePickerModal Visible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
+        <DateTimePickerModal isVisible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
       </View>
 
       <BottomMenu back={handleBack} backTitle="Cancel" next={handleNext} nextTitle="Next" />

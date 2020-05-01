@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, Alert } from "react-native";
 import InputField from "../../../components/InputField";
 import LoginSubtitle from "../../../components/LoginSubtitle";
 import LocationCard from "../../../components/LocationCard";
@@ -19,9 +19,11 @@ const NewRoute = (props) => {
 
   const [nearbyCities, setNearbyCities] = useState([]);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [inputError, setInputError] = useState(false);
 
   const handleLocation = (location) => {
     setNewRoute((old) => ({ ...old, location: location }));
+    setInputError(false);
   };
 
   const handleDatePress = () => {
@@ -53,6 +55,12 @@ const NewRoute = (props) => {
   }, []);
 
   const handleNext = () => {
+    if (newRoute.location.length == 0) {
+      setInputError(true);
+      Alert.alert("You have to enter your trip location!");
+      return;
+    }
+
     props.navigation.navigate("WhatVisit");
   };
 
@@ -71,6 +79,7 @@ const NewRoute = (props) => {
           icon={faMapMarkerAlt}
           value={newRoute.location}
           onChangeText={(text) => handleLocation(text)}
+          error={inputError}
         />
         <DateInput placeholder="Starts" icon={faMapMarkerAlt} onPress={handleDatePress} />
         <LoginSubtitle text="Nearby locations" />
@@ -80,7 +89,7 @@ const NewRoute = (props) => {
             <LocationCard key={city.photo_reference} city={city} handleNext={handleNext} />
           ))}
         </ScrollView>
-        <DateTimePickerModal isVisible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
+        <DateTimePickerModal Visible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
       </View>
 
       <BottomMenu back={handleBack} backTitle="Cancel" next={handleNext} nextTitle="Next" />

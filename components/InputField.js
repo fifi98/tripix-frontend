@@ -3,9 +3,9 @@ import { TextInput, StyleSheet, View } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "../constants/theme";
 
-const InputField = ({ icon, placeholder, value, onChangeText, isPassword, numbers }) => {
+const InputField = ({ icon, placeholder, value, onChangeText, isPassword, numbers, error }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, error && styles.error]}>
       <View style={{ width: 50, alignItems: "center", justifyContent: "center" }}>
         <FontAwesomeIcon icon={icon} style={styles.icon} />
       </View>
@@ -31,8 +31,10 @@ const styles = StyleSheet.create({
     height: 36,
     marginVertical: 10,
     flexDirection: "row",
-    // borderColor: "#E20000",
-    // borderWidth: 1.9,
+  },
+  error: {
+    borderColor: "#E20000",
+    borderWidth: 1,
   },
   field: {
     color: colors.textPrimary,

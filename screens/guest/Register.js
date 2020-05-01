@@ -19,7 +19,17 @@ const Register = ({ navigation }) => {
   };
 
   const handleRegister = () => {
+    Keyboard.dismiss();
+
+    // Check confirm password input
+    if (input.password !== input.confirmPassword) {
+      setInputError((old) => ({ ...old, password: true }));
+      return Alert.alert("Password and confirm password fields do not match!");
+    }
+
     setButtonLoading(true);
+
+    // Send register post request to the server
     api
       .post("/users", input)
       .then(() => navigation.navigate("Activate", { email: input.email }))

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
 import { colors } from "../constants/theme";
 
@@ -35,7 +35,9 @@ const Sheet = ({ children, title, buttonText }) => {
 
   const renderInner = () => <View style={styles.panel}>{children}</View>;
 
-  return <BottomSheet ref={sheet} snapPoints={[580, 240, 30]} renderContent={renderInner} renderHeader={renderHeader} initialSnap={1} />;
+  return (
+    <BottomSheet ref={sheet} snapPoints={["87%", "36%", "4.5%"]} renderContent={renderInner} renderHeader={renderHeader} initialSnap={1} />
+  );
 };
 
 const styles = StyleSheet.create({
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   panel: {
-    height: 600,
+    height: "100%",
     paddingHorizontal: 20,
     backgroundColor: "#313233",
     paddingTop: 20,

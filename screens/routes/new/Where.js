@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, StyleSheet, Text, SafeAreaView, Alert } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import LoginSubtitle from "../../../components/LoginSubtitle";
 import LocationCard from "../../../components/LocationCard";
@@ -69,31 +69,33 @@ const NewRoute = (props) => {
   };
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          <BoldText>Where</BoldText> are you going?
-        </Text>
-        <InputField
-          placeholder="e.g. London"
-          icon={faMapMarkerAlt}
-          value={newRoute.location}
-          onChangeText={(text) => handleLocation(text)}
-          error={inputError}
-        />
-        <DateInput placeholder="Starts" icon={faMapMarkerAlt} onPress={handleDatePress} />
-        <LoginSubtitle text="Nearby locations" />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <SafeAreaView style={styles.screen}>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            <BoldText>Where</BoldText> are you going?
+          </Text>
+          <InputField
+            placeholder="e.g. London"
+            icon={faMapMarkerAlt}
+            value={newRoute.location}
+            onChangeText={(text) => handleLocation(text)}
+            error={inputError}
+          />
+          <DateInput placeholder="Starts" icon={faMapMarkerAlt} onPress={handleDatePress} />
+          <LoginSubtitle text="Nearby locations" />
 
-        <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-          {nearbyCities.map((city) => (
-            <LocationCard key={city.photo_reference} city={city} handleNext={handleNext} />
-          ))}
-        </ScrollView>
-        <DateTimePickerModal isVisible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
-      </View>
+          <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+            {nearbyCities.map((city) => (
+              <LocationCard key={city.photo_reference} city={city} handleNext={handleNext} />
+            ))}
+          </ScrollView>
+          <DateTimePickerModal isVisible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
+        </View>
 
-      <BottomMenu back={handleBack} backTitle="Cancel" next={handleNext} nextTitle="Next" />
-    </SafeAreaView>
+        <BottomMenu back={handleBack} backTitle="Cancel" next={handleNext} nextTitle="Next" />
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 

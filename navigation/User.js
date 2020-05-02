@@ -17,6 +17,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
 import { TransitionPresets } from "@react-navigation/stack";
+import SuggestedRoutesCreated from "../screens/routes/SuggestedRoutesCreated";
 
 const StackModal = createStackNavigator();
 const Stack = createStackNavigator();
@@ -61,6 +62,7 @@ const UserScreens = () => {
       <Stack.Screen name="PlannedRoutes" component={PlannedRoutes} />
       <Stack.Screen name="FinishedRoutes" component={FinishedRoutes} />
       <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />
+      <Stack.Screen name="SuggestedRoutesCreated" component={SuggestedRoutesCreated} />
       <Stack.Screen name="NewRoute" component={NewRoute} />
       <Stack.Screen name="WhatVisit" component={LandMarks} />
       <Stack.Screen name="Start" component={Start} />

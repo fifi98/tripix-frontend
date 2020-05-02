@@ -9,6 +9,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
+import { formatDuration } from "../../../utils/formatDuration";
 import BottomMenu from "../../../components/Route/BottomMenu";
 import BoldText from "../../../components/ui/BoldText";
 
@@ -86,7 +87,7 @@ const Overview = (props) => {
             <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 18 }}>
               <FontAwesomeIcon icon={faClock} style={{ color: colors.textSecondary }} />
               <Text style={{ color: colors.textSecondary, marginLeft: 10 }}>
-                {newRoute.trip.duration} mins · {newRoute.trip.distance} km
+                {formatDuration(newRoute.trip.duration)} · {newRoute.trip.distance} km
               </Text>
             </View>
             <ScrollView>
@@ -99,7 +100,7 @@ const Overview = (props) => {
           <Loading text="Creating your route" />
         )}
       </View>
-      <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Next" />
+      <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Create" />
     </SafeAreaView>
   );
 };

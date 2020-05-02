@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
 import { colors } from "../constants/theme";
 

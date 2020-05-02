@@ -4,7 +4,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faClock, faLandmark } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "../constants/theme";
+import { BASE_URL } from "react-native-dotenv";
 import Moment from "moment";
+import { formatDuration } from "../utils/formatDuration";
 
 const RouteCard = ({ item, handleSelect }) => {
   return (
@@ -13,14 +15,14 @@ const RouteCard = ({ item, handleSelect }) => {
       <TouchableOpacity style={styles.container} onPress={() => handleSelect(item.route_id)}>
         <ImageBackground
           source={{
-            url: `http://31.220.45.114/tripix/public/api/getphoto?photo_reference=${item.photo_ref}`,
+            url: `${BASE_URL}/getphoto?photo_reference=${item.photo_ref}`,
           }}
           style={styles.image}
         />
         <View style={styles.data}>
           <View style={{ alignItems: "flex-end" }}>
             <View style={styles.details}>
-              <Text style={styles.text}>{item.duration} min</Text>
+              <Text style={styles.text}>{formatDuration(item.duration)}</Text>
               <FontAwesomeIcon icon={faClock} style={styles.icon} />
               <Text style={styles.text}>{item.number_attractions}</Text>
               <FontAwesomeIcon icon={faLandmark} style={styles.icon} />

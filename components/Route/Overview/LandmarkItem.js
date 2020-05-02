@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { faWalking, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "../../../constants/theme";
 import { MyContext } from "../../../context/Provider";
+import { formatDuration } from "../../../utils/formatDuration";
+import { BASE_URL } from "react-native-dotenv";
 import FastImage from "react-native-fast-image";
 
 const LandmarkItem = ({ location }) => {
@@ -15,28 +17,30 @@ const LandmarkItem = ({ location }) => {
 
   return (
     <View>
+      {/* Transport type, duration and travel time - if not the first landmark */}
       {location.distance != 0 && (
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View style={{ width: 60, alignItems: "center" }}>
-            <View style={{ backgroundColor: "#0A84FF", height: 18, width: 3 }} />
-            <FontAwesomeIcon icon={faWalking} size={22} style={{ color: "#0A84FF", marginVertical: 5 }} />
-            <View style={{ backgroundColor: "#0A84FF", height: 18, width: 3 }} />
+        <View style={styles.detailsContainer}>
+          <View style={styles.transportContainer}>
+            <View style={styles.line} />
+            <FontAwesomeIcon icon={faWalking} size={22} style={styles.iconTransport} />
+            <View style={styles.line} />
           </View>
-          <View style={{ marginLeft: 20, flexDirection: "row", alignItems: "center" }}>
+          <View style={styles.durationDistanceContainer}>
             <FontAwesomeIcon icon={faClock} style={styles.icon} />
             <Text style={styles.text}>
-              {location.duration} min · {location.distance} km
+              {formatDuration(location.duration)} · {location.distance} km
             </Text>
           </View>
         </View>
       )}
 
+      {/* Landmark icon and name */}
       <View style={styles.container}>
         <View style={{ width: 60 }}>
           <FastImage
             style={styles.image}
             source={{
-              uri: `http://31.220.45.114/tripix/public/api/getphoto?photo_reference=${test.photo_reference}&maxwidth=100`,
+              uri: `${BASE_URL}/getphoto?photo_reference=${test.photo_reference}&maxwidth=100`,
             }}
           />
         </View>
@@ -68,6 +72,28 @@ const styles = StyleSheet.create({
   icon: {
     color: colors.textSecondary,
     marginRight: 7,
+  },
+  line: {
+    backgroundColor: "#0A84FF",
+    height: 18,
+    width: 3,
+  },
+  iconTransport: {
+    color: "#0A84FF",
+    marginVertical: 5,
+  },
+  detailsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  transportContainer: {
+    width: 60,
+    alignItems: "center",
+  },
+  durationDistanceContainer: {
+    marginLeft: 20,
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

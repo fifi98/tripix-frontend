@@ -16,7 +16,7 @@ const SuggestedRoutesCreated = ({ navigation, route }) => {
   useEffect(() => {
     api.get(`/route/suggested_route/${place}`).then((response) => {
       setRoutes(response.data);
-      console.log(response.data);
+      console.log(response.data.routes.reverse());
     });
   }, []);
 
@@ -42,30 +42,9 @@ const SuggestedRoutesCreated = ({ navigation, route }) => {
         <LoginSubtitle text="We have created three types of routes for you. Pick one to proceed" />
         {routes.length !== 0 ? (
           <ScrollView>
-            <SuggestedRouteCard
-              item={{
-                ...routes.miniRoute,
-                name: "Mini Route",
-                photo_ref: routes.attractions[routes.miniRoute.landmarksNumber - 1].photo_reference,
-              }}
-              handleSelect={handleSelect}
-            />
-            <SuggestedRouteCard
-              item={{
-                ...routes.middleRoute,
-                name: "Middle Route",
-                photo_ref: routes.attractions[routes.middleRoute.landmarksNumber - 1].photo_reference,
-              }}
-              handleSelect={handleSelect}
-            />
-            <SuggestedRouteCard
-              item={{
-                ...routes.largeRoute,
-                name: "Large Route",
-                photo_ref: routes.attractions[routes.largeRoute.landmarksNumber - 1].photo_reference,
-              }}
-              handleSelect={handleSelect}
-            />
+            {routes.routes.map((route) => (
+              <SuggestedRouteCard item={route} handleSelect={handleSelect} />
+            ))}
           </ScrollView>
         ) : (
           <Text>awf</Text>

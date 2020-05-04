@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Dimensions, ImageBackground } from "react-native";
 import { MyContext } from "../context/Provider";
 import { BASE_URL } from "react-native-dotenv";
 
 const LocationCard = ({ city, handleNext }) => {
-  const { setNewRoute } = React.useContext(MyContext);
+  const { setNewRoute } = useContext(MyContext);
 
   const handlePress = () => {
     setNewRoute((old) => ({ ...old, location: city.city }));

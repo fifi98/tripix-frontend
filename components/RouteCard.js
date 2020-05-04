@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { faClock, faLandmark } from "@fortawesome/free-solid-svg-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faClock, faLandmark } from "@fortawesome/free-solid-svg-icons";
-import { colors } from "../constants/theme";
-import { BASE_URL } from "react-native-dotenv";
-import Moment from "moment";
 import { formatDuration } from "../utils/formatDuration";
+import { BASE_URL } from "react-native-dotenv";
+import { colors } from "../constants/theme";
+import Moment from "moment";
 
 const RouteCard = ({ item, handleSelect }) => {
   return (

@@ -10,7 +10,7 @@ import { formatDuration } from "../utils/formatDuration";
 const SuggestedRouteCard = ({ item, handleSelect }) => {
   return (
     <View>
-      <TouchableOpacity style={styles.container} onPress={() => handleSelect(item.route_id)}>
+      <TouchableOpacity style={styles.container} onPress={() => handleSelect()}>
         <ImageBackground
           source={{
             url: `${BASE_URL}/getphoto?photo_reference=${item.photo_ref}`,
@@ -22,7 +22,7 @@ const SuggestedRouteCard = ({ item, handleSelect }) => {
             <View style={styles.details}>
               <Text style={styles.text}>{formatDuration(item.duration)}</Text>
               <FontAwesomeIcon icon={faClock} style={styles.icon} />
-              <Text style={styles.text}>{item.landmarksNumber}</Text>
+              <Text style={styles.text}>{item.number_attractions}</Text>
               <FontAwesomeIcon icon={faLandmark} style={styles.icon} />
             </View>
           </View>

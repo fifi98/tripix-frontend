@@ -2,15 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faClock, faLandmark } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faLandmark, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
 import { colors } from "../constants/theme";
 import { BASE_URL } from "react-native-dotenv";
 import { formatDuration } from "../utils/formatDuration";
 
-const SuggestedRouteCard = ({ item, handleSelect }) => {
+const SuggestedRouteCard = ({ item, handleSelect, selected }) => {
   return (
     <View>
-      <TouchableOpacity style={styles.container} onPress={() => handleSelect()}>
+      <TouchableOpacity style={styles.container} onPress={() => handleSelect(item.name)}>
         <ImageBackground
           source={{
             url: `${BASE_URL}/getphoto?photo_reference=${item.photo_ref}`,
@@ -18,6 +19,13 @@ const SuggestedRouteCard = ({ item, handleSelect }) => {
           style={styles.image}
         />
         <View style={styles.data}>
+          <View style={styles.checkBox}>
+            {selected ? (
+              <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={24} />
+            ) : (
+              <FontAwesomeIcon icon={faCheckCircleUnchecked} style={styles.icon} size={24} />
+            )}
+          </View>
           <View style={{ alignItems: "flex-end" }}>
             <View style={styles.details}>
               <Text style={styles.text}>{formatDuration(item.duration)}</Text>
@@ -92,6 +100,13 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     fontSize: 17,
     marginVertical: 2,
+  },
+  checkBox: {
+    padding: 4,
+    position: "absolute",
+    left: 10,
+    top: 10,
+    flexDirection: "row",
   },
 });
 

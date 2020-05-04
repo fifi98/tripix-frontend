@@ -58,10 +58,10 @@ const Trip = ({ navigation, route }) => {
             {trip.locations.map((loc, index) => (
               <Marker key={loc.latitude} tracksViewChanges={false} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }}>
                 {index == 0 || index == trip.locations.length - 1 ? (
-                  <FontAwesomeIcon icon={faMapMarkerAlt} size={30} style={{ color: "white" }} />
+                  <FontAwesomeIcon icon={faMapMarkerAlt} size={30} style={styles.icon} />
                 ) : (
                   <View style={{ backgroundColor: "#30D158", padding: 6, borderRadius: 20 }}>
-                    <FontAwesomeIcon icon={faLandmark} size={18} style={{ color: "white" }} />
+                    <FontAwesomeIcon icon={faLandmark} size={18} style={styles.icon} />
                   </View>
                 )}
               </Marker>

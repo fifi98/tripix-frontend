@@ -9,14 +9,14 @@ import BottomMenu from "../../components/Route/BottomMenu";
 import LoginSubtitle from "../../components/LoginSubtitle";
 
 const SuggestedRoutesCreated = ({ navigation, route }) => {
-  const { user } = useContext(MyContext);
+  const { setNewRoute } = useContext(MyContext);
   const { place } = route.params;
   const [routes, setRoutes] = useState([]);
+  const [selectedRoute, setSelectedRoute] = useState();
 
   useEffect(() => {
     api.get(`/route/suggested_route/${place}`).then((response) => {
       setRoutes(response.data);
-      console.log(response.data.routes.reverse());
     });
   }, []);
 
@@ -25,12 +25,35 @@ const SuggestedRoutesCreated = ({ navigation, route }) => {
   };
 
   const handleNext = () => {
+    console.log(routes.attractions);
+
+    // If mini route is selected, take first x attractions,
+    // if middle route is selected take first y attractions,
+    // if large route is selected take frist z attractions
+
+    // Get number of attractions for selected route
+    const number_attractions = routes.routes.find((route) => route.name === selectedRoute).number_attractions;
+
+    // Get first x attractions from the attractions list
+    let attractions = routes.attractions.slice(0, number_attractions);
+
+    // Transform coordinates
+    attractions = attractions.map((a) => ({ ...a, location: { lat: a.latitude, lng: a.longitude } }));
+
+    // The first attraction is origin
+    const origin = { lat: attractions[0].location.lat, long: attractions[0].location.lng };
+
+    // The last attraction is destination
+    const destination = { lat: attractions[number_attractions - 1].location.lat, long: attractions[number_attractions - 1].location.lng };
+
+    // Add route attractions to the Context
+    setNewRoute((old) => ({ ...old, origin: origin, destination: destination, attractions: attractions }));
+
     navigation.navigate("Overview");
   };
 
-  const handleSelect = (routeID) => {
-    console.log("aa");
-    // navigation.navigate("Trip", { trip: response.data });
+  const handleSelect = (name) => {
+    setSelectedRoute(name);
   };
 
   return (
@@ -43,7 +66,7 @@ const SuggestedRoutesCreated = ({ navigation, route }) => {
         {routes.length !== 0 ? (
           <ScrollView>
             {routes.routes.map((route) => (
-              <SuggestedRouteCard item={route} handleSelect={handleSelect} />
+              <SuggestedRouteCard key={route.name} item={route} handleSelect={handleSelect} selected={selectedRoute == route.name} />
             ))}
           </ScrollView>
         ) : (

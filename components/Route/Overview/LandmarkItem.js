@@ -12,8 +12,8 @@ const LandmarkItem = ({ location }) => {
   const { newRoute } = useContext(MyContext);
 
   // If the route is created and we don't have landmark's name and photo reference
-  if (!location.name) var test = newRoute.attractions.find((a) => a.location.lat === location.latitude);
-  else var test = location;
+  var test = newRoute.attractions.find((a) => a.location.lat === location.latitude);
+  if (!test) test = location;
 
   return (
     <View>

@@ -66,10 +66,11 @@ const Overview = (props) => {
 
     api
       .post("/route/plan_route", newRoute.trip)
-      .then(() => props.navigation.navigate("Trip", { trip: newRoute.trip }))
+      .then(() => {
+        //
+        props.navigation.navigate("Trip", { trip: newRoute.trip });
+      })
       .catch((err) => {
-        console.log(user.token);
-        console.log(err.response);
         Alert.alert("An error occured!");
       });
   };

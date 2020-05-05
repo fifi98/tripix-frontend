@@ -9,21 +9,22 @@ const Provider = (props) => {
     user_id: null,
     name: "",
     token: "",
-    saveToken: async (userToken, userID, userFullName) => {
+    saveToken: async (userToken, userID, userFullName, email) => {
       const token = ["token", userToken];
       const user_id = ["user_id", userID.toString()];
       const name = ["name", userFullName.split(" ")[0]];
+      const user_email = ["email", email];
 
       try {
-        await AsyncStorage.multiSet([token, user_id, name]);
-        setUser({ ...user, user_id: userID, token: userToken, name: userFullName.split(" ")[0] });
+        await AsyncStorage.multiSet([token, user_id, name, user_email]);
+        setUser({ ...user, user_id: userID, token: userToken, name: userFullName.split(" ")[0], email: email });
       } catch (error) {
         setUser({ error });
       }
     },
     removeToken: async () => {
       try {
-        await AsyncStorage.multiRemove(["token", "user_id", "name"]);
+        await AsyncStorage.multiRemove(["token", "user_id", "name", "email"]);
         setUser({ ...user, user_id: null, token: null });
       } catch (error) {
         setUser({ error });
@@ -35,7 +36,7 @@ const Provider = (props) => {
 
   // Put the token from AsyncStorage to the state when app loads
   useEffect(() => {
-    AsyncStorage.multiGet(["token", "user_id", "name"]).then((storage) => {
+    AsyncStorage.multiGet(["token", "user_id", "name", "email"]).then((storage) => {
       storage.map((item) => setUser((old) => ({ ...old, [item[0]]: item[1] })));
     });
   }, []);

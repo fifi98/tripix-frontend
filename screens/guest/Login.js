@@ -22,7 +22,7 @@ const Login = ({ navigation }) => {
       .post("/login", input)
       .then(({ data }) => {
         // Store JTW in the context and go to the main screen
-        user.saveToken(data.token, data.user_id, data.full_name);
+        user.saveToken(data.token, data.user_id, data.full_name, input.email);
       })
       .catch((err) => {
         if (err.response.data.message) Alert.alert(err.response.data.message);

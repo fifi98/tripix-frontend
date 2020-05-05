@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Button, Text, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChartBar, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faChartBar, faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import MenuButton from "../../components/settings/MenuButton";
 
 const Profile = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -14,9 +16,14 @@ const Profile = ({ navigation }) => {
     user.removeToken();
   };
 
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
   const menuButtons = [
     { title: "Statistics", icon: faChartBar, onPress: () => navigation.navigate("Statistics") },
-    { title: "Account Settings", icon: faUser, onPress: () => navigation.navigate("AccountSettings") },
+    { title: "Email", icon: faEnvelope, onPress: () => navigation.navigate("Account") },
+    { title: "Password", icon: faKey, onPress: () => navigation.navigate("Account") },
   ];
 
   return (
@@ -28,15 +35,7 @@ const Profile = ({ navigation }) => {
 
         <View style={{ marginVertical: 10, marginHorizontal: 4 }}>
           {menuButtons.map((button) => (
-            <TouchableOpacity key={button.name} onPress={button.onPress}>
-              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                <View style={{ marginVertical: 10, flexDirection: "row", alignItems: "center" }}>
-                  <FontAwesomeIcon icon={button.icon} style={{ color: "white", marginRight: 10 }} />
-                  <Text style={{ color: "white", fontSize: 18 }}>{button.title}</Text>
-                </View>
-                <FontAwesomeIcon icon={faChevronRight} style={{ color: "white", marginRight: 10 }} />
-              </View>
-            </TouchableOpacity>
+            <MenuButton key={button.title} button={button} />
           ))}
         </View>
         <View style={styles.logoutContainer} />

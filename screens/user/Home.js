@@ -19,6 +19,8 @@ import { MyContext } from "../../context/Provider";
 const Home = ({ navigation }) => {
   const { user } = useContext(MyContext);
 
+  console.log(user);
+
   const handleFindNearby = (type, icon, color) => {
     navigation.navigate("FindNearby", { type: type, icon: icon, color: color });
   };

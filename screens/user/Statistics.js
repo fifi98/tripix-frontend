@@ -1,22 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import { View, Button, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from "react-native";
-import { MyContext } from "../../context/Provider";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
-import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
-import LoginSubtitle from "../../components/LoginSubtitle";
-import InputField from "../../components/ui/InputField";
+import { HeaderBackButton } from "@react-navigation/stack";
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const [userStats, setUserStats] = useState({
-    finishedRoutesCount: 3,
-    plannedRoutesCount: 22,
-    placesVisited: 2,
-    totalDistanceTravelled: 130.3,
+    finishedRoutesCount: 0,
+    plannedRoutesCount: 0,
+    placesVisited: 0,
+    totalDistanceTravelled: 0,
   });
 
   useEffect(() => {
@@ -33,13 +27,14 @@ const Profile = () => {
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView style={styles.container}>
+        <View style={{ marginLeft: -10 }}>
+          <HeaderBackButton onPress={() => navigation.goBack()} />
+        </View>
         <Text style={styles.title}>
-          <BoldText>Your profile</BoldText>
+          <BoldText>Statistics</BoldText>
         </Text>
 
-        <LoginSubtitle text="Statistics" />
-
-        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        <View style={styles.statsContainer}>
           {statItems.map((item, index) => (
             <View key={index} style={{ width: "50%" }}>
               <Text style={styles.statsCount}>{userStats[item.name]}</Text>
@@ -75,6 +70,11 @@ const styles = StyleSheet.create({
   statsName: {
     color: colors.textSecondary,
     marginBottom: 10,
+  },
+  statsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 20,
   },
 });
 

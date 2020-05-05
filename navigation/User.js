@@ -19,7 +19,7 @@ import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
 import { TransitionPresets } from "@react-navigation/stack";
 import SuggestedRoutesCreated from "../screens/routes/SuggestedRoutesCreated";
 import Statistics from "../screens/user/Statistics";
-import Account from "../screens/user/Account";
+import Account from "../screens/user/Email";
 
 const StackModal = createStackNavigator();
 const Stack = createStackNavigator();

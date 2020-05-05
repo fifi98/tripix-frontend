@@ -10,53 +10,57 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
 import LoginSubtitle from "../../components/LoginSubtitle";
 import InputField from "../../components/ui/InputField";
+import { HeaderBackButton } from "@react-navigation/stack";
 
-const Account = () => {
+const Account = ({ navigation }) => {
   const { user } = useContext(MyContext);
   const [input, setInput] = useState({ email: "" });
-  const [userStats, setUserStats] = useState({
-    finishedRoutesCount: 3,
-    plannedRoutesCount: 22,
-    placesVisited: 2,
-    totalDistanceTravelled: 130.3,
-  });
-
-  useEffect(() => {
-    api.get("/user/stats").then((response) => console.log(response.data));
-  }, []);
-
-  const handleLogout = () => {
-    user.removeToken();
-    console.log("a");
-  };
-
-  const statItems = [
-    { title: "Finished routes", name: "finishedRoutesCount" },
-    { title: "Planned routes", name: "plannedRoutesCount" },
-    { title: "Places visited", name: "placesVisited" },
-    { title: "Total distance traveled", name: "totalDistanceTravelled" },
-  ];
 
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView style={styles.container}>
+        <View style={{ marginLeft: -10 }}>
+          <HeaderBackButton onPress={() => navigation.goBack()} />
+        </View>
         <Text style={styles.title}>
-          <BoldText>Your profile</BoldText>
+          <BoldText>Account Settings</BoldText>
         </Text>
         <LoginSubtitle text="Change email address" />
+        <InputField
+          placeholder="Email"
+          icon={faEnvelope}
+          value={input.email}
+          onChangeText={(text) => {
+            setInput({ ...input, email: text });
+            // setInputError(false);
+          }}
+          // error={inputError}
+        />
+        <ButtonPrimary title="Change Email" />
+        <Button title="Change Email" />
 
-        <LoginSubtitle text="Statistics" />
-
-        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-          {statItems.map((item, index) => (
-            <View key={index} style={{ width: "50%" }}>
-              <Text style={styles.statsCount}>{userStats[item.name]}</Text>
-              <Text style={styles.statsName}>{item.title}</Text>
-            </View>
-          ))}
-        </View>
-
-        <Button title="Logout" onPress={handleLogout} />
+        <LoginSubtitle text="Password" />
+        <InputField
+          placeholder="Enter a new password"
+          icon={faEnvelope}
+          value={input.email}
+          onChangeText={(text) => {
+            setInput({ ...input, email: text });
+            // setInputError(false);
+          }}
+          // error={inputError}
+        />
+        <InputField
+          placeholder="Repeat password"
+          icon={faEnvelope}
+          value={input.email}
+          onChangeText={(text) => {
+            setInput({ ...input, email: text });
+            // setInputError(false);
+          }}
+          // error={inputError}
+        />
+        <ButtonPrimary title="Save" />
       </ScrollView>
     </SafeAreaView>
   );

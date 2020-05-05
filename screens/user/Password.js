@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Alert, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from "react-native";
 import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
 import LoginSubtitle from "../../components/LoginSubtitle";
 import InputField from "../../components/ui/InputField";
@@ -22,6 +20,8 @@ const Password = ({ navigation }) => {
       .then((response) => {
         // Change token l
         setUser((user) => ({ ...user, token: response.data.token }));
+
+        // SPREMI TOKENA U ASYNC STORAGE
         Alert.alert("Password successfully changed!");
       })
       .catch((err) => console.log(err));

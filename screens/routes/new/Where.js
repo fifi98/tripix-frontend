@@ -6,7 +6,7 @@ import LocationCard from "../../../components/LocationCard";
 import Geolocation from "@react-native-community/geolocation";
 import InputField from "../../../components/ui/InputField";
 import BottomMenu from "../../../components/Route/BottomMenu";
-import DateInput from "../../../components/DateInput";
+import DateInput from "../../../components/ui/DateInput";
 import BoldText from "../../../components/ui/BoldText";
 import api from "../../../utils/api";
 import { colors } from "../../../constants/theme";

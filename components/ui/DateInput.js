@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import Moment from "moment";
 import { StyleSheet, View, Text } from "react-native";
-import { colors } from "../constants/theme";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import Moment from "moment";
-import { MyContext } from "../context/Provider";
+import { MyContext } from "../../context/Provider";
+import { colors } from "../../constants/theme";
 
 const DateInput = ({ onPress }) => {
-  const { newRoute } = React.useContext(MyContext);
+  const { newRoute } = useContext(MyContext);
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>

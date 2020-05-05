@@ -35,7 +35,7 @@ const Account = ({ navigation }) => {
           <HeaderBackButton onPress={() => navigation.goBack()} />
         </View>
         <Text style={styles.title}>
-          <BoldText>Account Settings</BoldText>
+          <BoldText>Email address</BoldText>
         </Text>
         <LoginSubtitle text="Change email address" />
         <InputField

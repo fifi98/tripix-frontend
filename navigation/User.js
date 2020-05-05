@@ -19,7 +19,8 @@ import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
 import { TransitionPresets } from "@react-navigation/stack";
 import SuggestedRoutesCreated from "../screens/routes/SuggestedRoutesCreated";
 import Statistics from "../screens/user/Statistics";
-import Account from "../screens/user/Email";
+import Password from "../screens/user/Password";
+import Email from "../screens/user/Email";
 
 const StackModal = createStackNavigator();
 const Stack = createStackNavigator();
@@ -31,7 +32,8 @@ const StatsScreens = () => {
     <Stats.Navigator headerMode="none">
       <Stats.Screen name="Profile" component={Profile} />
       <Stats.Screen name="Statistics" component={Statistics} />
-      <Stats.Screen name="Account" component={Account} />
+      <Stats.Screen name="Email" component={Email} />
+      <Stats.Screen name="Password" component={Password} />
     </Stats.Navigator>
   );
 };

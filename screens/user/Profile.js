@@ -22,8 +22,8 @@ const Profile = ({ navigation }) => {
 
   const menuButtons = [
     { title: "Statistics", icon: faChartBar, onPress: () => navigation.navigate("Statistics") },
-    { title: "Email", icon: faEnvelope, onPress: () => navigation.navigate("Account") },
-    { title: "Password", icon: faKey, onPress: () => navigation.navigate("Account") },
+    { title: "Email", icon: faEnvelope, onPress: () => navigation.navigate("Email") },
+    { title: "Password", icon: faKey, onPress: () => navigation.navigate("Password") },
   ];
 
   return (

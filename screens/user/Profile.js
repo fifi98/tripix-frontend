@@ -7,13 +7,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChartBar, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const { user } = useContext(MyContext);
 
   const handleLogout = () => {
     user.removeToken();
-    console.log("a");
   };
+
+  const menuButtons = [
+    { title: "Statistics", icon: faChartBar, onPress: () => navigation.navigate("Statistics") },
+    { title: "Account Settings", icon: faUser, onPress: () => navigation.navigate("AccountSettings") },
+  ];
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -23,26 +27,19 @@ const Profile = () => {
         </Text>
 
         <View style={{ marginVertical: 10, marginHorizontal: 4 }}>
-          <TouchableOpacity>
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              <View style={{ marginVertical: 10, flexDirection: "row", alignItems: "center" }}>
-                <FontAwesomeIcon icon={faChartBar} style={{ color: "white", marginRight: 10 }} />
-                <Text style={{ color: "white", fontSize: 18 }}>Statistics</Text>
+          {menuButtons.map((button) => (
+            <TouchableOpacity key={button.name} onPress={button.onPress}>
+              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                <View style={{ marginVertical: 10, flexDirection: "row", alignItems: "center" }}>
+                  <FontAwesomeIcon icon={button.icon} style={{ color: "white", marginRight: 10 }} />
+                  <Text style={{ color: "white", fontSize: 18 }}>{button.title}</Text>
+                </View>
+                <FontAwesomeIcon icon={faChevronRight} style={{ color: "white", marginRight: 10 }} />
               </View>
-              <FontAwesomeIcon icon={faChevronRight} style={{ color: "white", marginRight: 10 }} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              <View style={{ marginVertical: 10, flexDirection: "row", alignItems: "center" }}>
-                <FontAwesomeIcon icon={faUser} style={{ color: "white", marginRight: 10 }} />
-                <Text style={{ color: "white", fontSize: 18 }}>Account settings</Text>
-              </View>
-              <FontAwesomeIcon icon={faChevronRight} style={{ color: "white", marginRight: 10 }} />
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          ))}
         </View>
-
+        <View style={styles.logoutContainer} />
         <Button title="Logout" onPress={handleLogout} />
       </View>
     </SafeAreaView>
@@ -57,12 +54,16 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "88%",
-    paddingTop: 10,
+    paddingTop: 25,
     height: "100%",
   },
   title: {
     fontSize: 30,
     color: "white",
+    marginBottom: 20,
+  },
+  logoutContainer: {
+    marginTop: 20,
   },
 });
 

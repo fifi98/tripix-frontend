@@ -17,7 +17,7 @@ const End = (props) => {
   };
 
   const handleNext = () => {
-    console.log(JSON.stringify(newRoute));
+    // console.log(JSON.stringify(newRoute));
     props.navigation.navigate("Overview");
   };
 

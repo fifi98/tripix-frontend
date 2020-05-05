@@ -26,6 +26,8 @@ const Overview = (props) => {
     // Extract only waypoint coordinates
     var waypoints_locations = waypoints.map((wp) => ({ lat: wp.location.lat, long: wp.location.lng }));
 
+    console.log({ origin: origin, destination: destination, waypoints: waypoints_locations });
+
     api
       .post("/route/new_route", { origin: origin, destination: destination, waypoints: waypoints_locations })
       .then((results) => {
@@ -49,7 +51,7 @@ const Overview = (props) => {
 
         setIsLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.response.data));
   }, []);
 
   const handleNext = () => {

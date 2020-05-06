@@ -6,8 +6,8 @@ import ButtonSecondary from "../../components/ui/ButtonSecondary";
 import Title from "../../components/ui/Title";
 import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
-import { colors } from "../../constants/theme";
 import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+import { colors } from "../../constants/theme";
 
 const Register = ({ navigation }) => {
   const [input, setInput] = useState({ name: "", email: "", password: "", confirmPassword: "" });
@@ -53,7 +53,7 @@ const Register = ({ navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <Title text="Create an account" />
+          <Title>Create an account</Title>
           <Caption>Type in your information</Caption>
 
           <InputField

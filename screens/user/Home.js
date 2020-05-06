@@ -100,11 +100,6 @@ const styles = StyleSheet.create({
     width: "88%",
     paddingTop: 25,
   },
-  caption: {
-    fontSize: 34,
-    color: "white",
-    marginBottom: 10,
-  },
 });
 
 export default Home;

@@ -8,7 +8,7 @@ import { faKey } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
 import Caption from "../../components/ui/Caption";
 import InputField from "../../components/ui/InputField";
-import { HeaderBackButton } from "@react-navigation/stack";
+import BackButton from "../../components/ui/BackButton";
 
 const Password = ({ navigation }) => {
   const { setUser } = useContext(MyContext);
@@ -30,9 +30,7 @@ const Password = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView style={styles.container}>
-        <View style={{ marginLeft: -10 }}>
-          <HeaderBackButton onPress={() => navigation.goBack()} />
-        </View>
+        <BackButton onPress={() => navigation.goBack()} />
         <Text style={styles.title}>
           <BoldText>Password</BoldText>
         </Text>

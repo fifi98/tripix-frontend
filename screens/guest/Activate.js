@@ -32,7 +32,7 @@ const Activate = ({ route }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <Title text="Check your inbox!" />
+          <Title>Check your inbox!</Title>
           <Caption>Type in the 6 digit activation code you received in your email.</Caption>
 
           <InputField

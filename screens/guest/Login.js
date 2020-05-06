@@ -6,9 +6,9 @@ import ButtonSecondary from "../../components/ui/ButtonSecondary";
 import Title from "../../components/ui/Title";
 import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
-import { colors } from "../../constants/theme";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
+import { colors } from "../../constants/theme";
 
 const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -39,7 +39,7 @@ const Login = ({ navigation }) => {
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
           <View style={styles.title}>
-            <Title text="Welcome!" />
+            <Title>Welcome!</Title>
             <Caption>Sign in to continue</Caption>
           </View>
           <InputField
@@ -88,11 +88,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 30,
     width: "88%",
-  },
-  textSecondary: {
-    color: colors.textSecondary,
-    fontSize: 17,
-    marginVertical: 20,
   },
 });
 

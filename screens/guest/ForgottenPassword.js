@@ -8,7 +8,7 @@ import api from "../../utils/api";
 import BoldText from "../../components/ui/BoldText";
 import { colors } from "../../constants/theme";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { HeaderBackButton } from "@react-navigation/stack";
+import BackButton from "../../components/ui/BackButton";
 
 const ForgottenPassword = ({ route, navigation }) => {
   const [input, setInput] = useState({ email: route.params.email });
@@ -24,10 +24,7 @@ const ForgottenPassword = ({ route, navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <View style={{ marginLeft: -10, marginVertical: 8 }}>
-            <HeaderBackButton onPress={() => navigation.goBack()} />
-          </View>
-
+          <BackButton onPress={() => navigation.goBack()} />
           <TitleSmall>
             <BoldText>Forgotten</BoldText> password?
           </TitleSmall>

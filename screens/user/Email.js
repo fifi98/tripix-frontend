@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, Alert, ScrollView } from "react-native";
+import { Text, StyleSheet, SafeAreaView, Alert, ScrollView } from "react-native";
 import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
@@ -8,7 +8,7 @@ import api from "../../utils/api";
 import Caption from "../../components/ui/Caption";
 import InputField from "../../components/ui/InputField";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { HeaderBackButton } from "@react-navigation/stack";
+import BackButton from "../../components/ui/BackButton";
 
 const Account = ({ navigation }) => {
   const { user, setUser } = useContext(MyContext);
@@ -21,8 +21,6 @@ const Account = ({ navigation }) => {
         // Change token and email
         user.saveToken(response.data.token, user.user_id, user.name, email);
 
-        console.log(email);
-
         Alert.alert("Email successfully changed!");
       })
       .catch((err) => console.log(err.response.data));
@@ -31,9 +29,7 @@ const Account = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView style={styles.container}>
-        <View style={{ marginLeft: -10 }}>
-          <HeaderBackButton onPress={() => navigation.goBack()} />
-        </View>
+        <BackButton onPress={() => navigation.goBack()} />
         <Text style={styles.title}>
           <BoldText>Email address</BoldText>
         </Text>

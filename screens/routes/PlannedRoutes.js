@@ -7,7 +7,7 @@ import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
-import { HeaderBackButton } from "@react-navigation/stack";
+import BackButton from "../../components/ui/BackButton";
 
 const PlannedRoutes = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -30,9 +30,7 @@ const PlannedRoutes = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <View style={{ marginLeft: -10 }}>
-          <HeaderBackButton onPress={() => navigation.navigate("Home")} />
-        </View>
+        <BackButton onPress={() => navigation.navigate("Home")} />
         <Text style={styles.title}>
           <BoldText>Planned</BoldText> routes
         </Text>

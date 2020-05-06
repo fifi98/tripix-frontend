@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
 import api from "../../utils/api";
-import { HeaderBackButton } from "@react-navigation/stack";
+import BackButton from "../../components/ui/BackButton";
 
 const Profile = ({ navigation }) => {
   const [userStats, setUserStats] = useState({
@@ -27,9 +27,7 @@ const Profile = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView style={styles.container}>
-        <View style={{ marginLeft: -10 }}>
-          <HeaderBackButton onPress={() => navigation.goBack()} />
-        </View>
+        <BackButton onPress={() => navigation.goBack()} />
         <Text style={styles.title}>
           <BoldText>Statistics</BoldText>
         </Text>

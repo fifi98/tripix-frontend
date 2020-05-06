@@ -2,22 +2,18 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Caption from "../../components/ui/Caption";
-import LocationCard from "../../components/LocationCard";
-import Geolocation from "@react-native-community/geolocation";
 import InputField from "../../components/ui/InputField";
 import BottomMenu from "../../components/Route/BottomMenu";
 import DateInput from "../../components/ui/DateInput";
 import BoldText from "../../components/ui/BoldText";
-import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
-import { ScrollView } from "react-native-gesture-handler";
+import NearbyLocations from "../../components/Route/NearbyLocations";
 
 const SuggestedRoutes = (props) => {
   const { setNewRoute, newRoute } = useContext(MyContext);
 
-  const [nearbyCities, setNearbyCities] = useState([]);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [inputError, setInputError] = useState(false);
 
@@ -37,21 +33,6 @@ const SuggestedRoutes = (props) => {
 
   useEffect(() => {
     setNewRoute({ attractions: [], date: new Date(), location: "" });
-
-    Geolocation.getCurrentPosition(
-      (position) => {
-        api
-          .get("/nearby/cities", {
-            params: {
-              lat: position.coords.latitude,
-              long: position.coords.longitude,
-            },
-          })
-          .then((results) => setNearbyCities(results.data))
-          .catch((err) => console.log(err));
-      },
-      (error) => Alert.alert(error.message)
-    );
   }, []);
 
   const handleNext = () => {
@@ -85,12 +66,7 @@ const SuggestedRoutes = (props) => {
           />
           <DateInput placeholder="Starts" icon={faMapMarkerAlt} onPress={handleDatePress} />
           <Caption>Nearby locations</Caption>
-
-          <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-            {nearbyCities.map((city) => (
-              <LocationCard key={city.photo_reference} city={city} handleNext={handleNext} />
-            ))}
-          </ScrollView>
+          <NearbyLocations handleNext={handleNext} />
           <DateTimePickerModal isVisible={showDatePicker} mode={"date"} onCancel={handleDatePress} onConfirm={handleConfirmDate} />
         </View>
 
@@ -110,7 +86,6 @@ const styles = StyleSheet.create({
     width: "88%",
     paddingTop: 30,
     flex: 1,
-    flexDirection: "column",
   },
   title: {
     fontSize: 30,

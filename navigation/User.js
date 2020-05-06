@@ -12,22 +12,22 @@ import Trip from "../screens/routes/new/Trip";
 import Start from "../screens/routes/new/Start";
 import End from "../screens/routes/new/End";
 import Overview from "../screens/routes/new/Overview";
+import SuggestedRoutesCreated from "../screens/routes/SuggestedRoutesCreated";
+import Statistics from "../screens/user/Statistics";
+import Password from "../screens/user/Password";
+import Email from "../screens/user/Email";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapMarked, faUser } from "@fortawesome/free-solid-svg-icons";
 import { TransitionPresets } from "@react-navigation/stack";
-import SuggestedRoutesCreated from "../screens/routes/SuggestedRoutesCreated";
-import Statistics from "../screens/user/Statistics";
-import Password from "../screens/user/Password";
-import Email from "../screens/user/Email";
 
 const StackModal = createStackNavigator();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Stats = createStackNavigator();
 
-const StatsScreens = () => {
+const ProfileScreens = () => {
   return (
     <Stats.Navigator headerMode="none">
       <Stats.Screen name="Profile" component={Profile} />
@@ -60,7 +60,7 @@ const HomeScreen = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={StatsScreens}
+        component={ProfileScreens}
         options={{
           tabBarIcon: ({ color, size }) => <FontAwesomeIcon icon={faUser} size={size} color={color} />,
         }}

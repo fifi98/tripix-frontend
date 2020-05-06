@@ -9,7 +9,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Sheet from "../../../components/Sheet";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
-import Loading from "../../../components/Loading";
+import Loading from "../../../components/ui/Loading";
 
 const Trip = ({ navigation, route }) => {
   const { trip } = route.params;

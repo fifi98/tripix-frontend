@@ -5,7 +5,7 @@ const Loading = ({ text }) => {
   return (
     <View style={styles.loadingContainer}>
       <Text style={styles.loadingText}>{text}</Text>
-      <ActivityIndicator style={{ marginHorizontal: 10 }} />
+      <ActivityIndicator style={styles.loadingIndicator} />
     </View>
   );
 };
@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     color: "white",
+  },
+  loadingIndicator: {
+    marginHorizontal: 10,
   },
 });
 

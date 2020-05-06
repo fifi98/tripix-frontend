@@ -9,7 +9,7 @@ import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { mapStyle } from "../../constants/mapStyle";
 import { colors } from "../../constants/theme";
-import Loading from "../../components/Loading";
+import Loading from "../../components/ui/Loading";
 
 const FindNearby = ({ route, navigation }) => {
   const [places, setPlaces] = useState([]);

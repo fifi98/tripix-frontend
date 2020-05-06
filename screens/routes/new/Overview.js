@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, Button, SafeAreaView, Alert } from "react-native";
 import api from "../../../utils/api";
 import Polyline from "@mapbox/polyline";
-import Loading from "../../../components/Loading";
+import Loading from "../../../components/ui/Loading";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native-gesture-handler";

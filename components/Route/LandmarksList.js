@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList, Text, StyleSheet } from "react-native";
 import LandmarkCard from "../../components/LandmarkCard";
-import Loading from "../Loading";
+import Loading from "../ui/Loading";
 
 const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
   const handleDetails = (item) => {

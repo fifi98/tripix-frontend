@@ -13,10 +13,10 @@ const DateInput = ({ onPress }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
-        <View style={{ width: 50, alignItems: "center", justifyContent: "center" }}>
+        <View style={styles.iconContainer}>
           <FontAwesomeIcon icon={faCalendarAlt} style={styles.icon} />
         </View>
-        <View style={{ alignItems: "flex-start", justifyContent: "center", flex: 1 }}>
+        <View style={styles.valueContainer}>
           <Text style={styles.title}>Starts</Text>
           <Text style={styles.date}>{Moment(newRoute.date).format("ddd, D MMMM YYYY")}</Text>
         </View>
@@ -41,8 +41,18 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
+  iconContainer: {
+    width: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   icon: {
     color: colors.textSecondary,
+  },
+  valueContainer: {
+    alignItems: "flex-start",
+    justifyContent: "center",
+    flex: 1,
   },
 });
 

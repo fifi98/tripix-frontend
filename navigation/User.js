@@ -6,7 +6,7 @@ import PlannedRoutes from "../screens/routes/PlannedRoutes";
 import FinishedRoutes from "../screens/routes/FinishedRoutes";
 import SuggestedRoutes from "../screens/routes/SuggestedRoutes";
 import Profile from "../screens/user/Profile";
-import LandMarks from "../screens/routes/new/Landmarks";
+import What from "../screens/routes/new/What";
 import LandMarkDetails from "../screens/routes/new/LandmarkDetails";
 import Trip from "../screens/routes/new/Trip";
 import Start from "../screens/routes/new/Start";
@@ -79,7 +79,7 @@ const UserScreens = () => {
       <Stack.Screen name="SuggestedRoutes" component={SuggestedRoutes} />
       <Stack.Screen name="SuggestedRoutesCreated" component={SuggestedRoutesCreated} />
       <Stack.Screen name="NewRoute" component={NewRoute} />
-      <Stack.Screen name="WhatVisit" component={LandMarks} />
+      <Stack.Screen name="WhatVisit" component={What} />
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="End" component={End} />
       <Stack.Screen name="Overview" component={Overview} />

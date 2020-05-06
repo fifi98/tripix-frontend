@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
-import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
+import InputField from "../../components/ui/InputField";
+import BackButton from "../../components/ui/BackButton";
 import TitleSmall from "../../components/ui/TitleSmall";
+import BoldText from "../../components/ui/BoldText";
 import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
-import BoldText from "../../components/ui/BoldText";
 import { colors } from "../../constants/theme";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import BackButton from "../../components/ui/BackButton";
 
 const ForgottenPassword = ({ route, navigation }) => {
   const [input, setInput] = useState({ email: route.params.email });
@@ -39,7 +39,6 @@ const ForgottenPassword = ({ route, navigation }) => {
 
           <ButtonPrimary title="Send reset link" onPress={handleActivate} />
         </View>
-        <View style={styles.footer} />
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
@@ -50,10 +49,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     flex: 1,
     alignItems: "center",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   container: {
     width: "88%",

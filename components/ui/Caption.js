@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   text: {
     color: colors.textSecondary,
     fontSize: 17,
-    marginVertical: 20,
+    marginTop: 12,
+    marginBottom: 18,
   },
 });
 

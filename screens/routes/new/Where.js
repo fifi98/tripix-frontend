@@ -13,8 +13,9 @@ import { colors } from "../../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { ScrollView } from "react-native-gesture-handler";
+import Subtitle from "../../../components/ui/Subtitle";
 
-const NewRoute = (props) => {
+const NewRoute = ({ navigation }) => {
   const { setNewRoute, newRoute } = useContext(MyContext);
 
   const [nearbyCities, setNearbyCities] = useState([]);
@@ -60,21 +61,20 @@ const NewRoute = (props) => {
       Alert.alert("You have to enter your trip location!");
       return;
     }
-
-    props.navigation.navigate("WhatVisit");
+    navigation.navigate("WhatVisit");
   };
 
   const handleBack = () => {
-    props.navigation.goBack();
+    navigation.goBack();
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.screen}>
         <View style={styles.container}>
-          <Text style={styles.title}>
+          <Subtitle>
             <BoldText>Where</BoldText> are you going?
-          </Text>
+          </Subtitle>
           <InputField
             placeholder="e.g. London"
             icon={faMapMarkerAlt}
@@ -110,11 +110,6 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flex: 1,
     flexDirection: "column",
-  },
-  title: {
-    fontSize: 22,
-    color: "white",
-    marginBottom: 10,
   },
 });
 export default NewRoute;

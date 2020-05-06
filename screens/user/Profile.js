@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from "react";
-import { View, Button, Text, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import { View, Button, StyleSheet, SafeAreaView } from "react-native";
+import MenuButton from "../../components/settings/MenuButton";
+import BoldText from "../../components/ui/BoldText";
+import { faChartBar, faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
-import BoldText from "../../components/ui/BoldText";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChartBar, faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import MenuButton from "../../components/settings/MenuButton";
+import Title from "../../components/ui/Title";
 
 const Profile = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -15,10 +14,6 @@ const Profile = ({ navigation }) => {
   const handleLogout = () => {
     user.removeToken();
   };
-
-  useEffect(() => {
-    console.log(user);
-  }, []);
 
   const menuButtons = [
     { title: "Statistics", icon: faChartBar, onPress: () => navigation.navigate("Statistics") },
@@ -29,17 +24,17 @@ const Profile = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.title}>
+        <Title>
           <BoldText>Your profile</BoldText>
-        </Text>
-
-        <View style={{ marginVertical: 10, marginHorizontal: 4 }}>
+        </Title>
+        <View style={styles.menuContainer}>
           {menuButtons.map((button) => (
             <MenuButton key={button.title} button={button} />
           ))}
         </View>
-        <View style={styles.logoutContainer} />
-        <Button title="Logout" onPress={handleLogout} />
+        <View style={styles.logoutContainer}>
+          <Button title="Logout" onPress={handleLogout} />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -56,10 +51,9 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     height: "100%",
   },
-  title: {
-    fontSize: 30,
-    color: "white",
-    marginBottom: 20,
+  menuContainer: {
+    marginVertical: 10,
+    marginHorizontal: 4,
   },
   logoutContainer: {
     marginTop: 20,

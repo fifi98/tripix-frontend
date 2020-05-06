@@ -4,6 +4,7 @@ import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
 import api from "../../utils/api";
 import BackButton from "../../components/ui/BackButton";
+import Title from "../../components/ui/Title";
 
 const Profile = ({ navigation }) => {
   const [userStats, setUserStats] = useState({
@@ -28,13 +29,12 @@ const Profile = ({ navigation }) => {
     <SafeAreaView style={styles.screen}>
       <ScrollView style={styles.container}>
         <BackButton onPress={() => navigation.goBack()} />
-        <Text style={styles.title}>
+        <Title>
           <BoldText>Statistics</BoldText>
-        </Text>
-
+        </Title>
         <View style={styles.statsContainer}>
           {statItems.map((item, index) => (
-            <View key={index} style={{ width: "50%" }}>
+            <View key={index} style={styles.statItemContainer}>
               <Text style={styles.statsCount}>{userStats[item.name]}</Text>
               <Text style={styles.statsName}>{item.title}</Text>
             </View>
@@ -56,10 +56,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     height: "100%",
   },
-  title: {
-    fontSize: 30,
-    color: "white",
-  },
   statsCount: {
     fontSize: 36,
     color: colors.textSecondary,
@@ -73,6 +69,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: 20,
+  },
+  statItemContainer: {
+    width: "50%",
   },
 });
 

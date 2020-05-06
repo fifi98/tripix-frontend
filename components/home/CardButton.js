@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing, TouchableWithoutFeedback } from "react-native";
-import { colors } from "../constants/theme";
+import { Text, StyleSheet, Animated, Easing, TouchableWithoutFeedback } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { colors } from "../../constants/theme";
 
 const CardButton = ({ title, icon, color, onPress }) => {
   let scaleValue = new Animated.Value(0);
 
   const cardScale = scaleValue.interpolate({
     inputRange: [0, 0.5, 1],
-    outputRange: [1, 1.05, 1.1]
+    outputRange: [1, 1.05, 1.1],
   });
 
   let transformStyle = { ...styles.card, transform: [{ scale: cardScale }] };
@@ -21,7 +21,7 @@ const CardButton = ({ title, icon, color, onPress }) => {
           toValue: 1,
           duration: 250,
           easing: Easing.linear,
-          useNativeDriver: true
+          useNativeDriver: true,
         }).start();
       }}
       onPressOut={() => {
@@ -29,7 +29,7 @@ const CardButton = ({ title, icon, color, onPress }) => {
           toValue: 0,
           duration: 100,
           easing: Easing.linear,
-          useNativeDriver: true
+          useNativeDriver: true,
         }).start();
         onPress();
       }}
@@ -52,20 +52,20 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20
+    marginTop: 20,
   },
   iconContainer: {
     padding: 8,
     borderRadius: 20,
-    marginBottom: 8
+    marginBottom: 8,
   },
   icon: {
-    color: "white"
+    color: "white",
   },
   text: {
     color: colors.textPrimary,
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
 
 export default CardButton;

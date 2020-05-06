@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import LoginSubtitle from "../../../components/LoginSubtitle";
+import Caption from "../../../components/ui/Caption";
 import LocationCard from "../../../components/LocationCard";
 import Geolocation from "@react-native-community/geolocation";
 import InputField from "../../../components/ui/InputField";
@@ -83,7 +83,7 @@ const NewRoute = (props) => {
             error={inputError}
           />
           <DateInput placeholder="Starts" icon={faMapMarkerAlt} onPress={handleDatePress} />
-          <LoginSubtitle text="Nearby locations" />
+          <Caption>Nearby locations</Caption>
 
           <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
             {nearbyCities.map((city) => (

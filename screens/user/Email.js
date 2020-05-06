@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { View, Button, Text, StyleSheet, SafeAreaView, Alert, ScrollView } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, Text, StyleSheet, SafeAreaView, Alert, ScrollView } from "react-native";
 import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
-import LoginSubtitle from "../../components/LoginSubtitle";
+import Caption from "../../components/ui/Caption";
 import InputField from "../../components/ui/InputField";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { HeaderBackButton } from "@react-navigation/stack";
 
 const Account = ({ navigation }) => {
@@ -37,7 +37,7 @@ const Account = ({ navigation }) => {
         <Text style={styles.title}>
           <BoldText>Email address</BoldText>
         </Text>
-        <LoginSubtitle text="Change email address" />
+        <Caption>Change email address</Caption>
         <InputField
           placeholder="Email"
           icon={faEnvelope}

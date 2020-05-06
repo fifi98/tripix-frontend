@@ -6,7 +6,7 @@ import SuggestedRouteCard from "../../components/SuggestedRouteCard";
 import BoldText from "../../components/ui/BoldText";
 import api from "../../utils/api";
 import BottomMenu from "../../components/Route/BottomMenu";
-import LoginSubtitle from "../../components/LoginSubtitle";
+import Caption from "../../components/ui/Caption";
 
 const SuggestedRoutesCreated = ({ navigation, route }) => {
   const { setNewRoute } = useContext(MyContext);
@@ -62,7 +62,7 @@ const SuggestedRoutesCreated = ({ navigation, route }) => {
         <Text style={styles.title}>
           <BoldText>Suggested</BoldText> routes
         </Text>
-        <LoginSubtitle text="We have created three types of routes for you. Pick one to proceed" />
+        <Caption>We have created three types of routes for you. Pick one to proceed</Caption>
         {routes.length !== 0 ? (
           <ScrollView>
             {routes.routes.map((route) => (

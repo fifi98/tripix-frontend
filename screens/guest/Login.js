@@ -3,8 +3,8 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert, SafeAreaVi
 import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import ButtonSecondary from "../../components/ui/ButtonSecondary";
-import LoginTitle from "../../components/LoginTitle";
-import LoginSubtitle from "../../components/LoginSubtitle";
+import Title from "../../components/ui/Title";
+import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
@@ -39,8 +39,8 @@ const Login = ({ navigation }) => {
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
           <View style={styles.title}>
-            <LoginTitle text="Welcome!" />
-            <LoginSubtitle text="Sign in to continue" />
+            <Title text="Welcome!" />
+            <Caption>Sign in to continue</Caption>
           </View>
           <InputField
             placeholder="Email"

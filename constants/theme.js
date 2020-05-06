@@ -5,7 +5,11 @@ const colors = {
   textLink: "#0A84FF",
   button: "#FFFFFF",
   cardButton: "#303034",
-  inputField: "#303034"
+  inputField: "#303034",
+  bottomMenu: {
+    background: "#161616",
+    border: "#3D3D3D",
+  },
 };
 
 const sizes = {};

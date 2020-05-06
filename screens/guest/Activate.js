@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
 import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import LoginTitle from "../../components/LoginTitle";
-import LoginSubtitle from "../../components/LoginSubtitle";
+import Title from "../../components/ui/Title";
+import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
@@ -32,8 +32,8 @@ const Activate = ({ route }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <LoginTitle text="Check your inbox!" />
-          <LoginSubtitle text="Type in the 6 digit activation code you received in your email." />
+          <Title text="Check your inbox!" />
+          <Caption>Type in the 6 digit activation code you received in your email.</Caption>
 
           <InputField
             placeholder="Activation code"

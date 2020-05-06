@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import { View, Alert, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from "react-native";
+import { View, Alert, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
-import LoginSubtitle from "../../components/LoginSubtitle";
+import Caption from "../../components/ui/Caption";
 import InputField from "../../components/ui/InputField";
 import { HeaderBackButton } from "@react-navigation/stack";
 
@@ -37,7 +37,7 @@ const Password = ({ navigation }) => {
           <BoldText>Password</BoldText>
         </Text>
 
-        <LoginSubtitle text="Change your password" />
+        <Caption>Change your password</Caption>
         <InputField
           isPassword={true}
           placeholder="Current password"

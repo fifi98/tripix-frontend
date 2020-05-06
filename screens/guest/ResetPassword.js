@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
 import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import TitleSmall from "../../components/TitleSmall";
-import LoginSubtitle from "../../components/LoginSubtitle";
+import TitleSmall from "../../components/ui/TitleSmall";
+import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
@@ -22,8 +22,8 @@ const ResetPassword = ({ route, navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <TitleSmall text="Check your inbox!" />
-          <LoginSubtitle text="Type in the password reset code we sent to your email." />
+          <TitleSmall>Check your inbox!</TitleSmall>
+          <Caption>Type in the password reset code we sent to your email.</Caption>
 
           <InputField
             placeholder="Password reset code"

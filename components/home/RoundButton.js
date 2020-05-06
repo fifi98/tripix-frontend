@@ -1,12 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faPlus, faRoute, faMapMarker, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const RoundButton = ({ title, color, icon, onPress }) => {
   return (
-    <TouchableOpacity style={{ alignItems: "center" }} onPress={onPress}>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={{ ...styles.iconContainer, backgroundColor: color }}>
         <FontAwesomeIcon icon={icon} style={styles.icon} size={30} />
       </View>
@@ -20,6 +19,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 30,
     marginBottom: 8,
+  },
+  button: {
+    alignItems: "center",
   },
   icon: {
     color: "white",

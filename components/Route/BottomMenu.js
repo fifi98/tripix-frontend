@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Button, StyleSheet } from "react-native";
+import { colors } from "../../constants/theme";
 
 const BottomMenu = ({ back, next, backTitle, nextTitle }) => {
   return (
@@ -21,8 +22,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 6,
     paddingHorizontal: 22,
-    borderTopColor: "#3D3D3D",
-    backgroundColor: "#161616",
+    borderTopColor: colors.bottomMenu.border,
+    backgroundColor: colors.bottomMenu.background,
     borderTopWidth: 0.3,
   },
 });

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
 import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import TitleSmall from "../../components/TitleSmall";
-import LoginSubtitle from "../../components/LoginSubtitle";
+import TitleSmall from "../../components/ui/TitleSmall";
+import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
+import BoldText from "../../components/ui/BoldText";
 import { colors } from "../../constants/theme";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { HeaderBackButton } from "@react-navigation/stack";
@@ -26,8 +27,11 @@ const ForgottenPassword = ({ route, navigation }) => {
           <View style={{ marginLeft: -10, marginVertical: 8 }}>
             <HeaderBackButton onPress={() => navigation.goBack()} />
           </View>
-          <TitleSmall textBold="Forgotten" text=" password?" />
-          <LoginSubtitle text="Type in your account's email address below and we will send you a password reset link." />
+
+          <TitleSmall>
+            <BoldText>Forgotten</BoldText> password?
+          </TitleSmall>
+          <Caption>Type in your account's email address below and we will send you a password reset link.</Caption>
 
           <InputField
             placeholder="Email"

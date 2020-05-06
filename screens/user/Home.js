@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { colors } from "../../constants/theme";
-import CardButton from "../../components/CardButton";
+import CardButton from "../../components/home/CardButton";
 import {
   faPlus,
   faRoute,
@@ -12,14 +12,13 @@ import {
   faShoppingCart,
   faLandmark,
 } from "@fortawesome/free-solid-svg-icons";
-import RoundButton from "../../components/RoundButton";
+import RoundButton from "../../components/home/RoundButton";
 import BoldText from "../../components/ui/BoldText";
 import { MyContext } from "../../context/Provider";
+import Title from "../../components/ui/Title";
 
 const Home = ({ navigation }) => {
   const { user } = useContext(MyContext);
-
-  console.log(user);
 
   const handleFindNearby = (type, icon, color) => {
     navigation.navigate("FindNearby", { type: type, icon: icon, color: color });
@@ -42,9 +41,9 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.caption}>
+        <Title>
           Hello, <BoldText>{user.name}</BoldText>!
-        </Text>
+        </Title>
         <Text style={styles.textSecondary}>Routes</Text>
         <View style={styles.cardContainer}>
           {cardButtons.map((button, index) => (

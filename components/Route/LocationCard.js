@@ -1,16 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Dimensions, ImageBackground } from "react-native";
-import { MyContext } from "../context/Provider";
 import { BASE_URL } from "react-native-dotenv";
 
-const LocationCard = ({ city, handleNext }) => {
-  const { setNewRoute } = useContext(MyContext);
-
-  const handlePress = () => {
-    setNewRoute((old) => ({ ...old, location: city.city }));
-    handleNext();
-  };
-
+const LocationCard = ({ city, handlePress }) => {
   return (
     <TouchableOpacity onPress={handlePress}>
       <View style={styles.card}>
@@ -18,7 +10,7 @@ const LocationCard = ({ city, handleNext }) => {
           source={{
             url: `${BASE_URL}/getphoto?photo_reference=${city.photo_reference}`,
           }}
-          style={{ width: "100%", height: "100%", opacity: 0.5 }}
+          style={styles.image}
         />
         <Text style={styles.text}>{city.city}</Text>
       </View>
@@ -33,6 +25,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     overflow: "hidden",
+  },
+  image: {
+    flex: 1,
+    opacity: 0.5,
   },
   text: {
     color: "white",

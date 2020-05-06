@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import FastImage from "react-native-fast-image";
 import { BASE_URL } from "react-native-dotenv";
+import FastImage from "react-native-fast-image";
 
 const NearbyItem = ({ item }) => {
   return (

@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, StyleSheet, Text, Button, SafeAreaView, Alert } from "react-native";
-import api from "../../../utils/api";
-import Polyline from "@mapbox/polyline";
-import Loading from "../../../components/ui/Loading";
+import { View, StyleSheet, Text, SafeAreaView, Alert } from "react-native";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
+import BottomMenu from "../../../components/Route/BottomMenu";
+import Polyline from "@mapbox/polyline";
+import BoldText from "../../../components/ui/BoldText";
+import Loading from "../../../components/ui/Loading";
+import api from "../../../utils/api";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView } from "react-native-gesture-handler";
 import { colors } from "../../../constants/theme";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { formatDuration } from "../../../utils/formatDuration";
-import BottomMenu from "../../../components/Route/BottomMenu";
-import BoldText from "../../../components/ui/BoldText";
 
 const Overview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -67,7 +67,6 @@ const Overview = (props) => {
     api
       .post("/route/plan_route", newRoute.trip)
       .then(() => {
-        //
         props.navigation.navigate("Trip", { trip: newRoute.trip });
       })
       .catch((err) => {

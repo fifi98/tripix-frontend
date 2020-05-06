@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg-icons";
 import { colors } from "../../../constants/theme";
 import { MyContext } from "../../../context/Provider";
@@ -7,21 +7,14 @@ import InputField from "../../../components/ui/InputField";
 import PositionCard from "../../../components/Route/PositionCard";
 import BottomMenu from "../../../components/Route/BottomMenu";
 import BoldText from "../../../components/ui/BoldText";
+import Subtitle from "../../../components/ui/Subtitle";
 
-const Start = (props) => {
+const Start = ({ navigation }) => {
   const { setNewRoute, newRoute } = useContext(MyContext);
   const [searchInput, setSearchInput] = useState("");
 
   const handleChoose = (item) => {
     setNewRoute((old) => ({ ...old, origin: { lat: item.location.lat, long: item.location.lng } }));
-  };
-
-  const handleNext = () => {
-    props.navigation.navigate("End");
-  };
-
-  const handleBack = () => {
-    props.navigation.goBack();
   };
 
   const defaultButtons = [
@@ -41,9 +34,10 @@ const Start = (props) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.title}>
+        <Subtitle>
           <BoldText>Where</BoldText> do you want your trip to start from?
-        </Text>
+        </Subtitle>
+
         <InputField placeholder="Search landmarks" icon={faSearch} value={searchInput} onChangeText={(text) => setSearchInput(text)} />
 
         <FlatList
@@ -57,7 +51,7 @@ const Start = (props) => {
         />
       </View>
 
-      <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Next" />
+      <BottomMenu back={() => navigation.goBack()} backTitle="Back" next={() => navigation.navigate("End")} nextTitle="Next" />
     </SafeAreaView>
   );
 };
@@ -73,11 +67,6 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flex: 1,
     flexDirection: "column",
-  },
-  title: {
-    fontSize: 22,
-    color: "white",
-    marginBottom: 10,
   },
 });
 export default Start;

@@ -1,28 +1,20 @@
 import React, { useContext, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
-import InputField from "../../../components/ui/InputField";
-import { colors } from "../../../constants/theme";
-import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg-icons";
-import { MyContext } from "../../../context/Provider";
 import PositionCard from "../../../components/Route/PositionCard";
+import InputField from "../../../components/ui/InputField";
 import BottomMenu from "../../../components/Route/BottomMenu";
 import BoldText from "../../../components/ui/BoldText";
+import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg-icons";
+import { MyContext } from "../../../context/Provider";
+import { colors } from "../../../constants/theme";
+import Subtitle from "../../../components/ui/Subtitle";
 
-const End = (props) => {
+const End = ({ navigation }) => {
   const { setNewRoute, newRoute } = useContext(MyContext);
   const [searchInput, setSearchInput] = useState("");
 
   const handleChoose = (item) => {
     setNewRoute((old) => ({ ...old, destination: { lat: item.location.lat, long: item.location.lng } }));
-  };
-
-  const handleNext = () => {
-    // console.log(JSON.stringify(newRoute));
-    props.navigation.navigate("Overview");
-  };
-
-  const handleBack = () => {
-    props.navigation.goBack();
   };
 
   const defaultButtons = [
@@ -41,9 +33,9 @@ const End = (props) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <Text style={styles.title}>
+        <Subtitle>
           <BoldText>Where</BoldText> do you want your trip to end?
-        </Text>
+        </Subtitle>
         <InputField placeholder="Search landmarks" icon={faSearch} value={searchInput} onChangeText={(text) => setSearchInput(text)} />
         <FlatList
           keyExtractor={(item) => item.place_id}
@@ -56,7 +48,7 @@ const End = (props) => {
         />
       </View>
 
-      <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Next" />
+      <BottomMenu back={() => navigation.goBack()} backTitle="Back" next={() => navigation.navigate("Overview")} nextTitle="Next" />
     </SafeAreaView>
   );
 };
@@ -72,11 +64,6 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flex: 1,
     flexDirection: "column",
-  },
-  title: {
-    fontSize: 22,
-    color: "white",
-    marginBottom: 10,
   },
 });
 export default End;

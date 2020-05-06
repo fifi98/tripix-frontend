@@ -1,15 +1,14 @@
 import React, { useEffect, useState, createRef } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
+import Loading from "../../components/ui/Loading";
+import NearbyItem from "../../components/nearby/NearbyItem";
+import Sheet from "../../components/nearby/Sheet";
 import api from "../../utils/api";
-import Sheet from "../../components/Sheet";
-import NearbyItem from "../../components/NearbyItem";
-import { View, Alert, StyleSheet, TouchableOpacity, ScrollView, InteractionManager, Text } from "react-native";
-import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { View, Alert, StyleSheet, ScrollView, InteractionManager } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { mapStyle } from "../../constants/mapStyle";
-import { colors } from "../../constants/theme";
-import Loading from "../../components/ui/Loading";
+import BackButton from "../../components/map/BackButton";
 
 const FindNearby = ({ route, navigation }) => {
   const [places, setPlaces] = useState([]);
@@ -17,7 +16,7 @@ const FindNearby = ({ route, navigation }) => {
   const { type, icon, color } = route.params;
   let mapRef = createRef();
 
-  // Load nearby places when the screen is loaded
+  // Load nearby places when the screen loads
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
       Geolocation.getCurrentPosition(
@@ -37,11 +36,9 @@ const FindNearby = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       {loading ? (
-        <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: "center", alignItems: "center" }}>
-          <Loading text="Loading places" />
-        </View>
+        <Loading text="Loading places" />
       ) : (
         <>
           <MapView
@@ -72,11 +69,7 @@ const FindNearby = ({ route, navigation }) => {
               ))}
             </ScrollView>
           </Sheet>
-          <View style={styles.iconContainer}>
-            <TouchableOpacity onPress={navigation.goBack}>
-              <FontAwesomeIcon icon={faChevronCircleLeft} style={styles.icon} size={34} />
-            </TouchableOpacity>
-          </View>
+          <BackButton onPress={navigation.goBack} />
         </>
       )}
     </View>
@@ -84,17 +77,11 @@ const FindNearby = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  iconContainer: {
-    position: "absolute",
-    left: 22,
-    top: 34,
-  },
   icon: {
     color: "white",
   },
   container: {
     flex: 1,
-    backgroundColor: "#F5FCFF",
   },
   map: {
     flex: 1,

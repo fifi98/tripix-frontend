@@ -1,15 +1,14 @@
 import React, { createRef, useEffect, useState } from "react";
 import { InteractionManager } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
-import { faChevronCircleLeft, faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import { mapStyle } from "../../../constants/mapStyle";
-import { colors } from "../../../constants/theme";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { View, StyleSheet, ScrollView } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import Sheet from "../../../components/Sheet";
 import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
+import BackButton from "../../../components/map/BackButton";
 import Loading from "../../../components/ui/Loading";
+import Sheet from "../../../components/nearby/Sheet";
+import { faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { View, StyleSheet, ScrollView } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { mapStyle } from "../../../constants/mapStyle";
 
 const Trip = ({ navigation, route }) => {
   const { trip } = route.params;
@@ -17,10 +16,7 @@ const Trip = ({ navigation, route }) => {
 
   let mapRef = createRef();
 
-  const handleBack = () => {
-    navigation.navigate("PlannedRoutes");
-  };
-
+  // Show the screen after the screen navigation animation has finished
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
       setLoading(false);
@@ -30,14 +26,9 @@ const Trip = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1 }}>
       {loading ? (
-        <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: "center", alignItems: "center" }}>
-          <Loading text="Loading trip" />
-        </View>
+        <Loading text="Loading trip" />
       ) : (
         <>
-          <View>
-            <Sheet />
-          </View>
           <MapView
             onMapReady={() => {
               mapRef.fitToCoordinates(trip.locations, {
@@ -74,11 +65,8 @@ const Trip = ({ navigation, route }) => {
               ))}
             </ScrollView>
           </Sheet>
-          <View style={styles.iconContainer}>
-            <TouchableOpacity onPress={handleBack}>
-              <FontAwesomeIcon icon={faChevronCircleLeft} style={styles.icon} size={34} />
-            </TouchableOpacity>
-          </View>
+
+          <BackButton onPress={() => navigation.navigate("PlannedRoutes")} />
         </>
       )}
     </View>
@@ -86,11 +74,6 @@ const Trip = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  iconContainer: {
-    position: "absolute",
-    left: 22,
-    top: 34,
-  },
   icon: {
     color: "white",
   },

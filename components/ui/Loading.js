@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { colors } from "../../constants/theme";
 
 const Loading = ({ text }) => {
   return (
@@ -13,9 +14,10 @@ const Loading = ({ text }) => {
 const styles = StyleSheet.create({
   loadingContainer: {
     alignItems: "center",
-    height: "100%",
     justifyContent: "center",
+    height: "100%",
     flexDirection: "row",
+    backgroundColor: colors.background,
   },
   loadingText: {
     color: "white",

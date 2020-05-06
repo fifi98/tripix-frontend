@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
-import { View, Alert, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
-import { MyContext } from "../../context/Provider";
-import { colors } from "../../constants/theme";
+import { Alert, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import BoldText from "../../components/ui/BoldText";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
 import api from "../../utils/api";
 import Caption from "../../components/ui/Caption";
 import InputField from "../../components/ui/InputField";
 import BackButton from "../../components/ui/BackButton";
+import { MyContext } from "../../context/Provider";
+import { colors } from "../../constants/theme";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 const Password = ({ navigation }) => {
   const { setUser } = useContext(MyContext);

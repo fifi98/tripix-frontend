@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
-import { colors } from "../constants/theme";
+import { colors } from "../../constants/theme";
 
 const Sheet = ({ children, title, buttonText }) => {
   const sheet = useRef(null);

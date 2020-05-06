@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
+import BackButton from "../../components/ui/BackButton";
 import InputField from "../../components/ui/InputField";
 import RouteCard from "../../components/RouteCard";
 import BoldText from "../../components/ui/BoldText";
@@ -7,7 +8,6 @@ import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
-import BackButton from "../../components/ui/BackButton";
 
 const PlannedRoutes = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -22,6 +22,7 @@ const PlannedRoutes = ({ navigation }) => {
   }, []);
 
   const handleSelect = (routeID) => {
+    console.log(user.token);
     api.get(`/route/specific_route/${routeID}`).then((response) => {
       navigation.navigate("Trip", { trip: response.data });
     });

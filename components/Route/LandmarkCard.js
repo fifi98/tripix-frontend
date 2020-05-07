@@ -23,7 +23,7 @@ const RouteCard = ({ item, onLongPress }) => {
     <TouchableOpacity style={styles.container} onLongPress={() => onLongPress(item)} onPress={handleSelect}>
       <ImageBackground
         source={{
-          url: `${BASE_URL}/getphoto?photo_reference=${item.photo_reference}&maxwidth=300`,
+          url: `${BASE_URL}/photo?photo_reference=${item.photo_reference}&maxwidth=300`,
         }}
         style={styles.image}
       />

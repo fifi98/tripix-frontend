@@ -19,7 +19,7 @@ const Login = ({ navigation }) => {
   const handleLogin = async () => {
     setButtonLoading(true);
     api
-      .post("/login", input)
+      .post("/user/login", input)
       .then(({ data }) => {
         // Store JTW in the context and go to the main screen
         user.saveToken(data.token, data.user_id, data.full_name, input.email);

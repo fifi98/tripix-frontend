@@ -40,7 +40,7 @@ const LandmarkItem = ({ location }) => {
           <FastImage
             style={styles.image}
             source={{
-              uri: `${BASE_URL}/getphoto?photo_reference=${test.photo_reference}&maxwidth=100`,
+              uri: `${BASE_URL}/photo?photo_reference=${test.photo_reference}&maxwidth=100`,
             }}
           />
         </View>

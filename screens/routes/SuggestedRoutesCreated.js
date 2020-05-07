@@ -15,7 +15,7 @@ const SuggestedRoutesCreated = ({ navigation, route }) => {
   const [selectedRoute, setSelectedRoute] = useState();
 
   useEffect(() => {
-    api.get(`/route/suggested_route/${place}`).then((response) => {
+    api.get(`/route/suggested/${place}`).then((response) => {
       setRoutes(response.data);
     });
   }, []);

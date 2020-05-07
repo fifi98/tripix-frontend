@@ -18,7 +18,7 @@ const Activate = ({ route }) => {
   const handleActivate = () => {
     setButtonLoading(true);
     api
-      .post("/users/verify", input)
+      .post("/user/verify", input)
       .then((response) => {
         //Store JTW in the context and go to the main screen
         user.saveToken(response.data.token, response.data.user_id, response.data.full_name, input.email);

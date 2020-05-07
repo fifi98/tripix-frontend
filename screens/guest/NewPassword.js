@@ -18,7 +18,7 @@ const NewPassword = ({ route, navigation }) => {
 
   const handleActivate = () => {
     api
-      .post("/users/newPassword", input)
+      .post("/user/password/new", input)
       .then(() => navigation.navigate("Login"))
       .catch((error) => Alert.alert(error.response.data.message));
   };

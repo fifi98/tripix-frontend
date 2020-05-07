@@ -13,7 +13,7 @@ const ResetPassword = ({ route, navigation }) => {
 
   const handleActivate = () => {
     api
-      .post("/users/resetCode", input)
+      .post("/user/password/code", input)
       .then(() => navigation.navigate("NewPassword", { email: input.email, reset_code: input.reset_code }))
       .catch((error) => Alert.alert(error.response.data.message));
   };

@@ -2,6 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "../../constants/theme";
+import { BASE_URL } from "react-native-dotenv";
 
 const PositionCard = ({ item, onPress, selected }) => {
   return (
@@ -16,7 +17,7 @@ const PositionCard = ({ item, onPress, selected }) => {
             <Image
               style={styles.image}
               source={{
-                uri: `http://31.220.45.114/tripix/public/api/getphoto?photo_reference=${item.photo_reference}`,
+                uri: `${BASE_URL}/photo?photo_reference=${item.photo_reference}`,
               }}
             />
           </View>

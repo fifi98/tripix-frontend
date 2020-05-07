@@ -46,7 +46,7 @@ const Password = ({ navigation }) => {
 
     setLoading(true);
     api
-      .post("/users/loggedNewPassword", { current_password: input.current_password, new_password: input.new_password })
+      .post("/user/change-password", { current_password: input.current_password, new_password: input.new_password })
       .then((response) => {
         // Save the new token in the state and AsyncStorage
         user.changePassword(response.data.token);

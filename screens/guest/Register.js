@@ -32,7 +32,7 @@ const Register = ({ navigation }) => {
 
     // Send register post request to the server
     api
-      .post("/users", input)
+      .post("/user/register", input)
       .then(() => navigation.navigate("Activate", { email: input.email }))
       .catch((error) => {
         const message = error.response.data;

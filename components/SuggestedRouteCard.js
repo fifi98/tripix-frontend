@@ -14,7 +14,7 @@ const SuggestedRouteCard = ({ item, handleSelect, selected }) => {
       <TouchableOpacity style={styles.container} onPress={() => handleSelect(item.name)}>
         <ImageBackground
           source={{
-            url: `${BASE_URL}/getphoto?photo_reference=${item.photo_ref}`,
+            url: `${BASE_URL}/photo?photo_reference=${item.photo_ref}`,
           }}
           style={styles.image}
         />

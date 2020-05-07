@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList, Alert } from "react-native";
 import BackButton from "../../components/ui/BackButton";
 import InputField from "../../components/ui/InputField";
@@ -7,22 +7,20 @@ import BoldText from "../../components/ui/BoldText";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { MyContext } from "../../context/Provider";
 
 const FinishedRoutes = ({ navigation }) => {
-  const { user } = useContext(MyContext);
   const [routes, setRoutes] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     api
-      .get(`/route/finished_routes/${user.user_id}`)
+      .get("/route/finished")
       .then((response) => setRoutes(response.data))
       .catch(() => Alert.alert("Error while loading your routes"));
   }, []);
 
   const handleSelect = (routeID) => {
-    api.get(`/route/specific_route/${routeID}`).then((response) => {
+    api.get(`/route/${routeID}`).then((response) => {
       navigation.navigate("Trip", { trip: response.data });
     });
   };

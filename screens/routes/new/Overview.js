@@ -27,7 +27,7 @@ const Overview = (props) => {
     var waypoints_locations = waypoints.map((wp) => ({ lat: wp.location.lat, long: wp.location.lng }));
 
     api
-      .post("/route/new_route", { origin: origin, destination: destination, waypoints: waypoints_locations })
+      .post("/route/new", { origin: origin, destination: destination, waypoints: waypoints_locations })
       .then((results) => {
         setNewRoute((old) => ({
           ...old,
@@ -65,7 +65,7 @@ const Overview = (props) => {
     setNewRoute((old) => ({ ...old, trip: { ...old.trip, locations: a } }));
 
     api
-      .post("/route/plan_route", newRoute.trip)
+      .post("/route/plan", newRoute.trip)
       .then(() => {
         props.navigation.navigate("Trip", { trip: newRoute.trip });
       })

@@ -32,7 +32,7 @@ const LandMarkDetails = ({ route }) => {
   return (
     <ImageBackground
       source={{
-        url: `${BASE_URL}/getphoto?photo_reference=${landmark.photo_reference}`,
+        url: `${BASE_URL}/photo?photo_reference=${landmark.photo_reference}`,
       }}
       style={styles.image}
     >

@@ -23,7 +23,7 @@ const Account = ({ navigation }) => {
 
     setLoading(true);
     api
-      .post("/users/loggedNewEmail", { email: email })
+      .post("/user/change-email", { email: email })
       .then((response) => {
         // Change token and email
         user.saveToken(response.data.token, user.user_id, user.name, email);

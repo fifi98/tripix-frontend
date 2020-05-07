@@ -30,6 +30,14 @@ const Provider = (props) => {
         setUser({ error });
       }
     },
+    changePassword: async (newToken) => {
+      try {
+        await AsyncStorage.setItem("token", newToken);
+        setUser({ ...user, token: newToken });
+      } catch (error) {
+        setUser({ error });
+      }
+    },
   });
 
   const [newRoute, setNewRoute] = useState({ location: "", attractions: [], date: "" });

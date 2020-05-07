@@ -9,6 +9,7 @@ import { faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { mapStyle } from "../../../constants/mapStyle";
+import { colors } from "../../../constants/theme";
 
 const Trip = ({ navigation, route }) => {
   const { trip } = route.params;
@@ -23,59 +24,58 @@ const Trip = ({ navigation, route }) => {
     });
   }, []);
 
+  if (loading) return <Loading text="Loading trip" />;
+
   return (
-    <View style={{ flex: 1 }}>
-      {loading ? (
-        <Loading text="Loading trip" />
-      ) : (
-        <>
-          <MapView
-            onMapReady={() => {
-              mapRef.fitToCoordinates(trip.locations, {
-                edgePadding: { top: 0, right: 50, bottom: 200, left: 50 },
-                animated: true,
-              });
-              setLoading(false);
-            }}
-            ref={(ref) => (mapRef = ref)}
-            provider={PROVIDER_GOOGLE}
-            style={{ flex: 1 }}
-            customMapStyle={mapStyle}
-          >
-            {/* Draw the route */}
-            <Polyline coordinates={trip.locations} strokeWidth={5} strokeColor="#3890FB" />
+    <View style={styles.map}>
+      <MapView
+        onMapReady={() => {
+          mapRef.fitToCoordinates(trip.locations, {
+            edgePadding: { top: 0, right: 50, bottom: 200, left: 50 },
+            animated: true,
+          });
+          setLoading(false);
+        }}
+        ref={(ref) => (mapRef = ref)}
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        customMapStyle={mapStyle}
+      >
+        {/* Draw the route */}
+        <Polyline coordinates={trip.locations} strokeWidth={5} strokeColor="#3890FB" />
 
-            {/* Mark all the locations */}
-            {trip.locations.map((loc, index) => (
-              <Marker key={loc.latitude} tracksViewChanges={false} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }}>
-                {index == 0 || index == trip.locations.length - 1 ? (
-                  <FontAwesomeIcon icon={faMapMarkerAlt} size={30} style={styles.icon} />
-                ) : (
-                  <View style={{ backgroundColor: "#30D158", padding: 6, borderRadius: 20 }}>
-                    <FontAwesomeIcon icon={faLandmark} size={18} style={styles.icon} />
-                  </View>
-                )}
-              </Marker>
-            ))}
-          </MapView>
-          <BottomSheet title="Route overview" buttonText="Start route">
-            <ScrollView>
-              {trip.locations.map((location) => (
-                <LandmarkItem location={location} key={location.latitude} />
-              ))}
-            </ScrollView>
-          </BottomSheet>
+        {/* Mark all the locations */}
+        {trip.locations.map((loc, index) => (
+          <Marker key={loc.latitude} tracksViewChanges={false} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }}>
+            {index == 0 || index == trip.locations.length - 1 ? (
+              <FontAwesomeIcon icon={faMapMarkerAlt} size={30} style={styles.icon} />
+            ) : (
+              <View style={{ backgroundColor: "#30D158", padding: 6, borderRadius: 20 }}>
+                <FontAwesomeIcon icon={faLandmark} size={18} style={styles.icon} />
+              </View>
+            )}
+          </Marker>
+        ))}
+      </MapView>
+      <BottomSheet title="Route overview" buttonText="Start route">
+        <ScrollView>
+          {trip.locations.map((location) => (
+            <LandmarkItem location={location} key={location.latitude} />
+          ))}
+        </ScrollView>
+      </BottomSheet>
 
-          <BackButton onPress={() => navigation.navigate("PlannedRoutes")} />
-        </>
-      )}
+      <BackButton onPress={() => navigation.navigate("PlannedRoutes")} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   icon: {
-    color: "white",
+    color: colors.textPrimary,
+  },
+  map: {
+    flex: 1,
   },
 });
 

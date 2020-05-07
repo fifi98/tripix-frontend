@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
-import InputField from "../../components/ui/InputField";
-import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import TitleSmall from "../../components/ui/TitleSmall";
-import Caption from "../../components/ui/Caption";
-import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import ButtonPrimary from "../../components/ui/ButtonPrimary";
+import InputField from "../../components/ui/InputField";
+import TitleSmall from "../../components/ui/TitleSmall";
 import BoldText from "../../components/ui/BoldText";
+import Caption from "../../components/ui/Caption";
+import api from "../../utils/api";
 
 const NewPassword = ({ route, navigation }) => {
+  const [inputError, setInputError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState({
     email: route.params.email,
     reset_code: route.params.reset_code,
@@ -18,10 +20,27 @@ const NewPassword = ({ route, navigation }) => {
   });
 
   const handleActivate = () => {
+    // Check if password is long enough
+    if (input.new_password.length < 6) {
+      setInputError(true);
+      Alert.alert("Password must be at least 6 characters long!");
+      return;
+    }
+
+    // Check if new password and confirm new password match
+    if (input.new_password !== input.new_password_confirm) {
+      setInputError(true);
+      Alert.alert("New password and confirm new password do not match!");
+      return;
+    }
+
+    // Send request
+    setLoading(true);
     api
       .post("/user/password/new", input)
       .then(() => navigation.navigate("Login"))
-      .catch((error) => Alert.alert(error.response.data.message));
+      .catch((error) => Alert.alert(error.response.data.message))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -38,17 +57,25 @@ const NewPassword = ({ route, navigation }) => {
             isPassword={true}
             icon={faKey}
             value={input.activation_code}
-            onChangeText={(text) => setInput({ ...input, new_password: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, new_password: text });
+              setInputError(false);
+            }}
+            error={inputError}
           />
           <InputField
             placeholder="Confirm new password"
             isPassword={true}
             icon={faKey}
             value={input.activation_code}
-            onChangeText={(text) => setInput({ ...input, new_password_confirm: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, new_password_confirm: text });
+              setInputError(false);
+            }}
+            error={inputError}
           />
 
-          <ButtonPrimary title="Reset password" onPress={handleActivate} />
+          <ButtonPrimary title="Reset password" onPress={handleActivate} loading={loading} />
         </View>
         <View style={styles.footer} />
       </SafeAreaView>

@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert, SafeAreaView } from "react-native";
+import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { MyContext } from "../../context/Provider";
+import { colors } from "../../constants/theme";
 import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import ButtonSecondary from "../../components/ui/ButtonSecondary";
 import Title from "../../components/ui/Title";
 import Caption from "../../components/ui/Caption";
+import BoldText from "../../components/ui/BoldText";
 import api from "../../utils/api";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
-import { MyContext } from "../../context/Provider";
-import { colors } from "../../constants/theme";
 
 const Login = ({ navigation }) => {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -37,10 +38,10 @@ const Login = ({ navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <View style={styles.title}>
-            <Title>Welcome!</Title>
-            <Caption>Sign in to continue</Caption>
-          </View>
+          <Title>
+            <BoldText>Welcome!</BoldText>
+          </Title>
+          <Caption>Sign in to continue</Caption>
           <InputField
             placeholder="Email"
             icon={faEnvelope}

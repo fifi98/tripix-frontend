@@ -1,22 +1,33 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
+import { colors } from "../../constants/theme";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import TitleSmall from "../../components/ui/TitleSmall";
 import Caption from "../../components/ui/Caption";
-import api from "../../utils/api";
-import { colors } from "../../constants/theme";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
 import BoldText from "../../components/ui/BoldText";
+import api from "../../utils/api";
 
 const ResetPassword = ({ route, navigation }) => {
   const [input, setInput] = useState({ email: route.params.email, reset_code: "" });
+  const [inputError, setInputError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleActivate = () => {
+    // Validate input
+    if (input.reset_code.length !== 6) {
+      Alert.alert("Please enter the 6 digit code you received on email!");
+      setInputError(true);
+      return;
+    }
+    // Send request
+    setLoading(true);
     api
       .post("/user/password/code", input)
       .then(() => navigation.navigate("NewPassword", { email: input.email, reset_code: input.reset_code }))
-      .catch((error) => Alert.alert(error.response.data.message));
+      .catch((error) => Alert.alert(error.response.data.message))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -32,11 +43,15 @@ const ResetPassword = ({ route, navigation }) => {
             placeholder="Password reset code"
             icon={faKey}
             value={input.activation_code}
-            onChangeText={(text) => setInput({ ...input, reset_code: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, reset_code: text });
+              setInputError(true);
+            }}
+            error={inputError}
             numbers
           />
 
-          <ButtonPrimary title="Reset password" onPress={handleActivate} />
+          <ButtonPrimary title="Reset password" onPress={handleActivate} loading={loading} />
         </View>
         <View style={styles.footer} />
       </SafeAreaView>
@@ -56,7 +71,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingTop: 30,
-    width: "85%",
+    width: "88%",
   },
 });
 

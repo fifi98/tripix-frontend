@@ -69,9 +69,7 @@ const Overview = (props) => {
       .then(() => {
         props.navigation.navigate("Trip", { trip: newRoute.trip });
       })
-      .catch((err) => {
-        Alert.alert("An error occured!");
-      });
+      .catch(() => Alert.alert("An error occured while creating your route!"));
   };
 
   const handleBack = () => {

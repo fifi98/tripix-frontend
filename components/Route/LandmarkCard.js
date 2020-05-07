@@ -6,7 +6,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
 import { MyContext } from "../../context/Provider";
 import { BASE_URL } from "react-native-dotenv";
-import StarRating from "react-native-star-rating";
+import Rating from "./Rating";
 
 const RouteCard = ({ item, onLongPress }) => {
   const { newRoute, setNewRoute } = useContext(MyContext);
@@ -29,28 +29,14 @@ const RouteCard = ({ item, onLongPress }) => {
       />
       <View style={styles.data}>
         <View style={styles.checkBox}>
-          {newRoute.attractions.find((x) => x.place_id === item.place_id) ? (
-            <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={24} />
-          ) : (
-            <FontAwesomeIcon icon={faCheckCircleUnchecked} style={styles.icon} size={24} />
-          )}
+          <FontAwesomeIcon
+            icon={newRoute.attractions.find((x) => x.place_id === item.place_id) ? faCheckCircle : faCheckCircleUnchecked}
+            style={styles.icon}
+            size={27}
+          />
         </View>
         <View style={styles.rating}>
-          <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={item.rating}
-            fullStarColor={"white"}
-            emptyStarColor={"white"}
-            halfStarColor={"white"}
-            emptyStar={"star-o"}
-            fullStar={"star"}
-            halfStar={"star-half-full"}
-            iconSet={"FontAwesome"}
-            reversed
-            starSize={16}
-            starStyle={styles.star}
-          />
+          <Rating rating={item.rating} color="#FFF" />
         </View>
         <View style={styles.textView}>
           <View style={styles.textContainer}>

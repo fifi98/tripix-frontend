@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, ImageBackground, Text, View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import StarRating from "react-native-star-rating";
+import api from "../../../utils/api";
+import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
 import { MyContext } from "../../../context/Provider";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import api from "../../../utils/api";
 import { BASE_URL } from "react-native-dotenv";
+import Rating from "../../../components/Route/Rating";
 
 const LandMarkDetails = ({ route }) => {
   const { newRoute, setNewRoute } = useContext(MyContext);
@@ -17,7 +17,7 @@ const LandMarkDetails = ({ route }) => {
 
   useEffect(() => {
     api.get(`/place/${landmark.place_id}`).then((response) => {
-      setDetails(response.data);
+      setDetails({ description: `"${response.data.description}"` });
     });
   }, []);
 
@@ -34,30 +34,16 @@ const LandMarkDetails = ({ route }) => {
       source={{
         url: `${BASE_URL}/getphoto?photo_reference=${landmark.photo_reference}`,
       }}
-      style={{ flex: 1 }}
+      style={styles.image}
     >
-      <LinearGradient colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.7)", "#000"]} style={{ flex: 1 }} locations={[0.2, 0.45, 0.89]}>
-        <View style={{ flex: 1, alignItems: "center" }}>
+      <LinearGradient colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.7)", "#000"]} style={styles.image} locations={[0.2, 0.45, 0.89]}>
+        <View style={styles.screen}>
           <View style={styles.container}>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+            <View style={styles.header}>
               <Text style={styles.title}>{landmark.name}</Text>
-              <StarRating
-                disabled={true}
-                maxStars={5}
-                rating={landmark.rating}
-                fullStarColor={"#F0BC2D"}
-                emptyStarColor={"#F0BC2D"}
-                halfStarColor={"#F0BC2D"}
-                emptyStar={"star-o"}
-                fullStar={"star"}
-                halfStar={"star-half-full"}
-                iconSet={"FontAwesome"}
-                reversed
-                starSize={16}
-                starStyle={{ margin: 1 }}
-              />
+              <Rating rating={landmark.rating} color="#F0BC2D" />
             </View>
-            <Text style={styles.description}>"{details.description}"</Text>
+            <Text style={styles.description}>{details.description}</Text>
           </View>
         </View>
         <View style={styles.checkBox}>
@@ -77,6 +63,18 @@ const LandMarkDetails = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignItems: "center",
+  },
+  image: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   title: {
     color: "white",
     fontSize: 34,

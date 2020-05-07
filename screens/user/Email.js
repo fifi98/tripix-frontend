@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Text, StyleSheet, SafeAreaView, Alert, ScrollView } from "react-native";
+import { StyleSheet, SafeAreaView, Alert, ScrollView } from "react-native";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
 import BoldText from "../../components/ui/BoldText";
@@ -7,44 +8,51 @@ import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import api from "../../utils/api";
 import Caption from "../../components/ui/Caption";
 import InputField from "../../components/ui/InputField";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import BackButton from "../../components/ui/BackButton";
+import Title from "../../components/ui/Title";
 
 const Account = ({ navigation }) => {
-  const { user, setUser } = useContext(MyContext);
+  const { user } = useContext(MyContext);
   const [email, setEmail] = useState(user.email);
+  const [inputError, setInputError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChangeEmail = () => {
+    // Check if email is in valid format
+    if (!/\S+@\S+\.\S+/.test(email)) return setInputError(true);
+
+    setLoading(true);
     api
       .post("/users/loggedNewEmail", { email: email })
       .then((response) => {
         // Change token and email
         user.saveToken(response.data.token, user.user_id, user.name, email);
-
         Alert.alert("Email successfully changed!");
       })
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => console.log(err.response.data))
+      .finally(() => setLoading(false));
   };
 
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView style={styles.container}>
         <BackButton onPress={() => navigation.goBack()} />
-        <Text style={styles.title}>
+        <Title>
           <BoldText>Email address</BoldText>
-        </Text>
-        <Caption>Change email address</Caption>
+        </Title>
+
+        <Caption>In order to change your account email address, type in a new one and click the button to proceed.</Caption>
         <InputField
           placeholder="Email"
           icon={faEnvelope}
           value={email}
           onChangeText={(text) => {
             setEmail(text);
-            // setInputError(false);
+            setInputError(false);
           }}
-          // error={inputError}
+          error={inputError}
         />
-        <ButtonPrimary title="Change Email" onPress={handleChangeEmail} />
+        <ButtonPrimary title="Change Email" onPress={handleChangeEmail} loading={loading} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -60,19 +68,6 @@ const styles = StyleSheet.create({
     width: "88%",
     paddingTop: 10,
     height: "100%",
-  },
-  title: {
-    fontSize: 30,
-    color: "white",
-  },
-  statsCount: {
-    fontSize: 36,
-    color: colors.textSecondary,
-    marginBottom: 4,
-  },
-  statsName: {
-    color: colors.textSecondary,
-    marginBottom: 10,
   },
 });
 

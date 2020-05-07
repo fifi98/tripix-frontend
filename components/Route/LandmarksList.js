@@ -8,28 +8,26 @@ const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
     navigation.navigate("LandmarkDetails", { landmark: item });
   };
 
+  if (loading) return <Loading text="Looking for landmarks" />;
+
   return (
     <View style={styles.container}>
-      {loading === 1 ? (
-        <Loading text="Looking for landmarks" />
-      ) : (
-        <View>
-          {attractions.length === 0 ? (
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>Landmarks you select will be shown here</Text>
-            </View>
-          ) : (
-            <FlatList
-              keyExtractor={(item) => item.place_id}
-              data={attractions.filter((a) => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
-              renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
-              initialNumToRender={5}
-              maxToRenderPerBatch={10}
-              windowSize={5}
-            />
-          )}
-        </View>
-      )}
+      <View>
+        {attractions.length === 0 ? (
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>Landmarks you select will be shown here</Text>
+          </View>
+        ) : (
+          <FlatList
+            keyExtractor={(item) => item.place_id}
+            data={attractions.filter((a) => a.name.toLowerCase().includes(searchInput.toLowerCase()))}
+            renderItem={({ item }) => <LandmarkCard item={item} onLongPress={handleDetails} />}
+            initialNumToRender={5}
+            maxToRenderPerBatch={10}
+            windowSize={5}
+          />
+        )}
+      </View>
     </View>
   );
 };

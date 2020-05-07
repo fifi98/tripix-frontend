@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
-import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, FlatList, Alert } from "react-native";
+import BackButton from "../../components/ui/BackButton";
 import InputField from "../../components/ui/InputField";
 import RouteCard from "../../components/RouteCard";
 import BoldText from "../../components/ui/BoldText";
@@ -7,7 +8,6 @@ import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
-import BackButton from "../../components/ui/BackButton";
 
 const FinishedRoutes = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -18,7 +18,7 @@ const FinishedRoutes = ({ navigation }) => {
     api
       .get(`/route/finished_routes/${user.user_id}`)
       .then((response) => setRoutes(response.data))
-      .catch((err) => console.log(err.response.data));
+      .catch(() => Alert.alert("Error while loading your routes"));
   }, []);
 
   const handleSelect = (routeID) => {

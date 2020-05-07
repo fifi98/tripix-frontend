@@ -40,14 +40,14 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput, setLoadi
 
   useEffect(() => {
     const selectedCategoryName = categories.find((c) => c.id === selectedCategory).name;
-    setLoading(1);
+    setLoading(true);
     api
       .get("/attractions/" + selectedCategoryName, {
         params: { location: newRoute.location },
       })
       .then((response) => {
         setAttractions([...response.data]);
-        setLoading(0);
+        setLoading(false);
       });
   }, [selectedCategory]);
 

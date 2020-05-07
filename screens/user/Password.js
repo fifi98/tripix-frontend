@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Alert, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import React, { useState, useContext } from "react";
+import { Alert, StyleSheet, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import BoldText from "../../components/ui/BoldText";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import api from "../../utils/api";
@@ -9,8 +9,10 @@ import BackButton from "../../components/ui/BackButton";
 import Title from "../../components/ui/Title";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { MyContext } from "../../context/Provider";
 
 const Password = ({ navigation }) => {
+  const { user } = useContext(MyContext);
   const [input, setInput] = useState({ current_password: "", new_password: "", confirm_password: "" });
   const [inputError, setInputError] = useState({ current_password: false, new_password: false });
   const [loading, setLoading] = useState(false);
@@ -48,9 +50,10 @@ const Password = ({ navigation }) => {
       .then((response) => {
         // Save the new token in the state and AsyncStorage
         user.changePassword(response.data.token);
+        setInput({ current_password: "", new_password: "", confirm_password: "" });
         Alert.alert("Password successfully changed!");
       })
-      .catch((err) => {
+      .catch(() => {
         setInputError((old) => ({ ...old, current_password: true }));
         Alert.alert("Incorrect current password!");
       })
@@ -58,50 +61,52 @@ const Password = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <ScrollView style={styles.container}>
-        <BackButton onPress={() => navigation.goBack()} />
-        <Title>
-          <BoldText>Password</BoldText>
-        </Title>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <SafeAreaView style={styles.screen}>
+        <ScrollView style={styles.container}>
+          <BackButton onPress={() => navigation.goBack()} />
+          <Title>
+            <BoldText>Password</BoldText>
+          </Title>
 
-        <Caption>Here you can change your account password.</Caption>
-        <InputField
-          isPassword={true}
-          placeholder="Current password"
-          icon={faKey}
-          value={input.current_password}
-          onChangeText={(text) => {
-            setInput({ ...input, current_password: text });
-            setInputError((old) => ({ ...old, current_password: false }));
-          }}
-          error={inputError.current_password}
-        />
-        <InputField
-          isPassword={true}
-          placeholder="New password"
-          icon={faKey}
-          value={input.new_password}
-          onChangeText={(text) => {
-            setInput({ ...input, new_password: text });
-            setInputError((old) => ({ ...old, new_password: false }));
-          }}
-          error={inputError.new_password}
-        />
-        <InputField
-          isPassword={true}
-          placeholder="Confirm new password"
-          icon={faKey}
-          value={input.confirm_password}
-          onChangeText={(text) => {
-            setInput({ ...input, confirm_password: text });
-            setInputError((old) => ({ ...old, new_password: false }));
-          }}
-          error={inputError.new_password}
-        />
-        <ButtonPrimary title="Change Password" onPress={handleChangeEmail} loading={loading} />
-      </ScrollView>
-    </SafeAreaView>
+          <Caption>Here you can change your account password.</Caption>
+          <InputField
+            isPassword={true}
+            placeholder="Current password"
+            icon={faKey}
+            value={input.current_password}
+            onChangeText={(text) => {
+              setInput({ ...input, current_password: text });
+              setInputError((old) => ({ ...old, current_password: false }));
+            }}
+            error={inputError.current_password}
+          />
+          <InputField
+            isPassword={true}
+            placeholder="New password"
+            icon={faKey}
+            value={input.new_password}
+            onChangeText={(text) => {
+              setInput({ ...input, new_password: text });
+              setInputError((old) => ({ ...old, new_password: false }));
+            }}
+            error={inputError.new_password}
+          />
+          <InputField
+            isPassword={true}
+            placeholder="Confirm new password"
+            icon={faKey}
+            value={input.confirm_password}
+            onChangeText={(text) => {
+              setInput({ ...input, confirm_password: text });
+              setInputError((old) => ({ ...old, new_password: false }));
+            }}
+            error={inputError.new_password}
+          />
+          <ButtonPrimary title="Change Password" onPress={handleChangeEmail} loading={loading} />
+        </ScrollView>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 

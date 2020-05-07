@@ -24,9 +24,8 @@ const Login = ({ navigation }) => {
         // Store JTW in the context and go to the main screen
         user.saveToken(data.token, data.user_id, data.full_name, input.email);
       })
-      .catch((err) => {
-        if (err.response.data.message) Alert.alert(err.response.data.message);
-        else Alert.alert(err.response.data[Object.keys(err.response.data)[0]][0]);
+      .catch(() => {
+        Alert.alert("Incorrect credentials!");
         setInputError(true);
       })
       .finally(() => {

@@ -11,7 +11,7 @@ import { colors } from "../../../constants/theme";
 
 const WhatVisit = (props) => {
   const [attractions, setAttractions] = useState([]);
-  const [loading, setLoading] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
   const [selectedTab, setSelectedTab] = useState(0);
   const { newRoute } = useContext(MyContext);

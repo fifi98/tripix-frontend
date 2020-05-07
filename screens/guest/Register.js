@@ -4,6 +4,7 @@ import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import ButtonSecondary from "../../components/ui/ButtonSecondary";
 import Title from "../../components/ui/Title";
+import BoldText from "../../components/ui/BoldText";
 import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
 import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -53,7 +54,9 @@ const Register = ({ navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <Title>Create an account</Title>
+          <Title>
+            <BoldText>Create an account</BoldText>
+          </Title>
           <Caption>Type in your information</Caption>
 
           <InputField

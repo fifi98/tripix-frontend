@@ -33,6 +33,7 @@ const Provider = (props) => {
     changePassword: async (newToken) => {
       try {
         await AsyncStorage.setItem("token", newToken);
+        api.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
         setUser({ ...user, token: newToken });
       } catch (error) {
         setUser({ error });

@@ -2,8 +2,9 @@ import React, { useState, useContext } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
 import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
-import Title from "../../components/ui/Title";
+import BoldText from "../../components/ui/BoldText";
 import Caption from "../../components/ui/Caption";
+import Title from "../../components/ui/Title";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
@@ -20,9 +21,9 @@ const Activate = ({ route }) => {
       .post("/users/verify", input)
       .then((response) => {
         //Store JTW in the context and go to the main screen
-        user.saveToken(response.data.token, response.data.user_id);
+        user.saveToken(response.data.token, response.data.user_id, response.data.full_name, input.email);
       })
-      .catch((error) => Alert.alert(error.response.data.message))
+      .catch(() => Alert.alert("Invalid activation code!"))
       .finally(() => {
         setButtonLoading(false);
       });
@@ -32,7 +33,9 @@ const Activate = ({ route }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <Title>Check your inbox!</Title>
+          <Title>
+            <BoldText>Check your inbox!</BoldText>
+          </Title>
           <Caption>Type in the 6 digit activation code you received in your email.</Caption>
 
           <InputField

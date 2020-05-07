@@ -3,7 +3,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 import Loading from "../../components/ui/Loading";
 import NearbyItem from "../../components/nearby/NearbyItem";
-import Sheet from "../../components/map/Sheet";
+import BottomSheet from "../../components/map/BottomSheet";
 import api from "../../utils/api";
 import { View, Alert, StyleSheet, ScrollView, InteractionManager } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -62,13 +62,13 @@ const FindNearby = ({ route, navigation }) => {
               </Marker>
             ))}
           </MapView>
-          <Sheet title="Nearby" buttonText="Show All">
+          <BottomSheet title="Nearby" buttonText="Show All">
             <ScrollView>
               {places.map((place) => (
                 <NearbyItem key={place.place_id} item={place} />
               ))}
             </ScrollView>
-          </Sheet>
+          </BottomSheet>
           <BackButton onPress={navigation.goBack} />
         </>
       )}

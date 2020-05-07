@@ -6,14 +6,14 @@ import { BASE_URL } from "react-native-dotenv";
 
 const PositionCard = ({ item, onPress, selected }) => {
   return (
-    <TouchableOpacity style={{ marginBottom: 10 }} onPress={() => onPress(item)}>
+    <TouchableOpacity style={styles.card} onPress={() => onPress(item)}>
       <View style={[styles.container, selected ? styles.selected : styles.unselected]}>
         {item.default ? (
           <View style={styles.defaultButton}>
-            <FontAwesomeIcon icon={item.icon} size={34} style={{ color: "white" }} />
+            <FontAwesomeIcon icon={item.icon} size={34} style={styles.icon} />
           </View>
         ) : (
-          <View style={{ borderRadius: 30, margin: 8 }}>
+          <View style={styles.imageContainer}>
             <Image
               style={styles.image}
               source={{
@@ -34,8 +34,18 @@ const styles = StyleSheet.create({
     width: 60,
     borderRadius: 30,
   },
+  imageContainer: {
+    borderRadius: 30,
+    margin: 8,
+  },
+  icon: {
+    color: colors.textPrimary,
+  },
+  card: {
+    marginBottom: 10,
+  },
   text: {
-    color: "white",
+    color: colors.textPrimary,
     fontSize: 16,
     marginLeft: 6,
   },

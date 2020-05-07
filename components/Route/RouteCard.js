@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { faClock, faLandmark } from "@fortawesome/free-solid-svg-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { formatDuration } from "../utils/formatDuration";
+import { formatDuration } from "../../utils/formatDuration";
 import { BASE_URL } from "react-native-dotenv";
-import { colors } from "../constants/theme";
+import { colors } from "../../constants/theme";
 import Moment from "moment";
 
 const RouteCard = ({ item, handleSelect }) => {
@@ -20,7 +20,7 @@ const RouteCard = ({ item, handleSelect }) => {
           style={styles.image}
         />
         <View style={styles.data}>
-          <View style={{ alignItems: "flex-end" }}>
+          <View style={styles.detailsContainer}>
             <View style={styles.details}>
               <Text style={styles.text}>{formatDuration(item.duration)}</Text>
               <FontAwesomeIcon icon={faClock} style={styles.icon} />
@@ -28,7 +28,7 @@ const RouteCard = ({ item, handleSelect }) => {
               <FontAwesomeIcon icon={faLandmark} style={styles.icon} />
             </View>
           </View>
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View style={styles.textView}>
             <View style={styles.textContainer}>
               <Text adjustsFontSizeToFit allowFontScaling minimumFontScale={0.5} numberOfLines={3} style={styles.textName}>
                 {item.location}
@@ -58,6 +58,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "80%",
     height: "100%",
+  },
+  textView: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  detailsContainer: {
+    alignItems: "flex-end",
   },
   details: {
     backgroundColor: "rgba(255,255,255,0.35)",

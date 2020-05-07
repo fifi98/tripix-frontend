@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { faWalking, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { colors } from "../../../constants/theme";
-import { MyContext } from "../../../context/Provider";
-import { formatDuration } from "../../../utils/formatDuration";
+import { colors } from "../../constants/theme";
+import { MyContext } from "../../context/Provider";
+import { formatDuration } from "../../utils/formatDuration";
 import { BASE_URL } from "react-native-dotenv";
 import FastImage from "react-native-fast-image";
 
@@ -12,8 +12,8 @@ const LandmarkItem = ({ location }) => {
   const { newRoute } = useContext(MyContext);
 
   // If the route is created and we don't have landmark's name and photo reference
-  var test = newRoute.attractions.find((a) => a.location.lat === location.latitude);
-  if (!test) test = location;
+  var landmark = newRoute.attractions.find((a) => a.location.lat === location.latitude);
+  if (!landmark) landmark = location;
 
   return (
     <View>
@@ -36,15 +36,15 @@ const LandmarkItem = ({ location }) => {
 
       {/* Landmark icon and name */}
       <View style={styles.container}>
-        <View style={{ width: 60 }}>
+        <View style={styles.imageContainer}>
           <FastImage
             style={styles.image}
             source={{
-              uri: `${BASE_URL}/photo?photo_reference=${test.photo_reference}&maxwidth=100`,
+              uri: `${BASE_URL}/photo?photo_reference=${landmark.photo_reference}&maxwidth=100`,
             }}
           />
         </View>
-        <Text style={styles.title}>{test.name}</Text>
+        <Text style={styles.title}>{landmark.name}</Text>
       </View>
     </View>
   );
@@ -60,8 +60,11 @@ const styles = StyleSheet.create({
     width: 60,
     borderRadius: 30,
   },
+  imageContainer: {
+    width: 60,
+  },
   title: {
-    color: "white",
+    color: colors.textPrimary,
     fontSize: 18,
     marginLeft: 20,
   },
@@ -74,12 +77,12 @@ const styles = StyleSheet.create({
     marginRight: 7,
   },
   line: {
-    backgroundColor: "#0A84FF",
+    backgroundColor: colors.accent,
     height: 18,
     width: 3,
   },
   iconTransport: {
-    color: "#0A84FF",
+    color: colors.accent,
     marginVertical: 5,
   },
   detailsContainer: {

@@ -2,6 +2,7 @@ import React from "react";
 import { View, FlatList, Text, StyleSheet } from "react-native";
 import LandmarkCard from "./LandmarkCard";
 import Loading from "../ui/Loading";
+import { colors } from "../../constants/theme";
 
 const LandmarksList = ({ navigation, attractions, searchInput, loading }) => {
   const handleDetails = (item) => {
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   text: {
-    color: "white",
+    color: colors.textPrimary,
     fontWeight: "bold",
   },
   container: {

@@ -10,6 +10,7 @@ const colors = {
     background: "#161616",
     border: "#3D3D3D",
   },
+  accent: "#0A84FF",
 };
 
 const sizes = {};

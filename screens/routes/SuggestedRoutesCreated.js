@@ -2,11 +2,12 @@ import React, { useEffect, useContext, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, ScrollView } from "react-native";
 import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
-import SuggestedRouteCard from "../../components/SuggestedRouteCard";
+import SuggestedRouteCard from "../../components/route/SuggestedRouteCard";
 import BoldText from "../../components/ui/BoldText";
 import api from "../../utils/api";
 import BottomMenu from "../../components/route/BottomMenu";
 import Caption from "../../components/ui/Caption";
+import Loading from "../../components/ui/Loading";
 
 const SuggestedRoutesCreated = ({ navigation, route }) => {
   const { setNewRoute } = useContext(MyContext);
@@ -25,12 +26,6 @@ const SuggestedRoutesCreated = ({ navigation, route }) => {
   };
 
   const handleNext = () => {
-    console.log(routes.attractions);
-
-    // If mini route is selected, take first x attractions,
-    // if middle route is selected take first y attractions,
-    // if large route is selected take frist z attractions
-
     // Get number of attractions for selected route
     const number_attractions = routes.routes.find((route) => route.name === selectedRoute).number_attractions;
 
@@ -56,22 +51,20 @@ const SuggestedRoutesCreated = ({ navigation, route }) => {
     setSelectedRoute(name);
   };
 
+  if (routes.length === 0) return <Loading text="Creating some interesting routes for you" />;
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <Text style={styles.title}>
           <BoldText>Suggested</BoldText> routes
         </Text>
-        <Caption>We have created three types of routes for you. Pick one to proceed</Caption>
-        {routes.length !== 0 ? (
-          <ScrollView>
-            {routes.routes.map((route) => (
-              <SuggestedRouteCard key={route.name} item={route} handleSelect={handleSelect} selected={selectedRoute == route.name} />
-            ))}
-          </ScrollView>
-        ) : (
-          <Text>awf</Text>
-        )}
+        <Caption>We have created three types of routes for you. Pick one to proceed.</Caption>
+        <ScrollView>
+          {routes.routes.map((route) => (
+            <SuggestedRouteCard key={route.name} item={route} handleSelect={handleSelect} selected={selectedRoute == route.name} />
+          ))}
+        </ScrollView>
       </View>
       <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Next" />
     </SafeAreaView>
@@ -89,7 +82,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    color: "white",
+    color: colors.textPrimary,
     marginBottom: 10,
   },
   container: {
@@ -103,10 +96,6 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     flexDirection: "row",
-  },
-  text: {
-    color: "white",
-    fontWeight: "bold",
   },
 });
 

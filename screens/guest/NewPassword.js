@@ -7,6 +7,7 @@ import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import BoldText from "../../components/ui/BoldText";
 
 const NewPassword = ({ route, navigation }) => {
   const [input, setInput] = useState({
@@ -27,17 +28,21 @@ const NewPassword = ({ route, navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <TitleSmall>Check your inbox!</TitleSmall>
-          <Caption>Type in the password reset code we sent to your email.</Caption>
+          <TitleSmall>
+            <BoldText>Check your inbox!</BoldText>
+          </TitleSmall>
+          <Caption>Type in the your new password.</Caption>
 
           <InputField
-            placeholder="Password reset code"
+            placeholder="New password"
+            isPassword={true}
             icon={faKey}
             value={input.activation_code}
             onChangeText={(text) => setInput({ ...input, new_password: text })}
           />
           <InputField
-            placeholder="Password reset code"
+            placeholder="Confirm new password"
+            isPassword={true}
             icon={faKey}
             value={input.activation_code}
             onChangeText={(text) => setInput({ ...input, new_password_confirm: text })}

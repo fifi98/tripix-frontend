@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList, Alert } from "react-native";
 import BackButton from "../../components/ui/BackButton";
 import InputField from "../../components/ui/InputField";
-import RouteCard from "../../components/RouteCard";
+import RouteCard from "../../components/route/RouteCard";
 import BoldText from "../../components/ui/BoldText";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";

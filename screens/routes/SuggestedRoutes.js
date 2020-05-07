@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import Caption from "../../components/ui/Caption";
+import NearbyLocations from "../../components/route/NearbyLocations";
 import InputField from "../../components/ui/InputField";
 import BottomMenu from "../../components/route/BottomMenu";
 import DateInput from "../../components/ui/DateInput";
 import BoldText from "../../components/ui/BoldText";
+import Caption from "../../components/ui/Caption";
 import { colors } from "../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
-import NearbyLocations from "../../components/route/NearbyLocations";
 
-const SuggestedRoutes = (props) => {
+const SuggestedRoutes = ({ navigation }) => {
   const { setNewRoute, newRoute } = useContext(MyContext);
 
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -42,11 +42,11 @@ const SuggestedRoutes = (props) => {
       return;
     }
 
-    props.navigation.navigate("SuggestedRoutesCreated", { place: newRoute.location });
+    navigation.navigate("SuggestedRoutesCreated", { place: newRoute.location });
   };
 
   const handleBack = () => {
-    props.navigation.goBack();
+    navigation.goBack();
   };
 
   return (
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    color: "white",
+    color: colors.textPrimary,
     marginBottom: 10,
   },
 });

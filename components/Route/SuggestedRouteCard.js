@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
+import { faClock, faLandmark, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faClock, faLandmark, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { faCheckCircle as faCheckCircleUnchecked } from "@fortawesome/free-regular-svg-icons";
-import { colors } from "../constants/theme";
+import { formatDuration } from "../../utils/formatDuration";
 import { BASE_URL } from "react-native-dotenv";
-import { formatDuration } from "../utils/formatDuration";
+import { colors } from "../../constants/theme";
 
 const SuggestedRouteCard = ({ item, handleSelect, selected }) => {
   return (
@@ -20,21 +20,15 @@ const SuggestedRouteCard = ({ item, handleSelect, selected }) => {
         />
         <View style={styles.data}>
           <View style={styles.checkBox}>
-            {selected ? (
-              <FontAwesomeIcon icon={faCheckCircle} style={styles.icon} size={24} />
-            ) : (
-              <FontAwesomeIcon icon={faCheckCircleUnchecked} style={styles.icon} size={24} />
-            )}
+            <FontAwesomeIcon icon={selected ? faCheckCircle : faCheckCircleUnchecked} style={styles.icon} size={24} />
           </View>
-          <View style={{ alignItems: "flex-end" }}>
-            <View style={styles.details}>
-              <Text style={styles.text}>{formatDuration(item.duration)}</Text>
-              <FontAwesomeIcon icon={faClock} style={styles.icon} />
-              <Text style={styles.text}>{item.number_attractions}</Text>
-              <FontAwesomeIcon icon={faLandmark} style={styles.icon} />
-            </View>
+          <View style={styles.details}>
+            <Text style={styles.text}>{formatDuration(item.duration)}</Text>
+            <FontAwesomeIcon icon={faClock} style={styles.icon} />
+            <Text style={styles.text}>{item.number_attractions}</Text>
+            <FontAwesomeIcon icon={faLandmark} style={styles.icon} />
           </View>
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View style={styles.textView}>
             <View style={styles.textContainer}>
               <Text adjustsFontSizeToFit allowFontScaling minimumFontScale={0.5} numberOfLines={3} style={styles.textName}>
                 {item.name}
@@ -82,6 +76,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: "white",
+  },
+  textView: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   textName: {
     fontSize: 20,

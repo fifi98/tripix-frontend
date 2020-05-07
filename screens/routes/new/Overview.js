@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Alert } from "react-native";
-import LandmarkItem from "../../../components/route/Overview/LandmarkItem";
+import LandmarkItem from "../../../components/route/LandmarkItem";
 import BottomMenu from "../../../components/route/BottomMenu";
 import Polyline from "@mapbox/polyline";
 import BoldText from "../../../components/ui/BoldText";

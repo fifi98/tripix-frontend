@@ -7,6 +7,7 @@ import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import BoldText from "../../components/ui/BoldText";
 
 const ResetPassword = ({ route, navigation }) => {
   const [input, setInput] = useState({ email: route.params.email, reset_code: "" });
@@ -22,7 +23,9 @@ const ResetPassword = ({ route, navigation }) => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView style={styles.login}>
         <View style={styles.container}>
-          <TitleSmall>Check your inbox!</TitleSmall>
+          <TitleSmall>
+            <BoldText>Check your inbox!</BoldText>
+          </TitleSmall>
           <Caption>Type in the password reset code we sent to your email.</Caption>
 
           <InputField

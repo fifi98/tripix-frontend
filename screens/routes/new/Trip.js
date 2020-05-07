@@ -1,10 +1,10 @@
 import React, { createRef, useEffect, useState } from "react";
 import { InteractionManager } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
-import LandmarkItem from "../../../components/route/Overview/LandmarkItem";
+import LandmarkItem from "../../../components/route/LandmarkItem";
 import BackButton from "../../../components/map/BackButton";
 import Loading from "../../../components/ui/Loading";
-import Sheet from "../../../components/map/Sheet";
+import BottomSheet from "../../../components/map/BottomSheet";
 import { faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -58,13 +58,13 @@ const Trip = ({ navigation, route }) => {
               </Marker>
             ))}
           </MapView>
-          <Sheet title="Route overview" buttonText="Start route">
+          <BottomSheet title="Route overview" buttonText="Start route">
             <ScrollView>
               {trip.locations.map((location) => (
                 <LandmarkItem location={location} key={location.latitude} />
               ))}
             </ScrollView>
-          </Sheet>
+          </BottomSheet>
 
           <BackButton onPress={() => navigation.navigate("PlannedRoutes")} />
         </>

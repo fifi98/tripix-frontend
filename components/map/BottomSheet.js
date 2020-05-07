@@ -15,19 +15,10 @@ const Sheet = ({ children, title, buttonText }) => {
       <View style={styles.panelHeader}>
         <View style={styles.panelHandle} />
       </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomColor: "gray",
-          borderBottomWidth: 0.5,
-          paddingBottom: 5,
-          marginHorizontal: 20,
-        }}
-      >
-        <Text style={{ fontSize: 16, color: colors.textSecondary }}>{title}</Text>
+      <View style={styles.headerContent}>
+        <Text style={styles.title}>{title}</Text>
         <TouchableOpacity onPress={handleShowAll}>
-          <Text style={{ color: "#007AFF", fontSize: 16 }}>{buttonText}</Text>
+          <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -72,12 +63,28 @@ const styles = StyleSheet.create({
   panelHeader: {
     alignItems: "center",
   },
+  headerContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomColor: "gray",
+    borderBottomWidth: 0.5,
+    paddingBottom: 5,
+    marginHorizontal: 20,
+  },
   panelHandle: {
     width: 50,
     height: 8,
     borderRadius: 4,
     backgroundColor: "#69696D",
     marginBottom: 9,
+  },
+  title: {
+    fontSize: 16,
+    color: colors.textSecondary,
+  },
+  buttonText: {
+    color: "#007AFF",
+    fontSize: 16,
   },
 });
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, SafeAreaView, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import InputField from "../../../components/ui/InputField";
-import BottomMenu from "../../../components/Route/BottomMenu";
+import BottomMenu from "../../../components/route/BottomMenu";
 import DateInput from "../../../components/ui/DateInput";
 import Subtitle from "../../../components/ui/Subtitle";
 import BoldText from "../../../components/ui/BoldText";
@@ -10,7 +10,7 @@ import Caption from "../../../components/ui/Caption";
 import { colors } from "../../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
-import NearbyLocations from "../../../components/Route/NearbyLocations";
+import NearbyLocations from "../../../components/route/NearbyLocations";
 
 const NewRoute = ({ navigation }) => {
   const { setNewRoute, newRoute } = useContext(MyContext);

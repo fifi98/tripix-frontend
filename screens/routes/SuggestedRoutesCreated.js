@@ -5,7 +5,7 @@ import { colors } from "../../constants/theme";
 import SuggestedRouteCard from "../../components/SuggestedRouteCard";
 import BoldText from "../../components/ui/BoldText";
 import api from "../../utils/api";
-import BottomMenu from "../../components/Route/BottomMenu";
+import BottomMenu from "../../components/route/BottomMenu";
 import Caption from "../../components/ui/Caption";
 
 const SuggestedRoutesCreated = ({ navigation, route }) => {

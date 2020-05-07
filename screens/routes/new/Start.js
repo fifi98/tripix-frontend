@@ -4,8 +4,8 @@ import { faSearch, faMapMarkerAlt, faCompass } from "@fortawesome/free-solid-svg
 import { colors } from "../../../constants/theme";
 import { MyContext } from "../../../context/Provider";
 import InputField from "../../../components/ui/InputField";
-import PositionCard from "../../../components/Route/PositionCard";
-import BottomMenu from "../../../components/Route/BottomMenu";
+import PositionCard from "../../../components/route/PositionCard";
+import BottomMenu from "../../../components/route/BottomMenu";
 import BoldText from "../../../components/ui/BoldText";
 import Subtitle from "../../../components/ui/Subtitle";
 

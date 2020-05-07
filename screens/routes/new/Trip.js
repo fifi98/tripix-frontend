@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useState } from "react";
 import { InteractionManager } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
-import LandmarkItem from "../../../components/Route/Overview/LandmarkItem";
+import LandmarkItem from "../../../components/route/Overview/LandmarkItem";
 import BackButton from "../../../components/map/BackButton";
 import Loading from "../../../components/ui/Loading";
 import Sheet from "../../../components/map/Sheet";

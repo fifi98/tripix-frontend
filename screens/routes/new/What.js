@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
-import SearchLandmarks from "../../../components/Route/SearchLandmarks";
+import SearchLandmarks from "../../../components/route/SearchLandmarks";
 import SegmentedControlIOS from "@react-native-community/segmented-control";
-import LandmarksList from "../../../components/Route/LandmarksList";
-import BottomMenu from "../../../components/Route/BottomMenu";
+import LandmarksList from "../../../components/route/LandmarksList";
+import BottomMenu from "../../../components/route/BottomMenu";
 import BoldText from "../../../components/ui/BoldText";
 import Subtitle from "../../../components/ui/Subtitle";
 import { MyContext } from "../../../context/Provider";

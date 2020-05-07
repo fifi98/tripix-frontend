@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { BASE_URL } from "react-native-dotenv";
-import Rating from "../../../components/Route/Rating";
+import Rating from "../../../components/route/Rating";
 
 const LandMarkDetails = ({ route }) => {
   const { newRoute, setNewRoute } = useContext(MyContext);

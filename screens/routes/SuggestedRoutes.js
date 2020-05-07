@@ -3,13 +3,13 @@ import { View, StyleSheet, Text, SafeAreaView, Alert, TouchableWithoutFeedback, 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Caption from "../../components/ui/Caption";
 import InputField from "../../components/ui/InputField";
-import BottomMenu from "../../components/Route/BottomMenu";
+import BottomMenu from "../../components/route/BottomMenu";
 import DateInput from "../../components/ui/DateInput";
 import BoldText from "../../components/ui/BoldText";
 import { colors } from "../../constants/theme";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
-import NearbyLocations from "../../components/Route/NearbyLocations";
+import NearbyLocations from "../../components/route/NearbyLocations";
 
 const SuggestedRoutes = (props) => {
   const { setNewRoute, newRoute } = useContext(MyContext);

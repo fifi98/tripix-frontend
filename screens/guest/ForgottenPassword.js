@@ -12,12 +12,19 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const ForgottenPassword = ({ route, navigation }) => {
   const [input, setInput] = useState({ email: route.params.email });
+  const [inputError, setInputError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleActivate = () => {
+    // Check if email is in valid format
+    if (!/\S+@\S+\.\S+/.test(input.email)) return setInputError(true);
+
+    setLoading(true);
     api
       .post("/users/forgottenPassword", input)
       .then(() => navigation.navigate("ResetPassword", { email: input.email }))
-      .catch((error) => Alert.alert(error.response.data.message));
+      .catch((error) => Alert.alert(error.response.data.message))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -34,10 +41,14 @@ const ForgottenPassword = ({ route, navigation }) => {
             placeholder="Email"
             icon={faEnvelope}
             value={input.email}
-            onChangeText={(text) => setInput({ ...input, email: text })}
+            onChangeText={(text) => {
+              setInput({ ...input, email: text });
+              setInputError(false);
+            }}
+            error={inputError}
           />
 
-          <ButtonPrimary title="Send reset link" onPress={handleActivate} />
+          <ButtonPrimary title="Send reset link" onPress={handleActivate} loading={loading} />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>

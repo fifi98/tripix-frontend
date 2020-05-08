@@ -8,6 +8,7 @@ import TitleSmall from "../../components/ui/TitleSmall";
 import BoldText from "../../components/ui/BoldText";
 import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
+import validate from "../../utils/inputValidation";
 
 const NewPassword = ({ route, navigation }) => {
   const [inputError, setInputError] = useState(false);
@@ -20,19 +21,8 @@ const NewPassword = ({ route, navigation }) => {
   });
 
   const handleActivate = () => {
-    // Check if password is long enough
-    if (input.new_password.length < 6) {
-      setInputError(true);
-      Alert.alert("Password must be at least 6 characters long!");
-      return;
-    }
-
-    // Check if new password and confirm new password match
-    if (input.new_password !== input.new_password_confirm) {
-      setInputError(true);
-      Alert.alert("New password and confirm new password do not match!");
-      return;
-    }
+    // Validate input
+    if (!validate.password(input.new_password, input.new_password_confirm)) return setInputError(true);
 
     // Send request
     setLoading(true);

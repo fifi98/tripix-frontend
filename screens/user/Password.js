@@ -10,6 +10,7 @@ import Title from "../../components/ui/Title";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../context/Provider";
+import validate from "../../utils/inputValidation";
 
 const Password = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -20,29 +21,13 @@ const Password = ({ navigation }) => {
   const handleChangeEmail = () => {
     // Check if passwords are entered
     if (input.current_password.length === 0 && input.new_password.length === 0 && input.confirm_password.length === 0) {
-      setInputError({ current_password: true, new_password: true });
-      return;
+      return setInputError({ current_password: true, new_password: true });
     }
 
-    // Check if password is long enough
-    if (input.current_password.length < 6) {
-      setInputError((old) => ({ ...old, current_password: true }));
-      Alert.alert("Incorrect current password!");
-      return;
-    }
-
-    if (input.new_password.length < 6) {
-      setInputError((old) => ({ ...old, new_password: true }));
-      Alert.alert("New password must be at least 6 characters long!");
-      return;
-    }
-
-    // Check if new password and confirm new password match
-    if (input.new_password !== input.confirm_password) {
-      setInputError((old) => ({ ...old, new_password: true }));
-      Alert.alert("New password and confirm new password do not match!");
-      return;
-    }
+    // Validate current password format
+    if (!validate.password(input.current_password)) return setInputError((old) => ({ ...old, current_password: true }));
+    // Validate new password and confirm password format
+    if (!validate.password(input.new_password, input.confirm_password)) return setInputError((old) => ({ ...old, new_password: true }));
 
     setLoading(true);
     api

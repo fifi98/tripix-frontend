@@ -10,6 +10,7 @@ import Caption from "../../components/ui/Caption";
 import InputField from "../../components/ui/InputField";
 import BackButton from "../../components/ui/BackButton";
 import Title from "../../components/ui/Title";
+import validate from "../../utils/inputValidation";
 
 const Account = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -19,7 +20,7 @@ const Account = ({ navigation }) => {
 
   const handleChangeEmail = () => {
     // Check if email is in valid format
-    if (!/\S+@\S+\.\S+/.test(email)) return setInputError(true);
+    if (!validate.email(email)) return setInputError(true);
 
     setLoading(true);
     api

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, SafeAreaView, Alert } from "react-native";
+import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+import { colors } from "../../constants/theme";
 import InputField from "../../components/ui/InputField";
 import ButtonPrimary from "../../components/ui/ButtonPrimary";
 import ButtonSecondary from "../../components/ui/ButtonSecondary";
@@ -7,8 +9,7 @@ import Title from "../../components/ui/Title";
 import BoldText from "../../components/ui/BoldText";
 import Caption from "../../components/ui/Caption";
 import api from "../../utils/api";
-import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
-import { colors } from "../../constants/theme";
+import validate from "../../utils/inputValidation";
 
 const Register = ({ navigation }) => {
   const [input, setInput] = useState({ name: "", email: "", password: "", confirmPassword: "" });
@@ -22,11 +23,9 @@ const Register = ({ navigation }) => {
   const handleRegister = () => {
     Keyboard.dismiss();
 
-    // Check confirm password input
-    if (input.password !== input.confirmPassword) {
-      setInputError((old) => ({ ...old, password: true }));
-      return Alert.alert("Password and confirm password fields do not match!");
-    }
+    if (!validate.name(input.name)) return setInputError((old) => ({ ...old, name: true }));
+    if (!validate.email(input.email)) return setInputError((old) => ({ ...old, email: true }));
+    if (!validate.password(input.password, input.confirmPassword)) return setInputError((old) => ({ ...old, password: true }));
 
     setButtonLoading(true);
 

@@ -95,7 +95,7 @@ const Overview = ({ navigation }) => {
         <Text style={styles.title}>
           <BoldText>Overview</BoldText> of your trip to <BoldText>{newRoute.trip.location}</BoldText>
         </Text>
-        <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 18 }}>
+        <View style={styles.dataContainer}>
           <FontAwesomeIcon icon={faClock} style={{ color: colors.textSecondary }} />
           <Text style={{ color: colors.textSecondary, marginLeft: 10 }}>
             {formatDuration(newRoute.trip.duration)} · {newRoute.trip.distance} km
@@ -123,6 +123,12 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flex: 1,
     flexDirection: "column",
+  },
+  dataContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+    marginBottom: 18,
   },
   title: {
     fontSize: 22,

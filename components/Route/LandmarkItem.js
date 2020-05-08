@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { faWalking, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faCar, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "../../constants/theme";
 import { MyContext } from "../../context/Provider";
@@ -22,7 +22,7 @@ const LandmarkItem = ({ location }) => {
         <View style={styles.detailsContainer}>
           <View style={styles.transportContainer}>
             <View style={styles.line} />
-            <FontAwesomeIcon icon={faWalking} size={22} style={styles.iconTransport} />
+            <FontAwesomeIcon icon={faCar} size={22} style={styles.iconTransport} />
             <View style={styles.line} />
           </View>
           <View style={styles.durationDistanceContainer}>

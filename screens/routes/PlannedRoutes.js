@@ -4,6 +4,7 @@ import BackButton from "../../components/ui/BackButton";
 import InputField from "../../components/ui/InputField";
 import RouteCard from "../../components/route/RouteCard";
 import BoldText from "../../components/ui/BoldText";
+import Loading from "../../components/ui/Loading";
 import api from "../../utils/api";
 import { colors } from "../../constants/theme";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -11,12 +12,14 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 const PlannedRoutes = ({ navigation }) => {
   const [routes, setRoutes] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api
       .get("/route/planned")
       .then((response) => setRoutes(response.data))
-      .catch(() => Alert.alert("Error while loading your routes"));
+      .catch(() => Alert.alert("Error while loading your routes"))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleSelect = (routeID) => {
@@ -24,6 +27,8 @@ const PlannedRoutes = ({ navigation }) => {
       navigation.navigate("Trip", { trip: response.data });
     });
   };
+
+  if (loading) return <Loading text="Loading your finished routes" />;
 
   return (
     <SafeAreaView style={styles.screen}>

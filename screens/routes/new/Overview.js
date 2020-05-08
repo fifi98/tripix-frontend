@@ -12,7 +12,7 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { MyContext } from "../../../context/Provider";
 import { formatDuration } from "../../../utils/formatDuration";
 
-const Overview = (props) => {
+const Overview = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { user, setNewRoute, newRoute } = useContext(MyContext);
 
@@ -78,13 +78,13 @@ const Overview = (props) => {
     api
       .post("/route/plan", newRoute.trip)
       .then(() => {
-        props.navigation.navigate("Trip", { trip: newRoute.trip });
+        navigation.navigate("Trip", { trip: newRoute.trip });
       })
       .catch(() => Alert.alert("An error occured while creating your route!"));
   };
 
   const handleBack = () => {
-    props.navigation.goBack();
+    navigation.goBack();
   };
 
   if (isLoading) return <Loading text="Creating your route" />;

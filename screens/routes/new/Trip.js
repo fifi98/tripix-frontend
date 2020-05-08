@@ -1,5 +1,5 @@
 import React, { createRef, useEffect, useState } from "react";
-import { InteractionManager } from "react-native";
+import { InteractionManager, Dimensions } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Polyline as PolyLineMark, Marker } from "react-native-maps";
 import LandmarkItem from "../../../components/route/LandmarkItem";
 import BackButton from "../../../components/map/BackButton";
@@ -16,39 +16,46 @@ const Trip = ({ navigation, route }) => {
   const { trip } = route.params;
   const [loading, setLoading] = useState(true);
   const [polyline, setPolyline] = useState([]);
+  const [mapReady, setMapReady] = useState(false);
 
   let mapRef = createRef();
 
+  // Calculate paddings for showing the route inside the map
+  const sidePadding = Dimensions.get("window").width * 0.1;
+  const topPadding = Dimensions.get("window").height * 0.1;
+  const bottomPadding = Dimensions.get("window").height * 0.45;
+
   // Show the screen after the screen navigation animation has finished
   useEffect(() => {
-    InteractionManager.runAfterInteractions(() => {
-      // Decode received polyline in order to show the route on map
-      const points = Polyline.decode(trip.route);
-      coords = points.map((point) => ({ latitude: point[0], longitude: point[1] }));
-      setPolyline(coords);
+    // Decode received polyline in order to show the route on map
+    const points = Polyline.decode(trip.route);
+    coords = points.map((point) => ({ latitude: point[0], longitude: point[1] }));
+    setPolyline(coords);
 
+    InteractionManager.runAfterInteractions(() => {
       // We are not loading anymore, show the map
       setLoading(false);
     });
-  }, []);
+  }, [trip]);
+
+  // If map is already ready (it is rendered already), fit the route in the view
+  useEffect(() => {
+    if (mapReady) {
+      mapRef.fitToCoordinates(trip.locations, {
+        edgePadding: { top: topPadding, right: sidePadding, bottom: bottomPadding, left: sidePadding },
+        animated: true,
+      });
+    }
+  }, [polyline, mapReady]);
 
   if (loading) return <Loading text="Loading trip" />;
 
   return (
     <View style={styles.map}>
       <MapView
-        initialRegion={{
-          latitude: trip.locations[0].latitude,
-          longitude: trip.locations[0].longitude,
-          latitudeDelta: 1,
-          longitudeDelta: 1,
-        }}
         onMapReady={() => {
-          mapRef.fitToCoordinates(trip.locations, {
-            edgePadding: { top: 0, right: 50, bottom: 200, left: 50 },
-            animated: true,
-          });
           setLoading(false);
+          setMapReady(true);
         }}
         ref={(ref) => (mapRef = ref)}
         provider={PROVIDER_GOOGLE}
@@ -60,7 +67,11 @@ const Trip = ({ navigation, route }) => {
 
         {/* Mark all the locations */}
         {trip.locations.map((loc, index) => (
-          <Marker key={loc.latitude} tracksViewChanges={false} coordinate={{ latitude: loc.latitude, longitude: loc.longitude }}>
+          <Marker
+            key={loc.latitude}
+            tracksViewChanges={false}
+            coordinate={{ latitude: parseFloat(loc.latitude), longitude: parseFloat(loc.longitude) }}
+          >
             {index == 0 || index == trip.locations.length - 1 ? (
               <FontAwesomeIcon icon={faMapMarkerAlt} size={30} style={styles.icon} />
             ) : (

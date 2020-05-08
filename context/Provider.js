@@ -6,18 +6,20 @@ export const MyContext = createContext();
 
 const Provider = (props) => {
   const [user, setUser] = useState({
+    welcomeScreen: null,
     user_id: null,
     name: "",
-    token: "",
+    token: null,
     saveToken: async (userToken, userID, userFullName, email) => {
       const token = ["token", userToken];
       const user_id = ["user_id", userID.toString()];
       const name = ["name", userFullName.split(" ")[0]];
       const user_email = ["email", email];
+      const user_welcome = ["welcomeScreen", "true"];
 
       try {
-        await AsyncStorage.multiSet([token, user_id, name, user_email]);
-        setUser({ ...user, user_id: userID, token: userToken, name: userFullName.split(" ")[0], email: email });
+        await AsyncStorage.multiSet([token, user_id, name, user_email, user_welcome]);
+        setUser({ ...user, user_id: userID, token: userToken, name: userFullName.split(" ")[0], email: email, welcomeScreen: true });
       } catch (error) {
         setUser({ error });
       }
@@ -25,7 +27,7 @@ const Provider = (props) => {
     removeToken: async () => {
       try {
         await AsyncStorage.multiRemove(["token", "user_id", "name", "email"]);
-        setUser({ ...user, user_id: null, token: null });
+        setUser((user) => ({ ...user, user_id: null, token: null }));
       } catch (error) {
         setUser({ error });
       }
@@ -34,7 +36,15 @@ const Provider = (props) => {
       try {
         await AsyncStorage.setItem("token", newToken);
         api.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
-        setUser({ ...user, token: newToken });
+        setUser((user) => ({ ...user, token: newToken }));
+      } catch (error) {
+        setUser({ error });
+      }
+    },
+    passedWelcome: async () => {
+      try {
+        await AsyncStorage.setItem("welcomeScreen", "true");
+        setUser({ ...user, welcomeScreen: true });
       } catch (error) {
         setUser({ error });
       }
@@ -45,7 +55,7 @@ const Provider = (props) => {
 
   // Put the token from AsyncStorage to the state when app loads
   useEffect(() => {
-    AsyncStorage.multiGet(["token", "user_id", "name", "email"]).then((storage) => {
+    AsyncStorage.multiGet(["token", "user_id", "name", "email", "welcomeScreen"]).then((storage) => {
       storage.map((item) => setUser((old) => ({ ...old, [item[0]]: item[1] })));
     });
   }, []);

@@ -25,7 +25,7 @@ const NearbyLocations = ({ handleNext }) => {
             },
           })
           .then((results) => setNearbyCities(results.data))
-          .catch((err) => console.log(err));
+          .catch(() => Alert.alert("An error has occured, please try again later!"));
       },
       (error) => Alert.alert(error.message)
     );

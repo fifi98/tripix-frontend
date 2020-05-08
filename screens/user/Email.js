@@ -30,7 +30,7 @@ const Account = ({ navigation }) => {
         user.saveToken(response.data.token, user.user_id, user.name, email);
         Alert.alert("Email successfully changed!");
       })
-      .catch((err) => console.log(err.response.data))
+      .catch(() => Alert.alert("An error has occured, please try again later!"))
       .finally(() => setLoading(false));
   };
 

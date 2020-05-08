@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView, Alert } from "react-native";
 import LandmarkItem from "../../../components/route/LandmarkItem";
 import BottomMenu from "../../../components/route/BottomMenu";
-import Polyline from "@mapbox/polyline";
 import BoldText from "../../../components/ui/BoldText";
 import Loading from "../../../components/ui/Loading";
 import api from "../../../utils/api";
@@ -16,45 +15,47 @@ import { formatDuration } from "../../../utils/formatDuration";
 const Overview = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const { user, setNewRoute, newRoute } = useContext(MyContext);
-  let coords = null;
 
   useEffect(() => {
+    // Get origin place from the Context
     let origin = newRoute.origin;
+
+    // Get destination place from the Context
     let destination = newRoute.destination;
+
+    // Waypoint places are all except the origin and destination place
     let waypoints = newRoute.attractions.filter((loc) => loc.location.lat != origin.lat && loc.location.lat != destination.lat);
 
     // Extract only waypoint coordinates
     var waypoints_locations = waypoints.map((wp) => ({ lat: wp.location.lat, long: wp.location.lng }));
 
+    // Send request to the server to create the optimal route
     api
       .post("/route/new", { origin: origin, destination: destination, waypoints: waypoints_locations })
       .then((results) => {
+        // Save the created route in the Context
         setNewRoute((old) => ({
           ...old,
           trip: {
             ...results.data,
             location: old.location,
             user_id: user.user_id,
+            route: results.data.route,
           },
         }));
 
-        const points = Polyline.decode(results.data.route);
-
-        coords = points.map((point) => {
-          return {
-            latitude: point[0],
-            longitude: point[1],
-          };
-        });
-
         setIsLoading(false);
       })
-      .catch((err) => console.log(err.response.data));
+      .catch(() => Alert.alert("An error occured while creating your route!"));
   }, []);
 
   const handleNext = () => {
-    const a = newRoute.trip.locations;
-    a.map((location) => {
+    // Get all the locations in the correct order as received from the server
+    const locations = newRoute.trip.locations;
+
+    // Match received locations that are in order with the rest of information about those landmarks that
+    // we had saved in the state when user was picking landmarks he wants to see
+    locations.map((location) => {
       const loc = newRoute.attractions.find(
         (attraction) => location.latitude === attraction.location.lat && location.longitude === attraction.location.lng
       );
@@ -62,8 +63,18 @@ const Overview = (props) => {
       location.name = loc.name;
       location.photo_reference = loc.photo_reference;
     });
-    setNewRoute((old) => ({ ...old, trip: { ...old.trip, locations: a } }));
 
+    // Update Context with the new route information
+    setNewRoute((old) => ({
+      ...old,
+      trip: {
+        ...old.trip,
+        locations: locations,
+        polyline: newRoute.trip.route,
+      },
+    }));
+
+    // Save the route to our account
     api
       .post("/route/plan", newRoute.trip)
       .then(() => {
@@ -76,29 +87,25 @@ const Overview = (props) => {
     props.navigation.goBack();
   };
 
+  if (isLoading) return <Loading text="Creating your route" />;
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        {!isLoading ? (
-          <>
-            <Text style={styles.title}>
-              <BoldText>Overview</BoldText> of your trip to <BoldText>{newRoute.trip.location}</BoldText>
-            </Text>
-            <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 18 }}>
-              <FontAwesomeIcon icon={faClock} style={{ color: colors.textSecondary }} />
-              <Text style={{ color: colors.textSecondary, marginLeft: 10 }}>
-                {formatDuration(newRoute.trip.duration)} · {newRoute.trip.distance} km
-              </Text>
-            </View>
-            <ScrollView>
-              {newRoute.trip.locations.map((location) => (
-                <LandmarkItem location={location} key={location.latitude} />
-              ))}
-            </ScrollView>
-          </>
-        ) : (
-          <Loading text="Creating your route" />
-        )}
+        <Text style={styles.title}>
+          <BoldText>Overview</BoldText> of your trip to <BoldText>{newRoute.trip.location}</BoldText>
+        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8, marginBottom: 18 }}>
+          <FontAwesomeIcon icon={faClock} style={{ color: colors.textSecondary }} />
+          <Text style={{ color: colors.textSecondary, marginLeft: 10 }}>
+            {formatDuration(newRoute.trip.duration)} · {newRoute.trip.distance} km
+          </Text>
+        </View>
+        <ScrollView>
+          {newRoute.trip.locations.map((location) => (
+            <LandmarkItem location={location} key={location.latitude} />
+          ))}
+        </ScrollView>
       </View>
       <BottomMenu back={handleBack} backTitle="Back" next={handleNext} nextTitle="Create" />
     </SafeAreaView>

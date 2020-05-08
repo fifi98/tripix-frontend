@@ -1,8 +1,9 @@
 import React, { createRef, useEffect, useState } from "react";
 import { InteractionManager } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Polyline as PolyLineMark, Marker } from "react-native-maps";
 import LandmarkItem from "../../../components/route/LandmarkItem";
 import BackButton from "../../../components/map/BackButton";
+import Polyline from "@mapbox/polyline";
 import Loading from "../../../components/ui/Loading";
 import BottomSheet from "../../../components/map/BottomSheet";
 import { faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
@@ -14,12 +15,19 @@ import { colors } from "../../../constants/theme";
 const Trip = ({ navigation, route }) => {
   const { trip } = route.params;
   const [loading, setLoading] = useState(true);
+  const [polyline, setPolyline] = useState([]);
 
   let mapRef = createRef();
 
   // Show the screen after the screen navigation animation has finished
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
+      // Decode received polyline in order to show the route on map
+      const points = Polyline.decode(trip.route);
+      coords = points.map((point) => ({ latitude: point[0], longitude: point[1] }));
+      setPolyline(coords);
+
+      // We are not loading anymore, show the map
       setLoading(false);
     });
   }, []);
@@ -29,6 +37,12 @@ const Trip = ({ navigation, route }) => {
   return (
     <View style={styles.map}>
       <MapView
+        initialRegion={{
+          latitude: trip.locations[0].latitude,
+          longitude: trip.locations[0].longitude,
+          latitudeDelta: 1,
+          longitudeDelta: 1,
+        }}
         onMapReady={() => {
           mapRef.fitToCoordinates(trip.locations, {
             edgePadding: { top: 0, right: 50, bottom: 200, left: 50 },
@@ -42,7 +56,7 @@ const Trip = ({ navigation, route }) => {
         customMapStyle={mapStyle}
       >
         {/* Draw the route */}
-        <Polyline coordinates={trip.locations} strokeWidth={5} strokeColor="#3890FB" />
+        <PolyLineMark coordinates={polyline} strokeWidth={5} strokeColor="#3890FB" />
 
         {/* Mark all the locations */}
         {trip.locations.map((loc, index) => (

@@ -55,7 +55,12 @@ const FindNearby = ({ route, navigation }) => {
             customMapStyle={mapStyle}
           >
             {places.map((place) => (
-              <Marker key={place.place_id} tracksViewChanges={false} coordinate={{ latitude: place.latitude, longitude: place.longitude }}>
+              <Marker
+                key={place.place_id}
+                title={place.name}
+                tracksViewChanges={false}
+                coordinate={{ latitude: place.latitude, longitude: place.longitude }}
+              >
                 <View style={{ ...styles.markerContainer, backgroundColor: color }}>
                   <FontAwesomeIcon icon={icon} size={18} style={styles.icon} />
                 </View>

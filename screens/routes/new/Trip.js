@@ -70,6 +70,7 @@ const Trip = ({ navigation, route }) => {
           <Marker
             key={loc.latitude}
             tracksViewChanges={false}
+            title={loc.name}
             coordinate={{ latitude: parseFloat(loc.latitude), longitude: parseFloat(loc.longitude) }}
           >
             {index == 0 || index == trip.locations.length - 1 ? (

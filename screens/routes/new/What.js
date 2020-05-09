@@ -14,7 +14,7 @@ const WhatVisit = (props) => {
   const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
   const [selectedTab, setSelectedTab] = useState(0);
-  const { newRoute } = useContext(MyContext);
+  const { newRoute, setNewRoute } = useContext(MyContext);
 
   const handleNext = () => {
     props.navigation.navigate("Start");

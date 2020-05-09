@@ -1,16 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
-import { MyContext } from "../../context/Provider";
 import LocationCard from "./LocationCard";
 import Geolocation from "@react-native-community/geolocation";
 import api from "../../utils/api";
 
-const NearbyLocations = ({ handleNext }) => {
-  const { setNewRoute } = useContext(MyContext);
+const NearbyLocations = ({ handleTextChange }) => {
   const [nearbyCities, setNearbyCities] = useState([]);
 
   const handlePress = (locationName) => {
-    setNewRoute((old) => ({ ...old, location: locationName }));
+    handleTextChange(locationName);
   };
 
   useEffect(() => {

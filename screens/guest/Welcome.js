@@ -5,7 +5,7 @@ import AppIntroSlider from "react-native-app-intro-slider";
 
 const Welcome = () => {
   const { user } = useContext(MyContext);
-  console.log(user.welcomeScreen);
+
   const slides = [
     {
       key: "1",

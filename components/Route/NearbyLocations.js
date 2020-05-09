@@ -11,7 +11,6 @@ const NearbyLocations = ({ handleNext }) => {
 
   const handlePress = (locationName) => {
     setNewRoute((old) => ({ ...old, location: locationName }));
-    handleNext();
   };
 
   useEffect(() => {

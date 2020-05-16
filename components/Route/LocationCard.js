@@ -8,7 +8,7 @@ const LocationCard = ({ city, handlePress }) => {
       <View style={styles.card}>
         <ImageBackground
           source={{
-            url: `${BASE_URL}/photo?photo_reference=${city.photo_reference}`,
+            uri: `${BASE_URL}/photo?photo_reference=${city.photo_reference}`,
           }}
           style={styles.image}
         />

@@ -15,7 +15,7 @@ const RouteCard = ({ item, handleSelect }) => {
       <TouchableOpacity style={styles.container} onPress={() => handleSelect(item.route_id)}>
         <ImageBackground
           source={{
-            url: `${BASE_URL}/photo?photo_reference=${item.photo_ref}`,
+            uri: `${BASE_URL}/photo?photo_reference=${item.photo_ref}`,
           }}
           style={styles.image}
         />

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
 import SearchLandmarks from "../../../components/route/SearchLandmarks";
-import SegmentedControlIOS from "@react-native-community/segmented-control";
+import SegmentedControl from "@react-native-community/segmented-control";
 import LandmarksList from "../../../components/route/LandmarksList";
 import BottomMenu from "../../../components/route/BottomMenu";
 import BoldText from "../../../components/ui/BoldText";
@@ -36,13 +36,14 @@ const WhatVisit = (props) => {
           setLoading={setLoading}
           setSearchInput={setSearchInput}
         />
-        <SegmentedControlIOS
+        <SegmentedControl
           values={["Available", "Selected"]}
           selectedIndex={selectedTab}
           onChange={(event) => setSelectedTab(event.nativeEvent.selectedSegmentIndex)}
           tintColor={"#636366"}
           activeTextColor={"#FFF"}
           textColor={"#FFF"}
+          backgroundColor={"#212123"}
         />
         <View style={styles.listContainer}>
           {selectedTab ? (

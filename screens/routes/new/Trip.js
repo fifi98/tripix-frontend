@@ -29,7 +29,7 @@ const Trip = ({ navigation, route }) => {
   useEffect(() => {
     // Decode received polyline in order to show the route on map
     const points = Polyline.decode(trip.route);
-    coords = points.map((point) => ({ latitude: point[0], longitude: point[1] }));
+    const coords = points.map((point) => ({ latitude: point[0], longitude: point[1] }));
     setPolyline(coords);
 
     InteractionManager.runAfterInteractions(() => {
@@ -39,14 +39,14 @@ const Trip = ({ navigation, route }) => {
   }, [trip]);
 
   // If map is already ready (it is rendered already), fit the route in the view
-  useEffect(() => {
-    if (mapReady) {
-      mapRef.fitToCoordinates(trip.locations, {
-        edgePadding: { top: topPadding, right: sidePadding, bottom: bottomPadding, left: sidePadding },
-        animated: true,
-      });
-    }
-  }, [polyline, mapReady]);
+  // useEffect(() => {
+  //   if (mapReady) {
+  //     mapRef.fitToCoordinates(trip.locations, {
+  //       edgePadding: { top: topPadding, right: sidePadding, bottom: bottomPadding, left: sidePadding },
+  //       animated: true,
+  //     });
+  //   }
+  // }, [polyline, mapReady]);
 
   if (loading) return <Loading text="Loading trip" />;
 

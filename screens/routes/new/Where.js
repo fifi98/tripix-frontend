@@ -31,8 +31,8 @@ const NewRoute = ({ navigation }) => {
   };
 
   const handleConfirmDate = (date) => {
-    setNewRoute((old) => ({ ...old, date: date }));
     handleDatePress();
+    setNewRoute((old) => ({ ...old, date: date }));
   };
 
   useEffect(() => {

@@ -67,18 +67,19 @@ const styles = StyleSheet.create({
   slide: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#73BF45",
-    paddingHorizontal: 20,
   },
   content: {
     alignItems: "center",
-    marginTop: 60,
-    paddingHorizontal: 20,
+    justifyContent: "center",
+    marginBottom: "10%",
+    paddingHorizontal: "8%",
   },
   image: {
     width: 250,
-    height: 250,
-    marginVertical: 32,
+    height: 190,
+    marginBottom: "10%",
     resizeMode: "contain",
   },
   text: {

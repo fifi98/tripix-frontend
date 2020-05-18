@@ -59,7 +59,7 @@ const NewRoute = ({ navigation }) => {
           <Subtitle>
             <BoldText>Where</BoldText> are you going?
           </Subtitle>
-          <GoogleAutoComplete apiKey={API_KEY} debounce={300} queryTypes="(cities)">
+          <GoogleAutoComplete apiKey={API_KEY} debounce={100} queryTypes="(cities)">
             {({ inputValue, handleTextChange, locationResults }) => {
               const onAutoCompleteItemPress = (location) => {
                 handleTextChange(location);

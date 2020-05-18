@@ -53,6 +53,7 @@ const FindNearby = ({ route, navigation }) => {
             provider={PROVIDER_GOOGLE}
             style={styles.map}
             customMapStyle={mapStyle}
+            showsCompass={false}
           >
             {places.map((place) => (
               <Marker

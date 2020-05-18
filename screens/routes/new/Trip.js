@@ -61,6 +61,7 @@ const Trip = ({ navigation, route }) => {
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         customMapStyle={mapStyle}
+        showsCompass={false}
       >
         {/* Draw the route */}
         <PolyLineMark coordinates={polyline} strokeWidth={5} strokeColor="#3890FB" />

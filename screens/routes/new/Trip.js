@@ -23,7 +23,7 @@ const Trip = ({ navigation, route }) => {
   // Calculate paddings for showing the route inside the map
   const sidePadding = Dimensions.get("window").width * 0.1;
   const topPadding = Dimensions.get("window").height * 0.1;
-  const bottomPadding = Dimensions.get("window").height * 0.45;
+  const bottomPadding = Dimensions.get("window").height * 0.5;
 
   // Show the screen after the screen navigation animation has finished
   useEffect(() => {
@@ -39,14 +39,17 @@ const Trip = ({ navigation, route }) => {
   }, [trip]);
 
   // If map is already ready (it is rendered already), fit the route in the view
-  // useEffect(() => {
-  //   if (mapReady) {
-  //     mapRef.fitToCoordinates(trip.locations, {
-  //       edgePadding: { top: topPadding, right: sidePadding, bottom: bottomPadding, left: sidePadding },
-  //       animated: true,
-  //     });
-  //   }
-  // }, [polyline, mapReady]);
+  useEffect(() => {
+    if (mapReady) {
+      mapRef.fitToCoordinates(
+        trip.locations.map((location) => ({ latitude: parseFloat(location.latitude), longitude: parseFloat(location.longitude) })),
+        {
+          edgePadding: { top: topPadding, right: sidePadding, bottom: bottomPadding, left: sidePadding },
+          animated: true,
+        }
+      );
+    }
+  }, [polyline, mapReady]);
 
   if (loading) return <Loading text="Loading trip" />;
 

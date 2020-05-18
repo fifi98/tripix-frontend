@@ -27,7 +27,8 @@ const NearbyLocations = ({ handleTextChange }) => {
               .then((results) => setNearbyCities(results.data))
               .catch(() => Alert.alert("An error has occured, please try again later!"));
           },
-          (error) => Alert.alert(error.message)
+          (error) => Alert.alert(error.message),
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
         );
       } else {
         Alert.alert("You have to allow Tripix to use your location!");

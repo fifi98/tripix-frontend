@@ -1,13 +1,14 @@
 import React from "react";
-import { View, Button, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { colors } from "../../constants/theme";
+import LinkButton from "../ui/LinkButton";
 
 const BottomMenu = ({ back, next, backTitle, nextTitle }) => {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <Button title={backTitle} onPress={back} />
-        <Button title={nextTitle} onPress={next} />
+        <LinkButton text={backTitle} onPress={back} />
+        <LinkButton text={nextTitle} onPress={next} />
       </View>
     </View>
   );

@@ -5,7 +5,7 @@ import Loading from "../../components/ui/Loading";
 import NearbyItem from "../../components/nearby/NearbyItem";
 import BottomSheet from "../../components/map/BottomSheet";
 import api from "../../utils/api";
-import { View, Alert, StyleSheet, ScrollView, InteractionManager } from "react-native";
+import { View, Alert, StyleSheet, ScrollView, InteractionManager, PermissionsAndroid } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { mapStyle } from "../../constants/mapStyle";
 import BackButton from "../../components/map/BackButton";
@@ -18,20 +18,46 @@ const FindNearby = ({ route, navigation }) => {
 
   // Load nearby places when the screen loads
   useEffect(() => {
+    const getLocationsAndroid = async () => {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        Geolocation.getCurrentPosition(
+          (position) => {
+            api
+              .get(`/nearby/${type}`, {
+                params: { long: position.coords.longitude, lat: position.coords.latitude },
+              })
+              .then((response) => {
+                setPlaces(response.data);
+                setLoading(false);
+              });
+          },
+          (error) => Alert.alert(error.message),
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+        );
+      } else {
+        Alert.alert("You have to allow Tripix to use your location!");
+      }
+    };
+
     InteractionManager.runAfterInteractions(() => {
-      Geolocation.getCurrentPosition(
-        (position) => {
-          api
-            .get(`/nearby/${type}`, {
-              params: { long: position.coords.longitude, lat: position.coords.latitude },
-            })
-            .then((response) => {
-              setPlaces(response.data);
-              setLoading(false);
-            });
-        },
-        (error) => Alert.alert(error.message)
-      );
+      if (Platform.OS === "android") {
+        getLocationsAndroid();
+      } else {
+        Geolocation.getCurrentPosition(
+          (position) => {
+            api
+              .get(`/nearby/${type}`, {
+                params: { long: position.coords.longitude, lat: position.coords.latitude },
+              })
+              .then((response) => {
+                setPlaces(response.data);
+                setLoading(false);
+              });
+          },
+          (error) => Alert.alert(error.message)
+        );
+      }
     });
   }, []);
 

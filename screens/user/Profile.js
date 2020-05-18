@@ -7,6 +7,7 @@ import { MyContext } from "../../context/Provider";
 import { colors } from "../../constants/theme";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import Title from "../../components/ui/Title";
+import LinkButton from "../../components/ui/LinkButton";
 
 const Profile = ({ navigation }) => {
   const { user } = useContext(MyContext);
@@ -33,7 +34,7 @@ const Profile = ({ navigation }) => {
           ))}
         </View>
         <View style={styles.logoutContainer}>
-          <Button title="Logout" onPress={handleLogout} />
+          <LinkButton text="Logout" onPress={handleLogout} />
         </View>
       </View>
     </SafeAreaView>
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
   },
   logoutContainer: {
     marginTop: 20,
+    alignItems: "center",
   },
 });
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Platform, Text, TouchableOpacity } from "react-native";
 import { HeaderBackButton } from "@react-navigation/stack";
+import LinkButton from "./LinkButton";
 
 const BackButton = ({ onPress }) => {
   if (Platform.OS === "ios")
@@ -10,25 +11,12 @@ const BackButton = ({ onPress }) => {
       </View>
     );
 
-  return (
-    <View style={styles.androidContainer}>
-      <TouchableOpacity onPress={onPress}>
-        <Text style={styles.text}>Back</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  return <LinkButton text="Back" onPress={onPress} />;
 };
 
 const styles = StyleSheet.create({
   container: {
     marginLeft: -10,
-    marginBottom: 2,
-  },
-  text: {
-    fontSize: 18,
-    color: "#0077F9",
-  },
-  androidContainer: {
     marginBottom: 2,
   },
 });

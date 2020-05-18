@@ -27,7 +27,14 @@ const Sheet = ({ children, title, buttonText }) => {
   const renderInner = () => <View style={styles.panel}>{children}</View>;
 
   return (
-    <BottomSheet ref={sheet} snapPoints={["87%", "36%", "4.5%"]} renderContent={renderInner} renderHeader={renderHeader} initialSnap={1} />
+    <BottomSheet
+      ref={sheet}
+      snapPoints={["87%", "36%", "4.5%"]}
+      renderContent={renderInner}
+      renderHeader={renderHeader}
+      initialSnap={1}
+      enabledContentGestureInteraction={false}
+    />
   );
 };
 

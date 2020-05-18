@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createRef } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import Geolocation from "@react-native-community/geolocation";
+import Geolocation from "react-native-geolocation-service";
 import Loading from "../../components/ui/Loading";
 import NearbyItem from "../../components/nearby/NearbyItem";
 import BottomSheet from "../../components/map/BottomSheet";

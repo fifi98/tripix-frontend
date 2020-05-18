@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Alert, PermissionsAndroid, Platform } from "react-native";
 import LocationCard from "./LocationCard";
-import Geolocation from "@react-native-community/geolocation";
+import Geolocation from "react-native-geolocation-service";
 import api from "../../utils/api";
 
 const NearbyLocations = ({ handleTextChange }) => {

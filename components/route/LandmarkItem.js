@@ -44,7 +44,9 @@ const LandmarkItem = ({ location }) => {
             }}
           />
         </View>
-        <Text style={styles.title}>{landmark.name}</Text>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{landmark.name}</Text>
+        </View>
       </View>
     </View>
   );
@@ -62,6 +64,9 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: 60,
+  },
+  titleContainer: {
+    width: "80%",
   },
   title: {
     color: colors.textPrimary,

@@ -1,5 +1,5 @@
 import React from "react";
-import { TextInput, StyleSheet, View, Platform } from "react-native";
+import { TextInput, StyleSheet, View } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { colors } from "../../constants/theme";
 
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.inputField,
     borderRadius: 10,
-    height: Platform.OS === "android" ? 40 : 36,
+    height: 36,
     marginVertical: 10,
     flexDirection: "row",
   },
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     fontSize: 16,
+    paddingVertical: 0,
   },
   iconContainer: {
     width: 50,

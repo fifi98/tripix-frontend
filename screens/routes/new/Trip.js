@@ -53,7 +53,26 @@ const Trip = ({ navigation, route }) => {
 
   const handleStartRoute = () => {
     console.log("start route");
+
     setStarted(true);
+
+    BackgroundGeolocation.getCurrentLocation((location) => {
+      landmarks.forEach((landmark) => {
+        const distance = getDistance(
+          { latitude: location.latitude, longitude: location.longitude },
+          { latitude: landmark.latitude, longitude: landmark.longitude }
+        );
+        if (distance <= 150 && landmark.status == 0) {
+          // Change landmark status
+          setLandmarks(
+            landmarks.map((l) => {
+              if (l.place_id !== landmark.place_id) return l;
+              return { ...l, status: 1 };
+            })
+          );
+        }
+      });
+    });
 
     BackgroundGeolocation.configure({
       desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
@@ -72,8 +91,6 @@ const Trip = ({ navigation, route }) => {
 
     BackgroundGeolocation.on("location", (location) => {
       BackgroundGeolocation.startTask((taskKey) => {
-        console.log({ latitude: location.latitude, longitude: location.longitude });
-
         landmarks.forEach((landmark) => {
           // console.log(landmark);
           // Calculate distance between current location and that landmark
@@ -88,17 +105,8 @@ const Trip = ({ navigation, route }) => {
             // Change the landmark status on the server
             api.post("/route-item/completed", { route_id: trip.route_id, place_id: landmark.place_id }).then(() => {
               // Change landmark status
-              landmark.status = 1;
-              // setLandmarks((old) => [...old.filter((l) => l.place_id != landmark.place_id), landmark]);
-
-              // let y = landmarks;
-              // landmarks.find((l) => l.place_id === landmark.place_id).status = 1;
-              // console.warn(y);
-
-              // const index = landmarks.findIndex((l) => l.place_id === landmark.place_id);
-
-              setLandmarks(
-                landmarks.map((l) => {
+              setLandmarks((old) =>
+                old.map((l) => {
                   if (l.place_id !== landmark.place_id) return l;
                   return { ...l, status: 1 };
                 })
@@ -171,11 +179,8 @@ const Trip = ({ navigation, route }) => {
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         customMapStyle={mapStyle}
-        showsUserLocation={true}
-        followsUserLocation={true}
-        onUserLocationChange={(event) => {
-          // setRegion()
-        }}
+        showsUserLocation={started ? true : false}
+        followsUserLocation={started ? true : false}
         showsCompass={false}
       >
         {/* Draw the route */}
@@ -189,21 +194,13 @@ const Trip = ({ navigation, route }) => {
             title={loc.name}
             coordinate={{ latitude: parseFloat(loc.latitude), longitude: parseFloat(loc.longitude) }}
           >
-            {index == landmarks.length - 1 && (
-              <View style={loc.status == 1 && started ? styles.iconVisitedContainer : styles.iconContainer}>
-                <FontAwesomeIcon icon={faFlag} size={18} style={loc.status == 1 && started ? styles.iconVisited : styles.icon} />
-              </View>
-            )}
-            {index == 0 && (
-              <View style={loc.status == 1 && started ? styles.iconVisitedContainer : styles.iconContainer}>
-                <FontAwesomeIcon icon={faMapMarkerAlt} size={18} style={loc.status == 1 && started ? styles.iconVisited : styles.icon} />
-              </View>
-            )}
-            {index !== 0 && index != landmarks.length - 1 && (
-              <View style={loc.status == 1 && started ? styles.iconVisitedContainer : styles.iconContainer}>
-                <FontAwesomeIcon icon={faLandmark} size={18} style={loc.status == 1 && started ? styles.iconVisited : styles.icon} />
-              </View>
-            )}
+            <View style={loc.status == 1 && started ? styles.iconVisitedContainer : styles.iconContainer}>
+              <FontAwesomeIcon
+                icon={index == landmarks.length - 1 ? faFlag : index == 0 ? faMapMarkerAlt : faLandmark}
+                size={18}
+                style={loc.status == 1 && started ? styles.iconVisited : styles.icon}
+              />
+            </View>
           </Marker>
         ))}
       </MapView>

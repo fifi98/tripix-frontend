@@ -8,7 +8,7 @@ import { formatDuration } from "../../utils/formatDuration";
 import { BASE_URL } from "react-native-dotenv";
 import FastImage from "react-native-fast-image";
 
-const LandmarkItem = ({ location }) => {
+const LandmarkItem = ({ location, started }) => {
   const { newRoute } = useContext(MyContext);
 
   // If the route is created and we don't have landmark's name and photo reference
@@ -21,9 +21,13 @@ const LandmarkItem = ({ location }) => {
       {location.distance != 0 && (
         <View style={styles.detailsContainer}>
           <View style={styles.transportContainer}>
-            <View style={styles.line} />
-            <FontAwesomeIcon icon={faCar} size={22} style={styles.iconTransport} />
-            <View style={styles.line} />
+            <View style={location.status == "1" && started ? styles.lineVisited : styles.line} />
+            <FontAwesomeIcon
+              icon={faCar}
+              size={22}
+              style={location.status == 1 && started ? styles.iconTransportVisited : styles.iconTransport}
+            />
+            <View style={location.status == 1 && started ? styles.lineVisited : styles.line} />
           </View>
           <View style={styles.durationDistanceContainer}>
             <FontAwesomeIcon icon={faClock} style={styles.icon} />
@@ -86,8 +90,17 @@ const styles = StyleSheet.create({
     height: 18,
     width: 3,
   },
+  lineVisited: {
+    backgroundColor: "#30D158",
+    height: 18,
+    width: 3,
+  },
   iconTransport: {
     color: colors.accent,
+    marginVertical: 5,
+  },
+  iconTransportVisited: {
+    color: "#30D158",
     marginVertical: 5,
   },
   detailsContainer: {

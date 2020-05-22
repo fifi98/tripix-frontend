@@ -3,11 +3,13 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
 import { colors } from "../../constants/theme";
 
-const Sheet = ({ children, title, buttonText }) => {
+const Sheet = ({ children, title, buttonText, buttonHandler }) => {
   const sheet = useRef(null);
 
   const handleShowAll = () => {
     sheet.current.snapTo(0);
+
+    console.log(sheet.current.heightOfContent);
   };
 
   const renderHeader = () => (
@@ -17,7 +19,7 @@ const Sheet = ({ children, title, buttonText }) => {
       </View>
       <View style={styles.headerContent}>
         <Text style={styles.title}>{title}</Text>
-        <TouchableOpacity onPress={handleShowAll}>
+        <TouchableOpacity onPress={buttonHandler ? buttonHandler : handleShowAll}>
           <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
       </View>
@@ -39,21 +41,6 @@ const Sheet = ({ children, title, buttonText }) => {
 };
 
 const styles = StyleSheet.create({
-  iconContainer: {
-    position: "absolute",
-    left: 22,
-    top: 34,
-  },
-  icon: {
-    color: "white",
-  },
-  panelContainer: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
   panel: {
     height: "100%",
     paddingHorizontal: 20,

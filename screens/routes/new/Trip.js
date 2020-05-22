@@ -1,16 +1,20 @@
 import React, { createRef, useEffect, useState } from "react";
-import { InteractionManager, Dimensions } from "react-native";
+import { InteractionManager, Dimensions, Alert } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Polyline as PolyLineMark, Marker } from "react-native-maps";
 import LandmarkItem from "../../../components/route/LandmarkItem";
 import BackButton from "../../../components/map/BackButton";
 import Polyline from "@mapbox/polyline";
 import Loading from "../../../components/ui/Loading";
 import BottomSheet from "../../../components/map/BottomSheet";
-import { faLandmark, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { faLandmark, faMapMarkerAlt, faFlag } from "@fortawesome/free-solid-svg-icons";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { mapStyle } from "../../../constants/mapStyle";
 import { colors } from "../../../constants/theme";
+import BackgroundGeolocation from "@mauron85/react-native-background-geolocation";
+import Progress from "../../../components/route/started/Progress";
+import { getDistance } from "geolib";
+import api from "../../../utils/api";
 
 const Trip = ({ navigation, route }) => {
   const { trip } = route.params;
@@ -18,7 +22,110 @@ const Trip = ({ navigation, route }) => {
   const [polyline, setPolyline] = useState([]);
   const [mapReady, setMapReady] = useState(false);
 
+  const [landmarks, setLandmarks] = useState(trip.locations);
+  const [started, setStarted] = useState(false);
+
   let mapRef = createRef();
+
+  const handleBack = () => {
+    if (!started) return navigation.navigate("PlannedRoutes");
+
+    Alert.alert(
+      "Are you sure you want to quit the route?",
+      "Your progress will be saved and you can continue the route any time",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            BackgroundGeolocation.stop();
+            setStarted(false);
+            navigation.navigate("PlannedRoutes");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const handleStartRoute = () => {
+    console.log("start route");
+    setStarted(true);
+
+    BackgroundGeolocation.configure({
+      desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+      stationaryRadius: 25,
+      distanceFilter: 25,
+      startOnBoot: false,
+      stopOnTerminate: true,
+      notificationsEnabled: false,
+      debug: false,
+      locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
+      interval: 5000,
+      fastestInterval: 1000,
+      activitiesInterval: 5000,
+      stopOnStillActivity: false,
+    });
+
+    BackgroundGeolocation.on("location", (location) => {
+      BackgroundGeolocation.startTask((taskKey) => {
+        console.log({ latitude: location.latitude, longitude: location.longitude });
+
+        landmarks.forEach((landmark) => {
+          // console.log(landmark);
+          // Calculate distance between current location and that landmark
+          const distance = getDistance(
+            { latitude: location.latitude, longitude: location.longitude },
+            { latitude: landmark.latitude, longitude: landmark.longitude }
+          );
+
+          // If the distance is less than 150m, mark the landmark as visited
+          console.log(distance, landmark.name);
+          if (distance <= 150 && landmark.status == 0) {
+            // Change the landmark status on the server
+            api.post("/route-item/completed", { route_id: trip.route_id, place_id: landmark.place_id }).then(() => {
+              // Change landmark status
+              landmark.status = 1;
+              // setLandmarks((old) => [...old.filter((l) => l.place_id != landmark.place_id), landmark]);
+
+              // let y = landmarks;
+              // landmarks.find((l) => l.place_id === landmark.place_id).status = 1;
+              // console.warn(y);
+
+              // const index = landmarks.findIndex((l) => l.place_id === landmark.place_id);
+
+              setLandmarks(
+                landmarks.map((l) => {
+                  if (l.place_id !== landmark.place_id) return l;
+                  return { ...l, status: 1 };
+                })
+              );
+
+              console.log("Landmark visited", `${landmark.name} (${distance}m)`);
+              // BackgroundGeolocation.endTask(taskKey);
+            });
+          }
+        });
+      });
+    });
+
+    BackgroundGeolocation.start();
+  };
+
+  useEffect(() => {
+    // If all locations have been visited
+    const visited = landmarks.filter((loc) => parseInt(loc.status) === 1).length;
+
+    if (visited === landmarks.length && started) {
+      api.post("/route/finish", { route_id: trip.route_id }).then(() => {
+        Alert.alert("You have finished the route!", "Your route will be moved to the Finished routes", [{ text: "OK" }]);
+        BackgroundGeolocation.stop();
+      });
+    }
+  }, [landmarks]);
 
   // Calculate paddings for showing the route inside the map
   const sidePadding = Dimensions.get("window").width * 0.1;
@@ -64,44 +171,77 @@ const Trip = ({ navigation, route }) => {
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         customMapStyle={mapStyle}
+        showsUserLocation={true}
+        followsUserLocation={true}
+        onUserLocationChange={(event) => {
+          // setRegion()
+        }}
         showsCompass={false}
       >
         {/* Draw the route */}
         <PolyLineMark coordinates={polyline} strokeWidth={5} strokeColor="#3890FB" />
 
         {/* Mark all the locations */}
-        {trip.locations.map((loc, index) => (
+        {landmarks.map((loc, index) => (
           <Marker
             key={loc.latitude}
-            tracksViewChanges={false}
+            tracksViewChanges={true}
             title={loc.name}
             coordinate={{ latitude: parseFloat(loc.latitude), longitude: parseFloat(loc.longitude) }}
           >
-            {index == 0 || index == trip.locations.length - 1 ? (
-              <FontAwesomeIcon icon={faMapMarkerAlt} size={30} style={styles.icon} />
-            ) : (
-              <View style={{ backgroundColor: "#30D158", padding: 6, borderRadius: 20 }}>
-                <FontAwesomeIcon icon={faLandmark} size={18} style={styles.icon} />
+            {index == landmarks.length - 1 && (
+              <View style={loc.status == 1 && started ? styles.iconVisitedContainer : styles.iconContainer}>
+                <FontAwesomeIcon icon={faFlag} size={18} style={loc.status == 1 && started ? styles.iconVisited : styles.icon} />
+              </View>
+            )}
+            {index == 0 && (
+              <View style={loc.status == 1 && started ? styles.iconVisitedContainer : styles.iconContainer}>
+                <FontAwesomeIcon icon={faMapMarkerAlt} size={18} style={loc.status == 1 && started ? styles.iconVisited : styles.icon} />
+              </View>
+            )}
+            {index !== 0 && index != landmarks.length - 1 && (
+              <View style={loc.status == 1 && started ? styles.iconVisitedContainer : styles.iconContainer}>
+                <FontAwesomeIcon icon={faLandmark} size={18} style={loc.status == 1 && started ? styles.iconVisited : styles.icon} />
               </View>
             )}
           </Marker>
         ))}
       </MapView>
-      <BottomSheet title="Route overview" buttonText="Start route">
+
+      <BottomSheet
+        title={started ? "Next on route" : "Route overview"}
+        buttonText={started ? "See all" : "Start route"}
+        buttonHandler={started ? null : handleStartRoute}
+      >
         <ScrollView>
-          {trip.locations.map((location) => (
-            <LandmarkItem location={location} key={location.latitude} />
+          {landmarks.map((location) => (
+            <LandmarkItem location={location} key={location.latitude} started={started} />
           ))}
         </ScrollView>
       </BottomSheet>
 
-      <BackButton onPress={() => navigation.navigate("PlannedRoutes")} />
+      {started && <Progress locations={landmarks} />}
+
+      <BackButton onPress={handleBack} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    backgroundColor: "#fff",
+    padding: 6,
+    borderRadius: 20,
+  },
   icon: {
+    color: "black",
+  },
+  iconVisitedContainer: {
+    backgroundColor: "#30D158",
+    padding: 6,
+    borderRadius: 20,
+  },
+  iconVisited: {
     color: colors.textPrimary,
   },
   map: {

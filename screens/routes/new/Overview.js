@@ -29,7 +29,6 @@ const Overview = ({ navigation }) => {
     // Extract only waypoint coordinates
     var waypoints_locations = waypoints.map((wp) => ({ lat: wp.location.lat, long: wp.location.lng }));
 
-    console.log({ origin: origin, destination: destination, waypoints: waypoints_locations });
     // Send request to the server to create the optimal route
     api
       .post("/route/new", { origin: origin, destination: destination, waypoints: waypoints_locations })

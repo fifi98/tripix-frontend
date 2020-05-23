@@ -8,8 +8,6 @@ const Sheet = ({ children, title, buttonText, buttonHandler }) => {
 
   const handleShowAll = () => {
     sheet.current.snapTo(0);
-
-    console.log(sheet.current.heightOfContent);
   };
 
   const renderHeader = () => (

@@ -42,6 +42,7 @@ const Trip = ({ navigation, route }) => {
           text: "Yes",
           onPress: () => {
             BackgroundGeolocation.stop();
+            BackgroundGeolocation.removeAllListeners();
             setStarted(false);
             navigation.navigate("PlannedRoutes");
           },
@@ -52,8 +53,6 @@ const Trip = ({ navigation, route }) => {
   };
 
   const handleStartRoute = () => {
-    console.log("start route");
-
     setStarted(true);
 
     BackgroundGeolocation.getCurrentLocation((location) => {
@@ -90,9 +89,8 @@ const Trip = ({ navigation, route }) => {
     });
 
     BackgroundGeolocation.on("location", (location) => {
-      BackgroundGeolocation.startTask((taskKey) => {
+      BackgroundGeolocation.startTask(() => {
         landmarks.forEach((landmark) => {
-          // console.log(landmark);
           // Calculate distance between current location and that landmark
           const distance = getDistance(
             { latitude: location.latitude, longitude: location.longitude },
@@ -100,7 +98,6 @@ const Trip = ({ navigation, route }) => {
           );
 
           // If the distance is less than 150m, mark the landmark as visited
-          console.log(distance, landmark.name);
           if (distance <= 150 && landmark.status == 0) {
             // Change the landmark status on the server
             api.post("/route-item/completed", { route_id: trip.route_id, place_id: landmark.place_id }).then(() => {
@@ -111,9 +108,6 @@ const Trip = ({ navigation, route }) => {
                   return { ...l, status: 1 };
                 })
               );
-
-              console.log("Landmark visited", `${landmark.name} (${distance}m)`);
-              // BackgroundGeolocation.endTask(taskKey);
             });
           }
         });
@@ -131,6 +125,7 @@ const Trip = ({ navigation, route }) => {
       api.post("/route/finish", { route_id: trip.route_id }).then(() => {
         Alert.alert("You have finished the route!", "Your route will be moved to the Finished routes", [{ text: "OK" }]);
         BackgroundGeolocation.stop();
+        BackgroundGeolocation.removeAllListeners();
       });
     }
   }, [landmarks]);

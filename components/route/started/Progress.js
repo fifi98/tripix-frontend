@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faLandmark } from "@fortawesome/free-solid-svg-icons";
 
 const Progress = ({ locations }) => {
-  console.log(locations);
   const visitedLocations = locations.filter((loc) => loc.status == 1).length;
 
   return (

@@ -6,15 +6,15 @@ import BackButton from "../../../components/map/BackButton";
 import Polyline from "@mapbox/polyline";
 import Loading from "../../../components/ui/Loading";
 import BottomSheet from "../../../components/map/BottomSheet";
+import BackgroundGeolocation from "@mauron85/react-native-background-geolocation";
+import Progress from "../../../components/route/started/Progress";
+import api from "../../../utils/api";
 import { faLandmark, faMapMarkerAlt, faFlag } from "@fortawesome/free-solid-svg-icons";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { getDistance } from "geolib";
 import { mapStyle } from "../../../constants/mapStyle";
 import { colors } from "../../../constants/theme";
-import BackgroundGeolocation from "@mauron85/react-native-background-geolocation";
-import Progress from "../../../components/route/started/Progress";
-import { getDistance } from "geolib";
-import api from "../../../utils/api";
 
 const Trip = ({ navigation, route }) => {
   const { trip } = route.params;

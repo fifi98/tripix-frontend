@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Button, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import MenuButton from "../../components/settings/MenuButton";
 import BoldText from "../../components/ui/BoldText";
 import { faChartBar, faEnvelope } from "@fortawesome/free-regular-svg-icons";

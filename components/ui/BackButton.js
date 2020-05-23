@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Platform, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import { HeaderBackButton } from "@react-navigation/stack";
 import LinkButton from "./LinkButton";
 

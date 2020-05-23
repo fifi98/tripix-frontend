@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import PositionCard from "../../../components/route/PositionCard";
 import InputField from "../../../components/ui/InputField";
 import BottomMenu from "../../../components/route/BottomMenu";

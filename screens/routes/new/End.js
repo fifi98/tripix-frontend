@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { View, StyleSheet, SafeAreaView, FlatList, Alert } from "react-native";
 import PositionCard from "../../../components/route/PositionCard";
 import InputField from "../../../components/ui/InputField";
 import BottomMenu from "../../../components/route/BottomMenu";
@@ -14,7 +14,19 @@ const End = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState("");
 
   const handleChoose = (item) => {
+    if (item.default) {
+      Alert.alert("Coming soon in the following versions!");
+      return;
+    }
     setNewRoute((old) => ({ ...old, destination: { lat: item.location.lat, long: item.location.lng } }));
+  };
+
+  const handleNext = () => {
+    if (!newRoute.destination) {
+      Alert.alert("You have to select a location in order to continue!");
+      return;
+    }
+    navigation.navigate("Overview");
   };
 
   const defaultButtons = [
@@ -23,7 +35,11 @@ const End = ({ navigation }) => {
   ];
 
   const renderHeader = () => {
-    return searchInput.length === 0 ? defaultButtons.map((item, index) => <PositionCard item={item} key={index} />) : <></>;
+    return searchInput.length === 0 ? (
+      defaultButtons.map((item, index) => <PositionCard item={item} onPress={handleChoose} key={index} />)
+    ) : (
+      <></>
+    );
   };
 
   const isChecked = (item) => {
@@ -48,7 +64,7 @@ const End = ({ navigation }) => {
         />
       </View>
 
-      <BottomMenu back={() => navigation.goBack()} backTitle="Back" next={() => navigation.navigate("Overview")} nextTitle="Next" />
+      <BottomMenu back={() => navigation.goBack()} backTitle="Back" next={handleNext} nextTitle="Next" />
     </SafeAreaView>
   );
 };

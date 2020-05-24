@@ -23,7 +23,7 @@ const SearchLandmarks = ({ setAttractions, searchInput, setSearchInput, setLoadi
     setLoading(true);
     api
       .get("/attractions/" + selectedCategoryName, {
-        params: { location: newRoute.location },
+        params: { location: newRoute.location.split(",")[0] },
       })
       .then((response) => {
         setAttractions([...response.data]);

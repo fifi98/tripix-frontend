@@ -61,7 +61,7 @@ const Trip = ({ navigation, route }) => {
           { latitude: location.latitude, longitude: location.longitude },
           { latitude: landmark.latitude, longitude: landmark.longitude }
         );
-        if (distance <= 150 && landmark.status == 0) {
+        if (distance <= 200 && landmark.status == 0) {
           // Change landmark status
           setLandmarks(
             landmarks.map((l) => {
@@ -98,7 +98,7 @@ const Trip = ({ navigation, route }) => {
           );
 
           // If the distance is less than 150m, mark the landmark as visited
-          if (distance <= 150 && landmark.status == 0) {
+          if (distance <= 200 && landmark.status == 0) {
             // Change the landmark status on the server
             api.post("/route-item/completed", { route_id: trip.route_id, place_id: landmark.place_id }).then(() => {
               // Change landmark status

@@ -31,7 +31,7 @@
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-app-intro-slider": "^4.0.2",
-    "react-native-fast-image": "^8.1.5",
+    "react-native-fast-image": "^8.3.0",
     "react-native-geolocation-service": "^4.0.2",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-google-autocomplete": "^0.1.9",
